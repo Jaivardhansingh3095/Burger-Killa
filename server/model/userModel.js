@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema(
   {
-    username: {
+    name: {
       type: String,
       required: [true, 'User must provide their full name'],
       minLength: [5, 'User name must more than 5 characters'],
@@ -20,7 +21,7 @@ const userSchema = new mongoose.Schema(
       ],
     },
     phoneNumber: {
-      type: Number,
+      type: String,
       unique: true,
       required: [true, 'please provide a valid and unique phone number'],
       match: [
@@ -34,20 +35,33 @@ const userSchema = new mongoose.Schema(
       select: false,
       minLength: 8,
     },
+    role: {
+      type: String,
+      enum: {
+        values: ['user', 'manager', 'staff', 'admin'],
+        message: 'Roles can be either: user, staff, manager, admin',
+      },
+      default: 'user',
+    },
+    active: {
+      type: Boolean,
+      default: true,
+      select: false,
+    },
     address: {
       type: String,
     },
-    favorites: [
-      {
-        type: mongoose.Schema.ObjectId,
-      },
-    ],
-    orders: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Orders',
-      },
-    ],
+    // favorites: [
+    //   {
+    //     type: mongoose.Schema.ObjectId,
+    //   },
+    // ],
+    // orders: [
+    //   {
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: 'Orders',
+    //   },
+    // ],
   },
   {
     toJSON: { virtuals: true },
@@ -55,6 +69,16 @@ const userSchema = new mongoose.Schema(
     collection: 'Users',
   },
 );
+
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+
+  //Encrypt the password with hash 12 salts
+  const salt = await bcrypt.genSalt(12);
+  this.password = await bcrypt.hash(this.password, salt);
+
+  next();
+});
 
 const User = mongoose.model('Users', userSchema);
 

@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const menuRouter = require('./routes/menuRoute');
+const userRouter = require('./routes/userRoute');
 const AppError = require('./util/appError');
 const errorHandler = require('./Middleware/errorHandlerMiddleware');
 
@@ -27,6 +28,7 @@ app.use(express.json());
 // });
 
 app.use('/api/v1/menu', menuRouter);
+app.use('/api/v1/users', userRouter);
 
 app.all('/*splat', (req, res, next) => {
   next(
