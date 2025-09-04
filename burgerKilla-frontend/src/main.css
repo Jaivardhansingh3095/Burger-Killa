@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import 'tailwindcss';
+
+:root:has(.no-doc-scroll) {
+  overflow: hidden;
+}
+
+@theme {
+  --font-poetsen: 'Poetsen One', 'sans-serif';
+  --font-roboto: 'Roboto', 'sans';
+  --animate-grow: grow 1s ease-in-out;
+
+  @keyframes grow {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+@layer utilities {
+  .clip-custom {
+    clip-path: circle(50% at 50% 0);
+  }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #e7e5e5;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ff915b;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #e6692a;
+}
+
+/* width */
+/* .custom-scrollbar::-webkit-scrollbar {
+    width: 2px;
+  } */
+
+/* Track */
+/* .custom-scrollbar::-webkit-scrollbar-track {
+    background: #e7e5e5;
+  } */
+
+/* Handle */
+/* .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #ff915b;
+    border-radius: 5px;
+  } */
+
+/* Handle on hover */
+/* .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #e6692a;
+  }  */
