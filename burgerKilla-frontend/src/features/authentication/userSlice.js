@@ -10,10 +10,6 @@ const initialState = {
   user: null,
   status: 'pending', //pending or idle or error
   error: '',
-  location: {
-    lat: 0,
-    lng: 0,
-  },
 };
 
 const userSlice = createSlice({
@@ -34,9 +30,6 @@ const userSlice = createSlice({
       state.user = { ...state.user, locations: action.payload };
       state.status = 'idle';
       state.error = '';
-    },
-    updateUserLocation: (state, action) => {
-      state.location = { lat: action.payload.lat, lng: action.payload.lng };
     },
   },
   extraReducers: (builder) => {

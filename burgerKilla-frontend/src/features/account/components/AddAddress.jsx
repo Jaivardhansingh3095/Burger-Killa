@@ -47,14 +47,14 @@ function AddAddress({
   return createPortal(
     <Modal open={openModal} onModalClose={handleModalClose}>
       <div
-        className="absolute top-0 left-0 h-full w-[600px] bg-[linear-gradient(86deg,#ffffe7f3_100%,#eeeed2ef_51%,#f8f8b5_0%)] gap-2"
+        className="absolute top-0 left-0 h-full w-full md:w-[80%] xl:w-[600px] 2xl:w-[1000px] bg-[linear-gradient(86deg,#ffffe7f3_100%,#eeeed2ef_51%,#f8f8b5_0%)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/*First page*/}
         {page === 1 ? (
-          <div className="w-full h-full flex flex-col justify-start items-start px-10">
+          <div className="flex flex-col items-start justify-start w-full h-full px-2 sm:px-5 md:px-10">
             {/* Back button and Search bar */}
-            <div className="w-full flex justify-start items-center gap-10 py-5">
+            <div className="flex items-center justify-start w-full gap-2 py-2 sm:gap-5 md:gap-10 xl:py-5">
               <button
                 onClick={() => {
                   if (page === 1) {
@@ -65,10 +65,10 @@ function AddAddress({
                 }}
                 className="cursor-pointer focus:outline-orange-400"
               >
-                <MdOutlineKeyboardArrowLeft className="w-10 h-10 fill-orange-400" />
+                <MdOutlineKeyboardArrowLeft className="w-8 h-8 sm:w-10 sm:h-10 fill-orange-400" />
               </button>
-              <div className="w-full h-12 relative border-1 border-gray-100 flex items-center gap-2 bg-gray-50 px-3 py-1 shadow-[1px_1px_8px_3px] shadow-gray-200 rounded-[5px] focus-within:border-orange-400">
-                <IoIosSearch className="h-6 w-6 fill-orange-400" />
+              <div className="w-full relative border-1 border-gray-100 flex items-center gap-2 bg-gray-50 px-3 py-1 shadow-[1px_1px_8px_3px] shadow-gray-200 rounded-md focus-within:border-orange-400">
+                <IoIosSearch className="w-6 h-6 fill-orange-400" />
                 <input
                   type="search"
                   className="peer grow-1 placeholder:text-[.8rem] placeholder:text-gray-400 px-2 py-2 focus:outline-none text-gray-600 border-none"
@@ -79,12 +79,12 @@ function AddAddress({
                   }}
                 />
                 <div className="absolute z-1500 left-0 w-full top-12.5 max-h-[600px]  bg-gray-50 rounded-[5px] hidden opacity-0 peer-focus:opacity-100 peer-focus:block">
-                  <div className="w-full h-full px-3 py-3 flex flex-col items-start gap-0">
+                  <div className="flex flex-col items-start w-full h-full gap-0 px-3 py-3">
                     <div
                       role="button"
-                      className="w-full cursor-pointer flex justify-start items-center gap-3 p-3 border-b border-b-gray-200  text-orange-400 hover:text-orange-600 transition-all duration-200 ease-linear"
+                      className="flex items-center justify-start w-full gap-3 p-3 text-orange-400 transition-all duration-200 ease-linear border-b cursor-pointer border-b-gray-200 hover:text-orange-600"
                     >
-                      <FiMapPin className="h-10 w-10 text-orange-300" />
+                      <FiMapPin className="w-10 h-10 text-orange-300" />
                       <div className="flex flex-col justify-start">
                         <span className="text-[.9rem] font-semibold">
                           Current location
@@ -97,8 +97,8 @@ function AddAddress({
 
                     {/* Search results list */}
                     {suggestion.length !== 0 || loading || error ? (
-                      <div className="w-full flex flex-col justify-start items-start text-[.9rem] overflow-auto">
-                        <span className="font-poetsen text-gray-600 tracking-wide p-3">
+                      <div className="w-full h-100 flex flex-col justify-start items-start text-[.9rem] overflow-y-auto">
+                        <span className="p-3 tracking-wide text-gray-600 font-poetsen">
                           Search Results for "{keyword}"
                         </span>
                         {loading && <p>Loading suggestions...</p>}
@@ -109,11 +109,11 @@ function AddAddress({
                           </p>
                         )}
                         {suggestion.length ? (
-                          <ul className="w-full flex flex-col justify-start items-start">
+                          <ul className="flex flex-col items-start justify-start w-full">
                             {suggestion.map((predict, i) => (
                               <li
                                 key={i}
-                                className="p-3 w-full h-auto not-last:border-b not-last:border-b-gray-200 cursor-pointer hover:text-gray-600 transition duration-100 ease-linear"
+                                className="w-full h-auto p-3 transition duration-100 ease-linear cursor-pointer not-last:border-b not-last:border-b-gray-200 hover:text-gray-600"
                                 onMouseDown={(e) => {
                                   console.log(e.target.name, e.target.value);
                                   const lat = predict.geometry.location.lat;
@@ -146,15 +146,17 @@ function AddAddress({
             <DisplayMap geoLoc={geoLoc} />
 
             {/*Display marker address*/}
-            <div className="py-5">
-              <p className="font-semibold text-[.9rem]">Building or Locality</p>
-              <p className="text-[.85rem]">{geoLoc.locality}</p>
+            <div className="py-2 xl:py-5">
+              <p className="text-xs font-semibold sm:text-sm">
+                Building or Locality
+              </p>
+              <p className="text-[10px] sm:text-xs">{geoLoc.locality}</p>
             </div>
 
-            <div className="w-full px-25 flex justify-center">
+            <div className="flex items-center justify-center w-full">
               <button
                 onClick={() => setPage(2)}
-                className="w-full bg-orange-400/80 text-gray-50 py-4 rounded-4xl font-semibold text-[1.1rem] text-shadow-2xs text-shadow-orange-800 shadow-[1px_1px_1px_1px] shadow-orange-800 cursor-pointer hover:bg-orange-500/80 transition-all dura ease-linear"
+                className="w-[75%] sm:w-[50%] bg-orange-400/80 text-gray-50 py-1.5 sm:py-2.5 xl:py-4 rounded-4xl font-semibold sm:text-lg text-shadow-2xs text-shadow-orange-800 shadow-[1px_1px_1px_1px] shadow-orange-800 cursor-pointer hover:bg-orange-500/80 transition-all dura ease-linear"
               >
                 Confirm Location
               </button>
@@ -164,24 +166,26 @@ function AddAddress({
 
         {/*Second page*/}
         {page === 2 ? (
-          <div className="w-full h-full flex flex-col justify-start items-start px-10">
+          <div className="flex flex-col items-start justify-start w-full h-full px-2 sm:px-10">
             {/*Back button and locality address*/}
-            <div className="w-full flex flex-col justify-start py-5">
-              <div className="flex justify-start items-center gap-5">
+            <div className="flex flex-col justify-start w-full py-2 sm:py-5">
+              <div className="flex items-center justify-start gap-5">
                 <ButtonBack
                   handler={handleModalClose}
                   value={page}
                   updater={setPage}
                 />
                 <div>
-                  <p className="font-semibold">Building or Locality</p>
-                  <p className="text-[.9rem]">{geoLoc.locality}</p>
+                  <p className="text-sm sm:text-[1rem] font-semibold">
+                    Building or Locality
+                  </p>
+                  <p className="text-xs sm:text-sm">{geoLoc.locality}</p>
                 </div>
               </div>
             </div>
 
             {/*Form to add house no , flat and landmark*/}
-            <div className="w-full bg-white p-5">
+            <div className="w-full p-2 bg-white sm:p-5">
               <HouseAddressForm
                 geoLoc={geoLoc}
                 handleModalClose={handleModalClose}

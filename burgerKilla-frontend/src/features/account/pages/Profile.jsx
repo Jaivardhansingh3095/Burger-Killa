@@ -66,16 +66,16 @@ function Profile() {
 
       <div className="max-w-[600px] h-full mx-auto p-5">
         <div className="w-full h-full mb-8 px-4 py-2 shadow-[1px_5px_7px_2px] bg-white shadow-gray-300 rounded-[5px]">
-          <div className="flex justify-start items-center p-3 gap-2 border-b-1 border-gray-300">
+          <div className="flex items-center justify-start gap-2 p-3 border-gray-300 border-b-1">
             <button onClick={() => navigate(-1)} className="cursor-pointer">
-              <MdOutlineKeyboardBackspace className="h-8 w-8 fill-gray-600" />
+              <MdOutlineKeyboardBackspace className="w-8 h-8 fill-gray-600" />
             </button>
             <h2 className="text-[1.1rem] tracking-wide text-gray-600">
               Edit Profile
             </h2>
           </div>
 
-          <div className="flex flex-col justify-center items-center gap-2 mt-4">
+          <div className="flex flex-col items-center justify-center gap-2 mt-4">
             <h2 className="text-[1.2rem] tracking-wide leading-6 text-gray-600">
               {camelCaseName(currentUser.user.name)}
             </h2>
@@ -85,7 +85,7 @@ function Profile() {
           </div>
 
           <div className="flex flex-col items-start justify-center gap-10 mt-5 text-gray-600">
-            <div className="w-full px-2 flex flex-col items-start justify-start gap-2">
+            <div className="flex flex-col items-start justify-start w-full gap-2 px-2">
               <label htmlFor="fullname" className="tracking-wide">
                 Full Name
               </label>
@@ -97,14 +97,14 @@ function Profile() {
                 defaultValue={camelCaseName(currentUser.user?.name)}
               />
             </div>
-            <div className="w-full px-2 flex flex-col items-start justify-start gap-2">
+            <div className="flex flex-col items-start justify-start w-full gap-2 px-2">
               <label className="tracking-wide">
                 Gender{' '}
                 <span className="font-mono font-semibold text-[.9rem]">
                   (Optional)
                 </span>
               </label>
-              <div className="flex justify-center items-start gap-6">
+              <div className="flex items-start justify-center gap-6">
                 {radioItems.map((item) => (
                   <div key={item.value}>
                     <RadioGroup
@@ -118,7 +118,7 @@ function Profile() {
                 ))}
               </div>
             </div>
-            <div className="w-full px-2 flex flex-col items-start justify-start gap-2">
+            <div className="flex flex-col items-start justify-start w-full gap-2 px-2">
               <label htmlFor="dob" className="tracking-wide">
                 Date of birth{' '}
                 <span className="font-mono font-semibold text-[.9rem]">
@@ -133,7 +133,7 @@ function Profile() {
                 className="w-full border-1 border-gray-300 p-2 rounded-[10px] bg-gray-100 text-gray-500 tracking-wider"
               />
             </div>
-            <div className="w-full flex justify-center items-center">
+            <div className="flex items-center justify-center w-full">
               <button
                 onClick={handleSubmit}
                 className="border-1 border-orange-500 bg-orange-400 py-3 px-5 text-shadow-2xs text-shadow-orange-900 text-white rounded-[10px] tracking-wider focus:outline-none hover:bg-orange-500 transition-all duration-300 ease-linear text-[1.1rem] cursor-pointer"

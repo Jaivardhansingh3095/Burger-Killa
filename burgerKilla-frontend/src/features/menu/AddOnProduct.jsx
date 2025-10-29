@@ -17,31 +17,34 @@ function AddOnProduct({
   });
 
   return (
-    <div className="mt-8 w-full flex flex-col justify-start items-center gap-5">
-      <div className="relative w-full flex justify-center items-center">
+    <div className="flex flex-col items-center justify-start w-full gap-5 mt-8 last:mb-10">
+      <div className="relative flex items-center justify-center w-full">
         <div className="absolute h-[2px] w-full bg-gray-300 z-1000"></div>
-        <h3 className="text-gray-500 text-center z-1020 bg-gray-100 px-5">
+        <h3 className="px-5 text-center text-gray-500 bg-gray-100 z-1050">
           {categoryName}
         </h3>
       </div>
-      <ul className="w-full flex flex-col justify-start items-center gap-2">
+      <ul className="flex flex-col items-center justify-start w-full gap-2">
         {filterAddOnProducts.map((item) => (
-          <li key={item._id} className="w-full rounded-[10px] bg-white">
+          <li
+            key={item._id}
+            className="w-full rounded-[10px] bg-white font-semibold"
+          >
             <label
-              className={`rounded-[10px] border-1 border-gray-400 ${checkedBox[item._id] ? 'border-orange-400' : ''} flex justify-start items-center gap-5 cursor-pointer px-5 py-4`}
+              className={`rounded-[10px] border-1 border-gray-400 ${checkedBox[item._id] ? 'border-orange-400 text-orange-500' : 'text-gray-700/90'} flex justify-start items-center gap-5 cursor-pointer p-2 sm:px-5 sm:py-4`}
             >
-              <span className="mr-auto flex justify-start items-center gap-2">
+              <span className="flex items-center justify-start gap-2 mr-auto">
                 {item.foodType === 'veg' ? (
-                  <BiCheckboxSquare className="h-5 w-5 fill-teal-700/80" />
+                  <BiCheckboxSquare className="w-5 h-5 fill-teal-700/80" />
                 ) : (
                   <BiCaretUpSquare className="h-5 w-5 p-[2px] fill-red-700/80" />
                 )}
-                <span className="text-[.9rem] tracking-wide text-gray-700/90">
+                <span className="text-[11px] sm:text-sm tracking-wide ">
                   {item.name}
                 </span>
               </span>
-              <span className="flex justify-center items-center gap-4">
-                <span className="text-[.8rem] text-gray-700/80">
+              <span className="flex items-center justify-center gap-4">
+                <span className="text-[.8rem]">
                   {formatCurrency(item.price)}
                 </span>
                 <input
@@ -58,7 +61,7 @@ function AddOnProduct({
                       categories: item.categories,
                     });
                   }}
-                  className="accent-amber-500 h-[1rem] w-[.9rem]"
+                  className="accent-amber-500 h-[1rem] w-[.9rem] checked:outline-none"
                 />
               </span>
             </label>

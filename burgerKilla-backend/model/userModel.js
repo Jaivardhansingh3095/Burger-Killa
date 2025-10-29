@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 
 const userSchema = new mongoose.Schema(
   {
@@ -15,6 +16,7 @@ const userSchema = new mongoose.Schema(
       unique: true,
       required: [true, 'Please provide a valid email'],
       lowercase: true,
+      trim: true,
       match: [
         /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/,
         'Please provide a valid email',
@@ -28,14 +30,27 @@ const userSchema = new mongoose.Schema(
         /^[0-9]{10}$/,
         'Phone number should be of 10 digit with no special characters',
       ],
+      trim: true,
     },
     password: {
       type: String,
       required: [true, 'Account must have a password'],
       select: false,
       minLength: 8,
+      trim: true,
     },
-    passwordChangedAt: Date,
+    passwordChangedAt: {
+      type: Date,
+      default: null,
+    },
+    resetToken: {
+      type: String,
+      select: false,
+    },
+    resetTokenExpire: {
+      type: Date,
+      select: false,
+    },
     role: {
       type: String,
       enum: {
@@ -108,12 +123,12 @@ const userSchema = new mongoose.Schema(
     //     type: mongoose.Schema.ObjectId,
     //   },
     // ],
-    // orders: [
-    //   {
-    //     type: mongoose.Schema.ObjectId,
-    //     ref: 'Orders',
-    //   },
-    // ],
+    orders: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Order',
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
@@ -169,6 +184,23 @@ userSchema.method('passwordResetBeforeTokenIssue', function (JWTTimeStamp) {
   );
 
   return JWTTimeStamp < passwordChangedTimeStamp;
+});
+
+userSchema.method('createResetToken', function () {
+  //creating random string for reset token
+  const resetToken = crypto.randomBytes(32).toString('hex');
+
+  console.log(this);
+
+  //excrypting reset token for protection and then we save it in DB
+  this.resetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  this.resetTokenExpire = Date.now() + 10 * 60 * 1000;
+
+  return resetToken;
 });
 
 const User = mongoose.model('Users', userSchema);

@@ -68,7 +68,7 @@ function HouseAddressForm({ geoLoc, handleModalClose, editValue, mode }) {
 
   return (
     <form
-      className="w-full flex flex-col items-start gap-7"
+      className="flex flex-col items-start w-full gap-7"
       onSubmit={handleSubmit}
     >
       <input
@@ -114,7 +114,7 @@ function HouseAddressForm({ geoLoc, handleModalClose, editValue, mode }) {
 
       <div className="flex flex-col justify-start gap-2">
         <p className="text-gray-500 text-[.9rem]">Save this address as</p>
-        <div className="flex justify-center items-start gap-6">
+        <div className="flex items-start justify-center gap-6">
           {radioItems.map((item) => (
             <div key={item.value}>
               <RadioGroup
@@ -128,11 +128,11 @@ function HouseAddressForm({ geoLoc, handleModalClose, editValue, mode }) {
         </div>
       </div>
 
-      <div className="flex justify-start items-center gap-2">
+      <div className="flex items-center justify-start gap-2">
         <input
           type="checkbox"
           id="default"
-          className="accent-orange-400 h-4 w-4"
+          className="w-4 h-4 accent-orange-400"
           value={isDefault}
           onChange={() => setIsDefault(!isDefault)}
           disabled={isAdding || isUpdating}
@@ -143,10 +143,10 @@ function HouseAddressForm({ geoLoc, handleModalClose, editValue, mode }) {
       </div>
 
       <div
-        className="w-full flex justify-center items-center"
+        className="flex items-center justify-center w-full"
         disabled={isAdding || isUpdating}
       >
-        <button className="bg-orange-400/80 py-5 px-20 rounded-4xl cursor-pointer text-gray-50 font-bold text-[1.1rem] tracking-wide text-shadow-2xs text-shadow-orange-800 focus:outline-none border-1 border-orange-500 hover:bg-orange-500/80 transition-all duration-200 ease-in">
+        <button className="px-10 py-3 text-lg font-bold tracking-wide transition-all duration-200 ease-in border-orange-500 cursor-pointer bg-orange-400/80 md:py-5 md:px-20 rounded-4xl text-gray-50 text-shadow-2xs text-shadow-orange-800 focus:outline-none border-1 hover:bg-orange-500/80">
           Save Address
         </button>
       </div>

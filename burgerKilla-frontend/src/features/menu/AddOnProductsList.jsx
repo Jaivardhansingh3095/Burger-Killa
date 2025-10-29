@@ -7,14 +7,14 @@ function AddOnProductsList({ categories, handleCheckedAddon }) {
 
   if (addOnStatus === 'pending')
     return (
-      <div className="h-full w-full  flex justify-center items-center">
+      <div className="flex items-center justify-center w-full h-full">
         <Loader />
       </div>
     );
 
   if (addOnError)
     return (
-      <div className="flex justify-center items-center">
+      <div className="flex items-center justify-center">
         <p className="text-[1.1rem] text-gray-700">
           Opps, we are facing issue with fetching addons list. Please refresh
           the page or try later some time.
@@ -32,7 +32,7 @@ function AddOnProductsList({ categories, handleCheckedAddon }) {
   );
 
   return (
-    <div className="overflow-y-scroll px-3 last:mb-7 w-full flex flex-col justify-start items-center gap-8">
+    <div className="flex flex-col items-center justify-start w-full gap-8 px-3 bg-gray-100 lg:overflow-y-scroll lg:last:mb-7">
       {categories === 'burger' ||
       categories === 'wrap' ||
       categories === 'meal' ? (

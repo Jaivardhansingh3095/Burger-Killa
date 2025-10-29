@@ -2,6 +2,7 @@ const catchAsync = require('../util/catchAsync');
 const User = require('../model/userModel');
 const AppError = require('../util/appError');
 const ShortUniqueId = require('short-unique-id');
+const { OrderedBulkOperation } = require('mongodb');
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -18,6 +19,7 @@ const getMe = catchAsync(async (req, res, next) => {
     homeAddress,
     dob,
     gender,
+    orders,
   } = req.user;
 
   res.status(200).json({
@@ -33,6 +35,7 @@ const getMe = catchAsync(async (req, res, next) => {
         homeAddress,
         gender,
         dob,
+        orders,
       },
     },
   });
@@ -84,6 +87,13 @@ const addAddress = catchAsync(async (req, res, next) => {
 
   const userTest = req.user;
 
+  if (isDefault) {
+    userTest.locations.forEach((loc) => {
+      loc.isDefault = false;
+    });
+  }
+
+  //Unique address Id for address location
   const uid = new ShortUniqueId({ length: 6 });
 
   userTest.locations.push({
@@ -129,6 +139,10 @@ const updateAddress = catchAsync(async (req, res, next) => {
       loc.addressType = addressType;
       loc.isDefault = isDefault;
     }
+
+    if (isDefault && loc.addressId !== addressId) {
+      loc.isDefault = false;
+    }
   });
 
   const user = await userTest.save({ validateModifiedOnly: true });
@@ -170,8 +184,34 @@ const deleteAddress = catchAsync(async (req, res, next) => {
   });
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//➡️ Add ORDER
+
+const addNewOrder = catchAsync(async (req, res, next) => {
+  const { orderId } = req.body;
+
+  if (!orderId) {
+    return next(new AppError('Please provide newly generated order id'), 400);
+  }
+
+  const user = req.user;
+  if (!user.orders) {
+    user.orders = [orderId];
+  } else {
+    user.orders.push(orderId);
+  }
+
+  await user.save({ validateModifiedOnly: true });
+
+  res.status(200).json({
+    status: 'success',
+  });
+});
+
 exports.getMe = getMe;
 exports.updateMe = updateMe;
 exports.addAddress = addAddress;
 exports.updateAddress = updateAddress;
 exports.deleteAddress = deleteAddress;
+exports.addNewOrder = addNewOrder;

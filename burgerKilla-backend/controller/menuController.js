@@ -5,6 +5,7 @@ const multer = require('multer');
 const sharp = require('sharp');
 const fs = require('fs/promises');
 const { readFile } = require('fs');
+const { camelCaseCoversion } = require('../util/helper');
 
 //Retrieving file from public folder and converting it to base64
 // const toBase64 = async function (filepath) {
@@ -53,8 +54,12 @@ const upload = multer({
   fileFilter: multerFilter,
 });
 
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 const uploadProductImage = upload.single('productImage');
 
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 const resizeUploadImage = (req, res, next) => {
   if (!req.file) return next();
 
@@ -84,6 +89,8 @@ const resizeUploadImage = (req, res, next) => {
   next();
 };
 
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 const getProductImage = catchAsync(async (req, res, next) => {
   //Reading file from public folder and excoding to base64
   const result = await fs.readFile(
@@ -99,6 +106,8 @@ const getProductImage = catchAsync(async (req, res, next) => {
   });
 });
 
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 const getMenu = catchAsync(async (req, res, next) => {
   //Filtering query
   const queryObj = { ...req.query };
@@ -139,10 +148,6 @@ const getMenu = catchAsync(async (req, res, next) => {
     imgUrl: `${req.protocol}://${req.get('host')}/public/img/products/${product.productImage}`,
   }));
 
-  // console.log(
-  //   `${req.protocol}://${req.get('host')}/public/img/products/${menu[0].productImageSmall}`,
-  // );
-
   res.status(200).json({
     status: 'success',
     results: newMenu.length,
@@ -152,15 +157,17 @@ const getMenu = catchAsync(async (req, res, next) => {
   });
 });
 
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 const addProduct = catchAsync(async (req, res, next) => {
   console.log(req.file);
   console.log(req.body);
 
   const newItem = await Menu.create({
-    name: req.body.name,
+    name: camelCaseCoversion(req.body.name),
     description: req.body.description,
-    price: req.body.price,
-    discount: req.body?.discount || 0,
+    price: Number(req.body.price),
+    discount: Number(req.body?.discount) || 0,
     categories: req.body.categories,
     foodType: req.body.foodType,
     productImage: req?.file?.filename,
@@ -175,6 +182,8 @@ const addProduct = catchAsync(async (req, res, next) => {
   });
 });
 
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 const getProduct = catchAsync(async (req, res, next) => {
   const item = await Menu.findById(req.params.id);
 
@@ -194,6 +203,9 @@ const getProduct = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 const updateProduct = catchAsync(async (req, res, next) => {
   const filterObj = {
@@ -224,8 +236,10 @@ const updateProduct = catchAsync(async (req, res, next) => {
   });
 });
 
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 const deleteProduct = catchAsync(async (req, res, next) => {
-  const item = await Menu.findByIdAndDelete(req.param.id);
+  const item = await Menu.findByIdAndDelete(req.params.id);
 
   if (!item) {
     return next(
@@ -242,6 +256,8 @@ const deleteProduct = catchAsync(async (req, res, next) => {
   });
 });
 
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 const getAddOn = catchAsync(async (req, res, next) => {
   const addOnList = await Menu.aggregate([
     {
@@ -271,6 +287,35 @@ const getAddOn = catchAsync(async (req, res, next) => {
   });
 });
 
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+const getTopSixProducts = catchAsync(async (req, res, next) => {
+  const top6Products = await Menu.find({
+    categories: { $in: ['burger', 'wrap'] },
+  });
+
+  const topNames = [
+    '68749221076082a3330f3b03',
+    '6874945412e139d4109f8808',
+    '6874f1d4313ddaeba0174fbf',
+    '6874f27e313ddaeba0174fc3',
+    '6875034d313ddaeba0174fca',
+    '68ef4d49ef78012c8d7fc117',
+  ];
+
+  const products = top6Products.filter((product) =>
+    topNames.includes(product.id),
+  );
+
+  res.status(200).json({
+    status: 'success',
+    results: products.length,
+    data: {
+      products,
+    },
+  });
+});
+
 exports.getMenu = getMenu;
 exports.addProduct = addProduct;
 exports.getProduct = getProduct;
@@ -280,3 +325,4 @@ exports.uploadProductImage = uploadProductImage;
 exports.resizeUploadImage = resizeUploadImage;
 exports.getProductImage = getProductImage;
 exports.getAddOn = getAddOn;
+exports.getTopSixProducts = getTopSixProducts;

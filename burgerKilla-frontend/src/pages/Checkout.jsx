@@ -17,6 +17,7 @@ import { selectCart } from '../features/cart/cartSlice';
 
 function Checkout() {
   const navigate = useNavigate();
+
   const { user, status } = useSelector((state) => selectUser(state));
   const cart = useSelector(selectCart);
   const [address, setAddress] = useState('');
@@ -24,7 +25,13 @@ function Checkout() {
   useEffect(
     function () {
       if (status === 'idle') {
-        setAddress(user?.locations?.at(0)?.addressId);
+        setAddress(() => {
+          const checkDefault = user?.locations?.filter((loc) => loc?.isDefault);
+
+          return (
+            checkDefault?.at(0)?.addressId || user?.locations?.at(0)?.addressId
+          );
+        });
         return;
       }
 
@@ -48,8 +55,8 @@ function Checkout() {
 
   if (!cart.length) {
     return (
-      <div className="w-full h-full flex justify-center items-center font-semibold">
-        <div className="h-auto w-full px-10 gap-5 flex flex-col items-center justify-center">
+      <div className="flex items-center justify-center w-full h-full font-semibold">
+        <div className="flex flex-col items-center justify-center w-full h-auto gap-5 px-10">
           <PiShoppingCartFill className="h-30 w-30 fill-orange-400" />
           <p className="text-[1.3rem]">Your cart is Empty!</p>
           <Link
@@ -68,9 +75,9 @@ function Checkout() {
   }
 
   return (
-    <div className="w-full h-full bg-[linear-gradient(90deg,#fffff0f3_0%,#ffffe4f3_25%,#ffffd8f3_50%,#ffffe4f3_75%,#fffff0f3_100%)]">
-      <div className="mx-auto max-w-[1250px] h-full flex justify-start items-center pt-5 overscroll-y-auto">
-        <div className="w-[65%] h-full px-2 flex flex-col items-start gap-4">
+    <div className="w-full h-auto lg:h-screen bg-[linear-gradient(90deg,#fffff0f3_0%,#ffffe4f3_25%,#ffffd8f3_50%,#ffffe4f3_75%,#fffff0f3_100%)]">
+      <div className="mx-auto max-w-[1250px] h-full flex flex-col lg:flex-row justify-start items-center px-2 sm:px-10 py-2 lg:px-4 xl:px-0 lg:py-5 overscroll-y-auto">
+        <div className="w-full lg:w-[65%] h-full px-2 flex flex-col items-start gap-4">
           <SelectAddress
             user={user}
             address={address}
@@ -78,9 +85,9 @@ function Checkout() {
           />
           <FinalCart cart={cart} />
         </div>
-        <div className="w-[35%] h-full px-2 sticky flex flex-col items-start gap-2">
+        <div className="w-full lg:w-[35%] h-full px-2 sticky flex flex-col items-start gap-2">
           <Offer />
-          <FinalBill />
+          <FinalBill address={address} />
         </div>
       </div>
     </div>

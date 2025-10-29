@@ -43,68 +43,102 @@ function AddOnModalView({ product, onModalClose }) {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className="absolute -translate-x-[50%] -translate-y-[50%] left-[50%] top-[50%] h-150 w-220 mx-auto flex flex-wrap justify-center items-start bg-white rounded-xl overflow-hidden"
+      className="absolute -translate-x-[50%] -translate-y-[50%] left-[50%] top-[50%] h-[100%] sm:h-[75%] w-[100%] sm:w-[90%] lg:h-160 lg:w-220 mx-auto  flex flex-col justify-center items-center lg:block"
     >
-      <div className="w-110">
-        <img
-          src={imgUrl}
-          alt={productImage}
-          loading="lazy"
-          className="h-105 w-full drop-shadow-[1px_3px_15px] drop-shadow-gray-50"
+      <div className="flex justify-end w-full px-3 py-1 bg-white lg:hidden rounded-tl-xl rounded-tr-xl">
+        <RiCloseFill
+          className="cursor-pointer fill-gray-500 h-7 w-7"
+          onClick={onModalClose}
         />
-        <div className="py-3 px-6 h-full flex flex-col justify-between items-start gap-4">
-          <div className="flex justify-start items-center w-full">
-            <h2 className="text-[1.15rem] mr-auto w-full text-wrap text-gray-700 text-shadow-gray-200 text-shadow-[1px_3px_8px]">
-              {name}
-            </h2>
-            {foodType === 'veg' ? (
-              <BiCheckboxSquare className="h-8 w-8 fill-teal-700/80" />
-            ) : (
-              <BiCaretUpSquare className="h-8 w-8 p-[2px] fill-red-700/80" />
-            )}
-          </div>
-          <div>
-            <p className="text-[.8rem] text-gray-500 text-wrap">
-              {description}
-            </p>
-          </div>
-          <button
-            onClick={() => {
-              const newObj = {
-                _id,
-                name,
-                price,
-                foodType,
-                categories,
-                addOns: [...checkedAddon],
-                quantity: 1,
-                totalPrice: price + (tempTotalPrice.current || 0),
-              };
-
-              dispatch(addItem(newObj));
-              onModalClose();
-            }}
-            className="w-full  text-[1.1rem] text-gray-50 bg-orange-500/85 flex justify-start items-center py-2 px-5 rounded-xl cursor-pointer"
-          >
-            <span className="mr-auto">
-              {formatCurrency(price + (tempTotalPrice.current || 0))}
-            </span>
-            <span>ADD TO CART</span>
-          </button>
-        </div>
       </div>
-      <div className="w-110 bg-gray-100 h-full px-3 relative flex flex-col justify-start items-center gap-2">
-        <div className="fixed z-2000 w-105 mx-auto bg-gray-100 px-[5px] py-[2px] flex justify-end">
-          <RiCloseFill
-            className="fill-gray-500 h-7 w-7 cursor-pointer"
-            onClick={onModalClose}
+      <div className="flex flex-col items-start justify-start w-full h-full overflow-y-auto bg-white lg:flex-row lg:justify-center lg:rounded-xl lg:overflow-hidden">
+        <div className="flex flex-col items-center justify-center w-full h-full flex-1/2">
+          <div className="flex items-center justify-center w-full lg:block flex-1/2">
+            <img
+              src={imgUrl}
+              alt={productImage}
+              loading="lazy"
+              className="mt-1 lg:mt-0 w-50 h-50 sm:w-80 sm:h-80 lg:w-full lg:h-full rounded-2xl lg:rounded-none"
+            />
+          </div>
+
+          <div className="flex flex-col items-start justify-between w-full h-full gap-4 px-6 py-3 flex-1/2">
+            <div className="flex items-center justify-start w-full">
+              <h2 className="w-full mr-auto text-lg tracking-wider text-gray-600 md:text-xl text-wrap font-poetsen">
+                {name}
+              </h2>
+              {foodType === 'veg' ? (
+                <BiCheckboxSquare className="w-8 h-8 fill-teal-700/80" />
+              ) : (
+                <BiCaretUpSquare className="h-8 w-8 p-[2px] fill-red-700/80" />
+              )}
+            </div>
+            <div>
+              <p className="text-[1rem] lg:text-sm text-gray-500 text-wrap">
+                {description}
+              </p>
+            </div>
+            <button
+              onClick={() => {
+                const newObj = {
+                  _id,
+                  name,
+                  price,
+                  foodType,
+                  categories,
+                  addOns: [...checkedAddon],
+                  quantity: 1,
+                  totalPrice: price + (tempTotalPrice.current || 0),
+                };
+
+                dispatch(addItem(newObj));
+                onModalClose();
+              }}
+              className="items-center justify-start hidden w-full px-5 py-2 text-lg font-semibold cursor-pointer text-gray-50 bg-orange-500/85 lg:flex rounded-xl"
+            >
+              <span className="mr-auto">
+                {formatCurrency(price + (tempTotalPrice.current || 0))}
+              </span>
+              <span>ADD TO CART</span>
+            </button>
+          </div>
+        </div>
+        <div className="relative flex flex-col items-center justify-start w-full h-full gap-2 py-3 lg:py-0 flex-1/2">
+          <div className="fixed z-2000 w-105 mx-auto bg-gray-100 px-[5px] py-[2px] hidden lg:flex justify-end">
+            <RiCloseFill
+              className="cursor-pointer fill-gray-500 h-7 w-7"
+              onClick={onModalClose}
+            />
+          </div>
+          <AddOnProductsList
+            categories={categories}
+            handleCheckedAddon={handleCheckedAddon}
           />
         </div>
-        <AddOnProductsList
-          categories={categories}
-          handleCheckedAddon={handleCheckedAddon}
-        />
       </div>
+      <button
+        onClick={() => {
+          const newObj = {
+            _id,
+            name,
+            price,
+            foodType,
+            categories,
+            addOns: [...checkedAddon],
+            quantity: 1,
+            totalPrice: price + (tempTotalPrice.current || 0),
+          };
+
+          dispatch(addItem(newObj));
+          onModalClose();
+        }}
+        className="flex items-center justify-start w-full px-5 py-3 text-sm font-semibold bg-orange-500 cursor-pointer sm:text-lg sm:px-10 sm:py-4 lg:hidden text-gray-50 rounded-bl-xl rounded-br-xl"
+      >
+        <span className="mr-auto">
+          {formatCurrency(price + (tempTotalPrice.current || 0))}
+        </span>
+        <span>ADD TO CART</span>
+      </button>
     </div>
   );
 }

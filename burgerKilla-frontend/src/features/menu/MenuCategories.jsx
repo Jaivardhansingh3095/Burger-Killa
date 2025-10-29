@@ -24,11 +24,11 @@ function MenuCategories() {
   });
 
   return (
-    <div className="flex-1/4 h-full w-full flex flex-col items-center gap-2">
-      <h3 className="bg-white w-full text-center rounded-tl-xl rounded-tr-xl">
+    <div className="flex-col items-center hidden w-full h-full gap-2 lg:flex flex-1/4">
+      <h3 className="w-full text-center bg-white rounded-tl-xl rounded-tr-xl">
         Categories
       </h3>
-      <div className="bg-gray-50 rounded-[5px] h-full w-full flex flex-col items-center text-gray-900">
+      <div className="flex flex-col items-center w-full h-full text-gray-900 rounded-md bg-gray-50">
         {menuItems.map((item) => (
           <Category
             key={item.name}

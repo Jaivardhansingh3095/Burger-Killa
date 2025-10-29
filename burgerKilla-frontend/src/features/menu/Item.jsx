@@ -25,35 +25,37 @@ function Item({ product }) {
   } = product;
 
   return (
-    <div className="flex justify-center items-center w-full gap-2 px-3 py-3 rounded-[5px] border-1 border-gray-300 relative">
-      <div className="flex-3/5 flex flex-col justify-between gap-2 h-full">
-        <div className="flex flex-col justify-start items-start gap-1">
+    <div className="relative flex items-start justify-center w-full gap-2 p-2 border-gray-300 rounded-md border-1">
+      <div className="flex flex-col items-start justify-between h-full gap-2 flex-3/5">
+        <div className="flex flex-col items-start justify-start gap-1">
           {foodType === 'veg' ? (
-            <BiCheckboxSquare className="h-6 w-6 fill-teal-700/80" />
+            <BiCheckboxSquare className="w-6 h-6 fill-teal-700/80" />
           ) : (
             <BiCaretUpSquare className="h-6 w-6 p-[2px] fill-red-700/80" />
           )}
-          <h2 className="text-wrap text-[1.1rem] text-amber-500 text-shadow-orange-500 text-shadow-2xs">
+          <h2 className="text-sm md:text-[1rem] lg:text-lg font-bold tracking-wider text-wrap text-amber-500 text-shadow-orange-700 text-shadow-2xs">
             {name}
           </h2>
-          <p className="text-[1.1rem] text-gray-700 font-[900]">
+          <p className="text-sm md:text-[1rem] lg:text-lg text-gray-700 font-[900]">
             {formatCurrency(price)}
           </p>
-          <p className="text-[.8rem] text-gray-600 text-wrap">{description}</p>
+          <p className=" text-[9px] lg:text-xs text-gray-600 text-wrap">
+            {description}
+          </p>
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-start">
           <AddToCartButton
             onModalClose={handleModalClose}
             categories={categories}
           />
         </div>
       </div>
-      <div className="rounded-2xl overflow-hidden border-1 border-gray-800 ">
+      <div className="overflow-hidden border-gray-800 rounded-2xl border-1 ">
         <img
           src={imgUrlSmall}
           alt={productImageSmall}
           loading="lazy"
-          className="h-50 w-55 "
+          className="h-45 w-45 lg:h-50 lg:w-55 xl:h-45 xl:w-45 2xl:h-55 2xl:w-60"
         />
       </div>
 

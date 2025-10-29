@@ -1,10 +1,9 @@
 import { Link } from 'react-router';
 import { FaGoogle } from 'react-icons/fa';
+import { BiSolidLogInCircle } from 'react-icons/bi';
+
 import { useState } from 'react';
 import useLogin from './useLogin';
-
-//bg-[linear-gradient(0deg,#ffaa00_20%,#febe45_25%,#ffd682_35%,#ffecc7_45%,#fff3dc_50%,#ffecc7_55%,#ffd682_65%,#febe45_75%,#ffaa00_80%)]
-//bg-[linear-gradient(#ffbb5f_40%,#ffcb88_100%)]
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -19,73 +18,85 @@ function Login() {
   }
 
   return (
-    <div className=" w-full h-[100vh] bg-[radial-gradient(circle_farthest-corner_at_top_left,#fa9100_60%,#ffa72c_70%,#ffbb5f_80%,#ffcb88_90%,#ffe3c0_100%)]">
+    <div className=" w-full h-screen bg-[radial-gradient(circle_farthest-corner_at_center_center,#f5eae2_50%,#ff6f00_100%)]">
       <div className="max-w-[1250px] h-full mx-auto py-10">
-        <div className="max-w-[1000px] h-full mx-auto bg-white rounded-[5px] flex flex-col justify-start items-start overflow-hidden">
-          <div className="mx-auto clip-custom bg-[radial-gradient(circle_farthest-corner_at_top_left,#fa9100)]">
+        <div className="max-w-[1000px] h-full mx-auto bg-white rounded-[5px] flex flex-col justify-start items-start overflow-hidden inset-shadow-[1px_1px_5px,-1px_-1px_5px] inset-shadow-gray-300">
+          <div className="mx-auto bg-[#f5eae2] clip-custom">
             <Link to="/">
               <img
                 src="./logo-black.png"
                 alt="logo"
-                className="h-35 w-65 mt-[-1.5rem]"
+                className="h-25 w-47 lg:h-35 lg:w-65 -mt-[1.2rem] lg:mt-[-1.5rem]"
               />
             </Link>
           </div>
-          <div className="h-full w-full flex justify-start items-center">
-            <div className="flex-1/2 py-10 mt-[-5rem] w-full h-full flex justify-center items-start flex-col">
+          <div className="flex items-center justify-center w-full h-full lg:justify-start">
+            <div className="hidden flex-1/2 py-5 lg:py-10 mt-[-5rem] w-full h-full sm:flex justify-center items-start flex-col">
               <img
                 src="./login-image.png"
                 alt="login background image"
                 loading="lazy"
-                className="h-120 w-120 drop-shadow-[2px_2px_15px] drop-shadow-amber-600"
+                className="mx-auto w-70 h-70 md:w-90 md:h-90 lg:h-120 lg:w-120 drop-shadow-[1px_2px_10px] drop-shadow-orange-800"
               />
-              <p className="text-[1.5rem] ml-15 font-poetsen text-center text-orange-500 text-shadow-2xs text-shadow-gray-600 tracking-wide">
+              <p className="text-[1.1rem] md:text-[1.3rem] lg:text-[1.5rem] ml-5 md:ml-12 lg:ml-15 font-poetsen text-center text-orange-500 text-shadow-2xs text-shadow-gray-600 tracking-wide">
                 " your cravings know the password "
               </p>
             </div>
-            <div className="flex-1/2 w-full h-full px-10 py-10 gap-6 flex flex-col justify-center items-start">
+            <div className="flex flex-col items-start justify-center w-full h-full gap-3 px-2 py-2 sm:py-5 lg:py-10 sm:px-5 lg:px-10 md:gap-4 lg:gap-6 sm:flex-1/2">
               <form
                 onSubmit={handleLogin}
-                className="w-full px-15 font-mono gap-8 flex flex-col justify-start items-start"
+                className="flex flex-col items-start justify-start w-full gap-5 px-2 font-mono sm:px-5 lg:px-15"
               >
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="border-1 w-full p-3 border-gray-200 bg-gray-100 focus:outline-none text-gray-500"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                  disabled={isLogging}
-                  required
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="border-1 w-full p-3 border-gray-200 bg-gray-100 focus:outline-none text-gray-500"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  disabled={isLogging}
-                />
-                <Link to="/forgetpassword" className="mt-[-1.5rem] mb-[1rem]">
-                  <span className="text-blue-400 text-[.85rem]">
-                    forget password?
-                  </span>
-                </Link>
+                <div className="flex flex-col-reverse items-start justify-start w-full gap-1">
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    className="w-full p-2 lg:p-3 text-gray-500 bg-gray-200 peer border-b-2 border-transparent focus:valid:border-b-green-500 focus:invalid:border-b-red-500 focus:outline-none placeholder:text-sm lg:placeholder:text-[1rem] placeholder:text-gray-400 "
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                    disabled={isLogging}
+                    required
+                  />
+                  <label className="px-1 text-sm lg:text-[1rem] font-semibold tracking-wide text-gray-400 transition-all ease-linear sm:px-2 lg:px-3 peer-placeholder-shown:opacity-0 peer-placeholder-shown:translate-y-5 duration-400">
+                    Email
+                  </label>
+                </div>
+                <div className="flex flex-col-reverse items-start justify-start w-full gap-1">
+                  <Link to="/forgetpassword" className="">
+                    <span className="text-blue-400 text-[.85rem]">
+                      forget password?
+                    </span>
+                  </Link>
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    className="w-full p-2 lg:p-3 text-gray-500 bg-gray-200 border-b-2 border-transparent peer focus:valid:border-b-green-500 focus:invalid:border-b-red-500 focus:outline-none placeholder:text-sm lg:placeholder:text-[1rem] placeholder:text-gray-400"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    disabled={isLogging}
+                  />
+                  <label className="px-1 text-sm lg:text-[1rem] font-semibold tracking-wide text-gray-400 transition-all ease-linear peer-placeholder-shown:opacity-0 peer-placeholder-shown:translate-y-5 duration-400">
+                    Password
+                  </label>
+                </div>
+
                 <button
                   disabled={isLogging}
-                  className="w-full bg-orange-400 text-[1.4rem] text-gray-50 py-2 tracking-widest font-semibold border-1 border-orange-600 cursor-pointer hover:bg-orange-500 transition-all duration-200"
+                  className="w-full flex justify-center items-center gap-2 bg-orange-400 text-[1.1rem] sm:text-[1.2rem] lg:text-[1.4rem] shadow-[0px_2px_5px] rounded-4xl shadow-gray-400 text-gray-50 py-2 tracking-wide font-semibold border-1 text-shadow-2xs text-shadow-orange-900 border-orange-600 cursor-pointer hover:bg-orange-500 transition-all duration-200"
                 >
-                  LOGIN
+                  <BiSolidLogInCircle />
+                  <span>Login</span>
                 </button>
               </form>
-              <p className="mx-auto flex justify-center items-center gap-2">
+              <p className="flex items-center justify-center gap-2 mx-auto">
                 <span className="h-[2px] w-10 bg-gray-400"></span>
                 <span className="text-gray-400 mb-[4px]">or</span>
                 <span className="h-[2px] w-10 bg-gray-400"></span>
               </p>
-              <div className="w-full px-15 flex justify-start items-center gap-15">
+              <div className="flex items-center justify-start w-full px-15 gap-15">
                 <p className="text-gray-500">sign with:</p>
                 <button className="cursor-pointer p-3 border-1 border-gray-300 rounded-[10px] inset-shadow-[1px_2px_10px_-6px] inset-shadow-gray-300">
                   <FaGoogle className="fill-red-600" />
@@ -95,7 +106,10 @@ function Login() {
                 <span className="text-[.9rem] font-semibold text-gray-600 tracking-wide mr-4">
                   Havn't taken a bite Yet?
                 </span>
-                <Link to="/signup" className="text-orange-400 font-poetsen">
+                <Link
+                  to="/signup"
+                  className="p-2 text-lg tracking-wide text-orange-400 transition-colors duration-300 ease-in border-2 border-transparent text-shadow-2xs text-shadow-orange-700 rounded-xl font-poetsen hover:border-orange-500 hover:bg-orange-400 hover:text-white"
+                >
                   Sign Up
                 </Link>
               </div>

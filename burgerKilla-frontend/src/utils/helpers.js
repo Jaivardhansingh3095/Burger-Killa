@@ -1,5 +1,8 @@
 export const DELIVERY_CHARGES_PER_KM = 10;
 export const GST_CHARGES = 25;
+export const BACKEND_ADDRESS = import.meta.env.VITE_BACKEND_LINK;
+export const RAZORPAY_CHECKOUT_ADDRESS =
+  'https://checkout.razorpay.com/v1/checkout.js';
 
 export const formatCurrency = (value) =>
   new Intl.NumberFormat('en', { style: 'currency', currency: 'INR' }).format(

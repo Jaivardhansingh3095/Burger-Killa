@@ -1,8 +1,11 @@
+const jwt = require('jsonwebtoken');
+const { promisify } = require('util');
+const crypto = require('crypto');
+
 const User = require('../model/userModel');
 const AppError = require('../util/appError');
 const catchAsync = require('../util/catchAsync');
-const jwt = require('jsonwebtoken');
-const { promisify } = require('util');
+const sendEmails = require('../util/sendEmail');
 
 //@params obj - Original object
 //@params fields - array of fields which needs to be excluded
@@ -201,13 +204,149 @@ const restrictTo = (...roles) => {
   };
 };
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//➡️ FORGET PASSWORD
+
+const forgetPassword = catchAsync(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  //If no user found with provided email
+  if (!user) {
+    return next(
+      new AppError(`No account found with email: ${eq.body.email}`, 404),
+    );
+  }
+
+  if (user.resetToken && user.resetTokenExpire > Date.now()) {
+    return next(
+      new AppError(
+        `Reset token has been emailed. Please check your email box`,
+        400,
+      ),
+    );
+  }
+
+  const resetToken = user.createResetToken();
+  await user.save({ validateBeforeSave: false });
+
+  console.log(resetToken);
+
+  //${req.get('host')}
+
+  const resetUrl = `${req.protocol}://localhost:5173/resetPassword/${resetToken}`;
+
+  const message = `Forget your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetUrl}.
+                  \nIf you haven't initiated password reset action, please ignore this email!`;
+
+  try {
+    await sendEmails({
+      email: req.body.email,
+      subject: 'Your password reset token (valid for 10 minutes)',
+      message,
+    });
+
+    res.status(200).json({
+      status: 'success',
+    });
+  } catch (err) {
+    user.resetToken = undefined;
+    user.resetTokenExpire = undefined;
+    user.save({ validateBeforeSave: false });
+
+    return next(
+      new AppError(
+        'Error while sending reset token. Please try again some time later.',
+        500,
+      ),
+    );
+  }
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//➡️ RESET PASSWORD
+
+const resetPassword = catchAsync(async (req, res, next) => {
+  const { email, password } = req.body;
+  const { token } = req.params;
+
+  const user = await User.findOne({
+    email,
+    // resetTokenExpire: { $gt: Date.now() },
+  }).select(
+    '+password +resetToken +resetTokenExpire -orders -dob -gender -locations',
+  );
+
+  if (!user) {
+    return next(new AppError('No account found', 404));
+  }
+
+  //If reset token expired
+  if (user.resetTokenExpire < Date.now()) {
+    user.resetToken = undefined;
+    user.resetTokenExpire = undefined;
+    await user.save({ validateBeforeSave: false });
+
+    return next(
+      new AppError(
+        'Token expired. Please try for new forget password token',
+        400,
+      ),
+    );
+  }
+
+  const encryptedToken = crypto
+    .createHash('sha256')
+    .update(token)
+    .digest('hex');
+
+  if (encryptedToken !== user.resetToken) {
+    return next(
+      new AppError(
+        'Invalid token. Please create a new request from forget password',
+        403,
+      ),
+    );
+  }
+
+  const matchPassword = await user.comparePassword(password, user.password);
+
+  if (matchPassword) {
+    return next(
+      new AppError(
+        'New password is same as old password. Please try with a different password',
+        400,
+      ),
+    );
+  }
+
+  user.password = password;
+  user.resetToken = undefined;
+  user.resetTokenExpire = undefined;
+  await user.save({ validateModifiedOnly: true });
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Password Updated!',
+  });
+});
+
 exports.signup = signup;
 exports.login = login;
 exports.protect = protect;
 exports.restrictTo = restrictTo;
+exports.forgetPassword = forgetPassword;
+exports.resetPassword = resetPassword;
 
 // const { authorization } = req.headers;
 //   let token;
 //   if (authorization && authorization.startsWith('Bearer')) {
 //     token = authorization.split(' ')[1];
 //   }
+
+//Updating all documents with new fields
+// await User.updateMany(
+//   {},
+//   { $set: { resetToken: '', resetTokenExpire: null } },
+// );

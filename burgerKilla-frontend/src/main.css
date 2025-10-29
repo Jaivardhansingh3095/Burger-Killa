@@ -1,5 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Neonderthaw&family=Poetsen+One&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap');
 @import 'tailwindcss';
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
 
 :root:has(.no-doc-scroll) {
   overflow: hidden;
@@ -8,23 +12,102 @@
 @theme {
   --font-poetsen: 'Poetsen One', 'sans-serif';
   --font-roboto: 'Roboto', 'sans';
-  --animate-grow: grow 1s ease-in-out;
-
-  @keyframes grow {
-    0% {
-      transform: scale(0);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
+  --font-neonderthaw: 'Neonderthaw', cursive;
 }
 
 @layer utilities {
   .clip-custom {
     clip-path: circle(50% at 50% 0);
+  }
+
+  .custom-clip-shake-image {
+    clip-path: polygon(46% 0, 100% 11%, 82% 100%, 46% 100%);
+  }
+
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(-3deg);
+    }
+    50% {
+      transform: rotate(3deg);
+    }
+  }
+
+  .animate-wiggle {
+    animation: wiggle 0.5s ease-in-out infinite;
+  }
+
+  @keyframes stretch {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-stretch {
+    animation: stretch 0.5s ease-in-out;
+  }
+
+  @media (min-width: 320px) and (max-width: 639px) {
+    .custom-mobile-display-hidden {
+      @apply hidden;
+    }
+
+    .custom-mobile-text-size {
+      @apply text-sm;
+    }
+
+    .custom-mobile-placeholder-size {
+      @apply placeholder:text-xs;
+    }
+
+    .custom-mobile-width {
+      @apply w-full px-5;
+    }
+  }
+
+  @media (min-width: 425px) and (max-width: 640px) {
+    .custom-mobile-form-size {
+      @apply w-full px-15;
+    }
+  }
+
+  @media (min-width: 1440px) and (max-width: 2559px) {
+    .custom-laptop-text-size {
+      @apply text-xl;
+    }
+
+    .custom-laptop-padding {
+      @apply p-3;
+    }
+
+    .custom-laptop-padding-y {
+      @apply py-0;
+    }
+
+    .custom-laptop-gap {
+      @apply gap-5;
+    }
+  }
+
+  @media (min-width: 1600px) and (max-width: 2100px) {
+    .custom-laptop-lg-max-width {
+      @apply max-w-[1450px];
+    }
+  }
+  @media (min-width: 2101px) and (max-width: 2559px) {
+    .custom-laptop-xl-max-width {
+      @apply max-w-[1950px];
+    }
+
+    .custom-4xl-w-h-modal-addon {
+      @apply w-220 h-240;
+    }
   }
 }
 

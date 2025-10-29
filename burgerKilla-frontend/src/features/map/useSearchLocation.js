@@ -19,7 +19,6 @@ export function useSearchLocation(delay = 1500) {
           setLoading(true);
           try {
             const data = await getSearchLocation(keyword);
-            console.log(data);
 
             setError(() => {
               return data.status === 'FAILURE';

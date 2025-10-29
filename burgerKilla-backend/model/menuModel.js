@@ -64,7 +64,7 @@ const menuSchema = new mongoose.Schema(
     },
     productImage: {
       type: String,
-      //required: [true, 'Item must have an image for identification'],
+      required: [true, 'Item must have an image for identification'],
     },
     productImageSmall: {
       type: String,

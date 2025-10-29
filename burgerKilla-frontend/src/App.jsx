@@ -2,8 +2,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchUser } from './features/authentication/userSlice';
 
-import Home, { loader as loadHome } from './pages/Home';
+import Home from './pages/home/Home';
 import About from './pages/About';
 import Menu from './pages/Menu';
 import AppLayout from './components/AppLayout';
@@ -16,6 +19,12 @@ import Orders from './features/account/pages/Orders';
 import ManageAddress from './features/account/pages/ManageAddress';
 import UpdateContact from './features/account/pages/UpdateContact';
 import RefundPolicy from './components/RefundPolicy';
+import PaymentSession from './features/payment/pages/PaymentSession';
+import MyOrder from './pages/MyOrder';
+import ThankYou from './pages/ThankYou';
+import OrderConfirmed from './features/orderTracking/pages/OrderConfirmed';
+import ResetPassword from './features/authentication/ResetPassword';
+import AdminDashboad from './pages/AdminDashboad';
 
 const queryClient = new QueryClient();
 
@@ -26,7 +35,6 @@ const router = createBrowserRouter([
       {
         path: '/',
         Component: Home,
-        loader: loadHome,
       },
       {
         path: '/about',
@@ -60,6 +68,22 @@ const router = createBrowserRouter([
         path: '/update-contact',
         Component: UpdateContact,
       },
+      {
+        path: '/pay/:sessionId',
+        Component: PaymentSession,
+      },
+      {
+        path: '/order/:orderId',
+        Component: OrderConfirmed,
+      },
+      {
+        path: '/order',
+        Component: MyOrder,
+      },
+      {
+        path: '/thank-you/:orderId',
+        Component: ThankYou,
+      },
     ],
   },
   {
@@ -74,9 +98,23 @@ const router = createBrowserRouter([
     path: '/signup',
     Component: Signup,
   },
+  {
+    path: '/resetPassword/:resetToken',
+    Component: ResetPassword,
+  },
+  {
+    path: '/admin',
+    Component: AdminDashboad,
+  },
 ]);
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(function () {
+    dispatch(fetchUser());
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />

@@ -9,10 +9,10 @@ function CartItem({ item }) {
       <div
         className={`flex justify-start items-center w-full border-gray-400 py-2 ${item.addOns?.length ? 'border-b-1 border-dashed' : ''}`}
       >
-        <div className="mr-auto flex flex-col justify-center items-center">
-          <div className="flex justify-start items-center gap-1">
+        <div className="flex flex-col items-start justify-start mr-auto">
+          <div className="flex items-center justify-start gap-1">
             {item.foodType === 'veg' ? (
-              <BiCheckboxSquare className="h-5 w-5 fill-teal-700/90" />
+              <BiCheckboxSquare className="w-5 h-5 fill-teal-700/90" />
             ) : (
               <BiCaretUpSquare className="h-5 w-5 p-[2px] fill-red-700/85" />
             )}
@@ -30,15 +30,15 @@ function CartItem({ item }) {
         </div>
         <UpdateItemQuantity quantity={item.quantity} itemId={item.itemId} />
       </div>
-      <ul className="flex flex-col justify-center items-center gap-2 w-full">
+      <ul className="flex flex-col items-center justify-center w-full gap-2">
         {item.addOns.map((addon) => (
           <li
             key={addon._id}
-            className="flex justify-start items-center w-full"
+            className="flex items-center justify-start w-full"
           >
-            <span className="flex justify-start items-center gap-2 mr-auto">
+            <span className="flex items-center justify-start gap-2 mr-auto">
               {addon.foodType === 'veg' ? (
-                <BiCheckboxSquare className="h-5 w-5 fill-teal-700/90" />
+                <BiCheckboxSquare className="w-5 h-5 fill-teal-700/90" />
               ) : (
                 <BiCaretUpSquare className="h-5 w-5 p-[2px] fill-red-700/85" />
               )}

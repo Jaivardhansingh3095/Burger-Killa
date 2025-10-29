@@ -21,20 +21,20 @@ function SelectAddress({ user, address, handleAddress }) {
 
   return (
     <>
-      <div className="w-full h-auto bg-white px-3 rounded-2xl shadow-[1px_1px_2px_1px] shadow-amber-200 flex flex-col justify-start items-start">
-        <div className="w-full py-2 flex justify-start border-b border-b-gray-200">
+      <div className="w-full h-auto bg-white px-3 rounded-2xl shadow-[1px_1px_2px_1px] shadow-gray-200 flex flex-col justify-start items-start">
+        <div className="flex justify-start w-full py-2 border-b border-b-gray-200">
           <Link
-            className="flex justify-center items-center cursor-pointer"
+            className="flex items-center justify-center cursor-pointer"
             to={'/menu'}
             role="button"
           >
-            <MdOutlineKeyboardArrowLeft className="h-10 w-10 fill-orange-500" />
-            <span className="tracking-wide text-[0.9rem] text-orange-500">
+            <MdOutlineKeyboardArrowLeft className="h-7 w-7 sm:h-10 sm:w-10 fill-orange-500" />
+            <span className="text-xs tracking-wide text-orange-500 sm:text-sm">
               Back to Menu
             </span>
           </Link>
         </div>
-        <div className="w-full py-6 flex justify-start items-center gap-3 overflow-x-auto ">
+        <div className="flex items-center justify-start w-full gap-3 py-3 overflow-x-scroll sm:py-6 ">
           <div
             role="button"
             onClick={() => {
@@ -47,33 +47,33 @@ function SelectAddress({ user, address, handleAddress }) {
               });
               handleModalClose();
             }}
-            className="text-gray-700 hover:text-orange-700 transition-all duration-200 ease-in cursor-pointer flex flex-col justify-center items-center gap-1 p-8  rounded-2xl border border-dashed border-gray-400"
+            className="flex flex-col items-center justify-center gap-1 p-3 text-gray-700 transition-all duration-200 ease-in border border-gray-400 border-dashed cursor-pointer sm:p-8 hover:text-orange-700 rounded-2xl"
           >
             <div>
-              <FaLocationDot className="h-6 w-6" />
+              <FaLocationDot className="w-6 h-6" />
             </div>
-            <span className="font-sans font-semibold text-[.85rem] text-nowrap">
+            <span className="font-sans text-xs font-semibold sm:text-sm text-nowrap">
               + Add Address
             </span>
           </div>
-          <ul className="w-full flex justify-start items-center gap-3 ">
+          <ul className="flex items-center justify-start w-full gap-3 ">
             {user?.locations.map((loc) => (
               <li key={loc.addressId} className="">
                 <input
                   type="radio"
                   name="address"
                   id={loc.addressType}
-                  className="peer hidden"
+                  className="hidden peer"
                   value={address}
                   onChange={() => handleAddress(loc.addressId)}
                   defaultChecked={loc.isDefault}
                 />
                 <label
                   htmlFor={loc.addressType}
-                  className={`hover:border-orange-400  cursor-pointer flex flex-col justify-start items-start gap-5 p-5 rounded-2xl border border-gray-300 text-gray-600 peer-checked:bg-orange-400 peer-checked:border-orange-400 peer-checked:text-gray-50 `}
+                  className={`hover:border-orange-400  cursor-pointer flex flex-col justify-start items-start gap-2 sm:gap-5 p-2 sm:p-5 rounded-2xl border border-gray-300 text-gray-600 peer-checked:bg-orange-400 peer-checked:border-orange-400 peer-checked:text-gray-50 `}
                 >
-                  <div className="w-full flex justify-start items-center">
-                    <div className="mr-auto flex justify-center items-center gap-1 p-1 border border-orange-400 rounded-xl bg-amber-50 ">
+                  <div className="flex items-center justify-start w-full">
+                    <div className="flex items-center justify-center gap-1 p-1 mr-auto border border-orange-400 rounded-xl bg-amber-50 ">
                       {loc.addressType === 'home' && (
                         <IoMdHome className="fill-orange-400" />
                       )}
@@ -84,7 +84,7 @@ function SelectAddress({ user, address, handleAddress }) {
                         <FaLocationDot className="fill-orange-400" />
                       )}
 
-                      <span className="text-[.8rem] font-sans font-semibold text-orange-400">
+                      <span className="font-sans text-xs font-semibold text-orange-400">
                         {loc.addressType === 'home'
                           ? 'Home'
                           : loc.addressType === 'work'
@@ -92,9 +92,9 @@ function SelectAddress({ user, address, handleAddress }) {
                             : 'Other'}
                       </span>
                     </div>
-                    <div className=" rounded-4xl bg-amber-50 p-1 border border-amber-200">
+                    <div className="p-1 border rounded-4xl bg-amber-50 border-amber-200">
                       <LuPenLine
-                        className="h-5 w-5 text-orange-400"
+                        className="w-5 h-5 text-orange-400"
                         onClick={() => {
                           setMode((prev) => {
                             return {
@@ -108,8 +108,8 @@ function SelectAddress({ user, address, handleAddress }) {
                       />
                     </div>
                   </div>
-                  <span className="text-[.80rem] tracking-wide text-nowrap">
-                    {loc.address.house.split(';').join(', ')} ...
+                  <span className="text-[10px] sm:text-xs tracking-wide text-nowrap">
+                    {loc.address.house.split(';').join(', ')}...
                   </span>
                 </label>
               </li>

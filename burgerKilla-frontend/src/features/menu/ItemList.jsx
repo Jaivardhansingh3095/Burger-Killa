@@ -7,7 +7,7 @@ function ItemList() {
 
   if (status === 'pending') {
     return (
-      <div className="flex justify-center h-full w-full items-center">
+      <div className="flex items-center justify-center w-full h-full">
         <Loader />
       </div>
     );
@@ -15,7 +15,7 @@ function ItemList() {
 
   if (error) {
     return (
-      <div className="flex justify-center h-full w-full items-center">
+      <div className="flex items-center justify-center w-full h-full">
         🙏Sorry for the inconvience. The products under this category are not
         available at this moment.
       </div>
@@ -23,8 +23,8 @@ function ItemList() {
   }
 
   return (
-    <div className="bg-white h-full w-full p-2 rounded-[5px] overflow-y-auto">
-      <div className=" rounded-[5px] w-full grid grid-cols-[repeat(auto-fit,26rem)] grid-flow-row  gap-2 p-2">
+    <div className="w-full h-full p-2 overflow-y-auto bg-white rounded-md">
+      <div className="rounded-md w-full grid xl:grid-cols-[repeat(2,1fr)] 2xl:grid-cols-[repeat(2,1fr)] grid-flow-row gap-2 p-2 ">
         {products.map((product) => (
           <Item key={product.name} product={product} />
         ))}

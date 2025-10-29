@@ -32,3 +32,19 @@ export async function getAddOnList() {
     console.error(err);
   }
 }
+
+export const getTopProducts = async () => {
+  try {
+    const res = await fetch(`${BACKEND_ADDRESS}/menu/topSixProducts`);
+
+    if (!res.ok) throw new Error('Check your connection!');
+
+    const data = await res.json();
+
+    const { products } = data.data;
+
+    return products;
+  } catch (err) {
+    console.error(err);
+  }
+};

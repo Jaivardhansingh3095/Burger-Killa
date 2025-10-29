@@ -9,18 +9,18 @@ function Cart() {
   const cartTotalPrice = useSelector((state) => selectTotalPrice(state));
 
   return (
-    <div className="bg-gray-50 flex-1/4 h-full rounded-[5px] overflow-hidden">
+    <div className="lg:block hidden bg-gray-50 flex-2/5 xl:flex-1/4 h-full rounded-[5px] overflow-hidden">
       <div>
-        <h2 className="text-center my-1 text-xl tracking-wide text-gray-700">
+        <h2 className="my-1 text-xl tracking-wide text-center text-gray-700">
           Your Cart
         </h2>
       </div>
-      <div className="p-2 w-full flex flex-col justify-start items-center gap-2">
+      <div className="flex flex-col items-center justify-start w-full gap-2 p-2">
         {cart.length === 0 ? (
           <EmptyCart />
         ) : (
           <>
-            <div className="w-full max-h-120 overflow-y-auto flex flex-col justify-start items-center gap-2">
+            <div className="flex flex-col items-center justify-start w-full gap-2 overflow-y-auto max-h-120">
               {cart.map((item) => (
                 <CartItem key={item.itemId} item={item} />
               ))}

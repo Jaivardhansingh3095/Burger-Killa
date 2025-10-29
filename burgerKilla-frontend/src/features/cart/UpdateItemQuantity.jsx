@@ -5,14 +5,14 @@ import { decItemQuantity, incItemQuantity } from './cartSlice';
 function UpdateItemQuantity({ quantity, itemId, onModalClose, open }) {
   const dispatch = useDispatch();
   return (
-    <div className="border-1 border-orange-500 bg-orange-400 flex justify-around items-center gap-1 py-1 px-2 rounded-[10px]">
+    <div className="flex items-center justify-around gap-1 px-2 py-1 bg-orange-400 border-orange-500 rounded-lg border-1">
       <button
         className="cursor-pointer"
         onClick={() => dispatch(decItemQuantity(itemId))}
       >
-        <TiMinus className="fill-gray-50 h-5 w-5" />
+        <TiMinus className="w-4 h-4 sm:w-5 sm:h-5 fill-gray-50" />
       </button>
-      <span className="font-sans font-bold text-[1.1rem] text-gray-50 min-w-5 text-center">
+      <span className="font-sans font-bold text-center sm:text-lg text-gray-50 min-w-5">
         {quantity}
       </span>
       <button
@@ -25,7 +25,7 @@ function UpdateItemQuantity({ quantity, itemId, onModalClose, open }) {
           dispatch(incItemQuantity(itemId));
         }}
       >
-        <TiPlus className="fill-gray-50 h-5 w-5" />
+        <TiPlus className="w-4 h-4 sm:w-5 sm:h-5 fill-gray-50" />
       </button>
     </div>
   );

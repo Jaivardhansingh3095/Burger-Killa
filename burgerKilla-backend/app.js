@@ -1,12 +1,17 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
-const menuRouter = require('./routes/menuRoute');
-const userRouter = require('./routes/userRoute');
-const AppError = require('./util/appError');
-const errorHandler = require('./Middleware/errorHandlerMiddleware');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+
+const menuRouter = require('./routes/menuRoute');
+const userRouter = require('./routes/userRoute');
+const paymentSessionRouter = require('./routes/paymentSessionRoute');
+const orderRouter = require('./routes/orderRoute');
+const paymentRouter = require('./routes/paymentRoute');
+
+const AppError = require('./util/appError');
+const errorHandler = require('./Middleware/errorHandlerMiddleware');
 
 const app = express();
 
@@ -46,6 +51,9 @@ app.use(
 
 app.use('/api/v1/menu', menuRouter);
 app.use('/api/v1/user', userRouter);
+app.use('/api/v1/pay', paymentSessionRouter);
+app.use('/api/v1/order', orderRouter);
+app.use('/api/v1/payment', paymentRouter);
 
 app.all('/*splat', (req, res, next) => {
   next(

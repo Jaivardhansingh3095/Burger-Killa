@@ -14,6 +14,7 @@ const {
   resizeUploadImage,
   getProductImage,
   getAddOn,
+  getTopSixProducts,
 } = menuController;
 const { protect, restrictTo } = authController;
 
@@ -22,17 +23,12 @@ const router = express.Router();
 router
   .route('/')
   .get(getMenu)
-  .post(
-    protect,
-    restrictTo('admin'),
-    uploadProductImage,
-    resizeUploadImage,
-    addProduct,
-  );
+  .post(uploadProductImage, resizeUploadImage, addProduct);
 
 router.route('/images/:imgName').get(getProductImage);
 
 router.route('/addon').get(getAddOn);
+router.route('/topSixProducts').get(getTopSixProducts);
 
 router
   .route('/:id')
