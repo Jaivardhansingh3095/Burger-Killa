@@ -9,6 +9,7 @@ import ButtonLogin from './ButtonLogin';
 import ButtonProfile from './ButtonProfile';
 import ButtonMenu from './ButtonMenu';
 import ButtonDashboard from './ButtonDashboard';
+import { ADMIN } from '../utils/helpers';
 
 // drop-shadow-[0px_2px_1px] drop-shadow-gray-400
 // bg-[linear-gradient(86deg,rgba(255,151,15,1)_100%,rgba(252,206,159,1)_0%,rgba(255,228,196,1)_53%)]
@@ -68,7 +69,7 @@ function Nav() {
           </ul>
 
           <div className="flex items-center justify-between gap-x-10">
-            <ButtonDashboard currentUser={currentUser} />
+            {currentUser?.user?.role === ADMIN ? <ButtonDashboard /> : null}
             <ButtonCart />
             {currentUser.status === 'idle' ? (
               <ButtonProfile currentUser={currentUser} />

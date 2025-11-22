@@ -191,7 +191,6 @@ const protect = catchAsync(async (req, res, next) => {
 const restrictTo = (...roles) => {
   //roles = ["admin", ]
   return (req, res, next) => {
-    console.log(req.user);
     //check if roles specified in the restrictTo parameters are available on current user
     //We get the current user from Protect middleware which is applied just before this middleware
     if (!roles.includes(req.user.role)) {

@@ -3,6 +3,31 @@ export const GST_CHARGES = 25;
 export const BACKEND_ADDRESS = import.meta.env.VITE_BACKEND_LINK;
 export const RAZORPAY_CHECKOUT_ADDRESS =
   'https://checkout.razorpay.com/v1/checkout.js';
+export const ADMIN = 'admin';
+export const MANAGER = 'manager';
+export const STAFF = 'STAFF';
+
+export const PERMITTED_ROLES = ['admin', 'manager'];
+
+export const FOODTYPE = [
+  {
+    label: 'Veg',
+    value: 'veg',
+  },
+  {
+    label: 'Non-Veg',
+    value: 'non-veg',
+  },
+];
+
+export const GENDERTYPE = [
+  { value: 'male', label: 'male' },
+  { value: 'female', label: 'female' },
+  { value: 'other', label: 'other' },
+];
+
+export const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const phonePattern = /^(?:\+91|91|0)?[6-9]\d{9}$/;
 
 export const formatCurrency = (value) =>
   new Intl.NumberFormat('en', { style: 'currency', currency: 'INR' }).format(

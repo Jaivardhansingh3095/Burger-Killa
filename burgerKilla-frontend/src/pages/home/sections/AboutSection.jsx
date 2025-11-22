@@ -60,10 +60,10 @@ function AboutSection() {
               find out more
             </Link>
           </div>
-          <div className="hidden lg:block absolute top-[4%] left-[4%] -rotate-60">
+          <div className="hidden lg:block absolute top-[4%] left-[4%] -rotate-60 ">
             <GiHamburger className="w-17 h-17 fill-orange-300" />
           </div>
-          <div className="hidden lg:block absolute top-[80%] left-[35%] rotate-30">
+          <div className="hidden lg:block absolute top-[80%] left-[35%] rotate-30 ">
             <GiFrenchFries className="w-17 h-17 fill-orange-300" />
           </div>
           <div className="hidden lg:block absolute top-[4%] left-[90%] rotate-30">

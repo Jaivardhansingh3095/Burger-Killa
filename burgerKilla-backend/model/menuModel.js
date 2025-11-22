@@ -42,25 +42,10 @@ const menuSchema = new mongoose.Schema(
     },
     categories: {
       type: String,
-      trim: true,
       required: [
         true,
         'A menu item must have a type like Burger, Wrap, Snack, Cheese dip',
       ],
-      enum: {
-        values: [
-          'burger',
-          'wrap',
-          'meal',
-          'munchie',
-          'refreshment',
-          'dessert',
-          'milkshake',
-        ],
-        message:
-          'Item types are categorised as: Burger, Beverage, Snack, Cheese dip',
-      },
-      lowercase: true,
     },
     productImage: {
       type: String,

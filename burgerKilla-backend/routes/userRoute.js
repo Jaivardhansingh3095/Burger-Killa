@@ -12,6 +12,7 @@ const {
   updateAddress,
   deleteAddress,
   addNewOrder,
+  createEmployee,
 } = userController;
 
 const router = express.Router();
@@ -21,6 +22,7 @@ router.post('/signup', signup);
 router.post('/login', login);
 router.post('/forgetPassword', forgetPassword);
 router.post('/resetPassword/:token', resetPassword);
+router.post('/createEmployee', protect, restrictTo('admin'), createEmployee);
 
 //User routes
 router.get('/currentUser', protect, getMe);

@@ -13,5 +13,16 @@ const camelCaseCoversion = (name) => {
     .join(' ');
 };
 
+const CATEGORIES = [
+  'burger',
+  'wrap',
+  'meal',
+  'munchie',
+  'refreshment',
+  'dessert',
+  'milkshake',
+];
+
 exports.dateValidation = dateValidation;
 exports.camelCaseCoversion = camelCaseCoversion;
+exports.CATEGORIES = CATEGORIES;

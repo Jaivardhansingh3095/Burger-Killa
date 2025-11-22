@@ -7,7 +7,7 @@ function useOutsideClick() {
     setOpenModal((prev) => !prev);
   }
 
-  return { openModal, setOpenModal, handleModalClose };
+  return { openModal, handleModalClose };
 }
 
 export default useOutsideClick;

@@ -20,32 +20,21 @@ function Login() {
   return (
     <div className=" w-full h-screen bg-[radial-gradient(circle_farthest-corner_at_center_center,#f5eae2_50%,#ff6f00_100%)]">
       <div className="max-w-[1250px] h-full mx-auto py-10">
-        <div className="max-w-[1000px] h-full mx-auto bg-white rounded-[5px] flex flex-col justify-start items-start overflow-hidden inset-shadow-[1px_1px_5px,-1px_-1px_5px] inset-shadow-gray-300">
-          <div className="mx-auto bg-[#f5eae2] clip-custom">
-            <Link to="/">
-              <img
-                src="./logo-black.png"
-                alt="logo"
-                className="h-25 w-47 lg:h-35 lg:w-65 -mt-[1.2rem] lg:mt-[-1.5rem]"
-              />
-            </Link>
-          </div>
-          <div className="flex items-center justify-center w-full h-full lg:justify-start">
-            <div className="hidden flex-1/2 py-5 lg:py-10 mt-[-5rem] w-full h-full sm:flex justify-center items-start flex-col">
-              <img
-                src="./login-image.png"
-                alt="login background image"
-                loading="lazy"
-                className="mx-auto w-70 h-70 md:w-90 md:h-90 lg:h-120 lg:w-120 drop-shadow-[1px_2px_10px] drop-shadow-orange-800"
-              />
-              <p className="text-[1.1rem] md:text-[1.3rem] lg:text-[1.5rem] ml-5 md:ml-12 lg:ml-15 font-poetsen text-center text-orange-500 text-shadow-2xs text-shadow-gray-600 tracking-wide">
-                " your cravings know the password "
-              </p>
+        <div className="md:max-w-[730px] lg:max-w-[1000px] xl:max-w-[1200px] h-full mx-auto  flex  justify-center items-center overflow-hidden ">
+          <div className="flex flex-col items-center justify-center w-[90%] sm:w-[75%] md:w-[50%] h-full bg-white rounded-md inset-shadow-[1px_1px_5px,-1px_-1px_5px] inset-shadow-gray-300">
+            <div className="mx-auto bg-[#f5eae2] clip-custom">
+              <Link to="/">
+                <img
+                  src="./logo-black.png"
+                  alt="logo"
+                  className="h-25 w-47 lg:h-35 lg:w-65 -mt-[1.2rem] lg:mt-[-1.5rem]"
+                />
+              </Link>
             </div>
-            <div className="flex flex-col items-start justify-center w-full h-full gap-3 px-2 py-2 sm:py-5 lg:py-10 sm:px-5 lg:px-10 md:gap-4 lg:gap-6 sm:flex-1/2">
+            <div className="flex flex-col items-start justify-center w-full h-full gap-3 px-2 py-2 sm:py-5 xl:py-10 sm:px-5 xl:px-10 md:gap-4 xl:gap-6 sm:flex-1/2">
               <form
                 onSubmit={handleLogin}
-                className="flex flex-col items-start justify-start w-full gap-5 px-2 font-mono sm:px-5 lg:px-15"
+                className="flex flex-col items-start justify-start w-full gap-5 px-2 font-mono sm:px-5 xl:px-15"
               >
                 <div className="flex flex-col-reverse items-start justify-start w-full gap-1">
                   <input
@@ -114,6 +103,17 @@ function Login() {
                 </Link>
               </div>
             </div>
+          </div>
+          <div className="hidden flex-1/2 py-5 lg:py-10 mt-[-5rem] w-full h-full md:flex justify-center items-center flex-col">
+            <img
+              src="./login-image.png"
+              alt="login background image"
+              loading="lazy"
+              className="mx-auto w-70 h-70 md:w-90 md:h-90 lg:h-120 lg:w-120 drop-shadow-[1px_2px_10px] drop-shadow-orange-800"
+            />
+            <p className="text-[1.1rem] md:text-[1.3rem] lg:text-[1.5rem]  md:ml-7 lg:ml-10 font-poetsen text-center text-orange-500 text-shadow-2xs text-shadow-gray-600 tracking-wide">
+              " your cravings know the password "
+            </p>
           </div>
         </div>
       </div>

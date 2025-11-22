@@ -209,9 +209,49 @@ const addNewOrder = catchAsync(async (req, res, next) => {
   });
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//➡️ Create Employee
+
+const createEmployee = catchAsync(async (req, res, next) => {
+  const { email, password, name, phoneNumber, gender, dob, role } = req.body;
+
+  if (
+    !email ||
+    !password ||
+    !name ||
+    !phoneNumber ||
+    !gender ||
+    !dob ||
+    !role
+  ) {
+    return next(
+      new AppError(
+        'Please provide all your credentials: name, email, phoneNumber, dob, gender, role',
+        400,
+      ),
+    );
+  }
+
+  const newUser = await User.create({
+    name,
+    email,
+    phoneNumber,
+    password,
+    gender,
+    dob,
+    role,
+  });
+
+  res.status(201).json({
+    status: 'success',
+  });
+});
+
 exports.getMe = getMe;
 exports.updateMe = updateMe;
 exports.addAddress = addAddress;
 exports.updateAddress = updateAddress;
 exports.deleteAddress = deleteAddress;
 exports.addNewOrder = addNewOrder;
+exports.createEmployee = createEmployee;

@@ -62,7 +62,7 @@ function Footer() {
             <p>
               <span>&copy;</span> Copyright. All rights reserved.
               <br />
-              Design by
+              Develop by
               <a
                 href="https://github.com/Jaivardhansingh3095"
                 target="_blank"

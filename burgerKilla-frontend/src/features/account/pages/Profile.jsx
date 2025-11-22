@@ -3,16 +3,14 @@ import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 import { useUpdateUser } from '../useUpdateUser';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../authentication/userSlice';
-import { camelCaseName, dateValidation } from '../../../utils/helpers';
+import {
+  camelCaseName,
+  dateValidation,
+  GENDERTYPE,
+} from '../../../utils/helpers';
 import { useEffect, useRef, useState } from 'react';
 import Loader from '../../../components/Loader';
 import RadioGroup from '../../../components/RadioGroup';
-
-const radioItems = [
-  { value: 'male', label: 'male' },
-  { value: 'female', label: 'female' },
-  { value: 'other', label: 'other' },
-];
 
 function Profile() {
   const navigate = useNavigate();
@@ -105,7 +103,7 @@ function Profile() {
                 </span>
               </label>
               <div className="flex items-start justify-center gap-6">
-                {radioItems.map((item) => (
+                {GENDERTYPE.map((item) => (
                   <div key={item.value}>
                     <RadioGroup
                       name="gender"

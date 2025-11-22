@@ -24,7 +24,16 @@ import MyOrder from './pages/MyOrder';
 import ThankYou from './pages/ThankYou';
 import OrderConfirmed from './features/orderTracking/pages/OrderConfirmed';
 import ResetPassword from './features/authentication/ResetPassword';
-import AdminDashboad from './pages/AdminDashboad';
+import AdminDashboadLayout from './components/AdminDashboadLayout';
+import { DarkModeProvider } from './context/DarkModeContext';
+import AdminDashboard from './features/admin/pages/AdminDashboard';
+import AdminOrders from './features/admin/pages/AdminOrders';
+import AdminMenu from './features/admin/pages/AdminMenu';
+import AdminTransactions from './features/admin/pages/AdminTransactions';
+import AdminCustomers from './features/admin/pages/AdminCustomers';
+import AdminEmployees from './features/admin/pages/AdminEmployees';
+import AdminSettings from './features/admin/pages/AdminSettings';
+import CreateEmployee from './features/admin/features/employees/CreateEmployee';
 
 const queryClient = new QueryClient();
 
@@ -103,8 +112,41 @@ const router = createBrowserRouter([
     Component: ResetPassword,
   },
   {
-    path: '/admin',
-    Component: AdminDashboad,
+    Component: AdminDashboadLayout,
+    children: [
+      {
+        path: '/admin',
+        Component: AdminDashboard,
+      },
+      {
+        path: '/admin/orders',
+        Component: AdminOrders,
+      },
+      {
+        path: '/admin/menu',
+        Component: AdminMenu,
+      },
+      {
+        path: '/admin/transactions',
+        Component: AdminTransactions,
+      },
+      {
+        path: '/admin/Customers',
+        Component: AdminCustomers,
+      },
+      {
+        path: '/admin/employees',
+        Component: AdminEmployees,
+      },
+      {
+        path: '/admin/employees/create',
+        Component: CreateEmployee,
+      },
+      {
+        path: '/admin/settings',
+        Component: AdminSettings,
+      },
+    ],
   },
 ]);
 
@@ -116,32 +158,37 @@ function App() {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
-      <Toaster
-        position="top-center"
-        gutter={12}
-        containerStyle={{ margin: '12px' }}
-        toastOptions={{
-          success: {
-            duration: 3000,
-            removeDelay: 1000,
-          },
-          error: {
-            duration: 5000,
-            removeDelay: 1000,
-          },
-          style: {
-            fontSize: '16px',
-            maxWidth: '500px',
-            padding: '16px 24px',
-            backgroundColor: 'white',
-            color: 'black',
-          },
-        }}
-      />
-    </QueryClientProvider>
+    <DarkModeProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools
+          initialIsOpen={false}
+          buttonPosition="bottom-right"
+        />
+        <Toaster
+          position="top-center"
+          gutter={12}
+          containerStyle={{ margin: '12px' }}
+          toastOptions={{
+            success: {
+              duration: 3000,
+              removeDelay: 1000,
+            },
+            error: {
+              duration: 5000,
+              removeDelay: 1000,
+            },
+            style: {
+              fontSize: '16px',
+              maxWidth: '500px',
+              padding: '16px 24px',
+              backgroundColor: 'white',
+              color: 'black',
+            },
+          }}
+        />
+      </QueryClientProvider>
+    </DarkModeProvider>
   );
 }
 

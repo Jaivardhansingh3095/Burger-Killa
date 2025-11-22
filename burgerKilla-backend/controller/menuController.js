@@ -5,7 +5,7 @@ const multer = require('multer');
 const sharp = require('sharp');
 const fs = require('fs/promises');
 const { readFile } = require('fs');
-const { camelCaseCoversion } = require('../util/helper');
+const { camelCaseCoversion, CATEGORIES } = require('../util/helper');
 
 //Retrieving file from public folder and converting it to base64
 // const toBase64 = async function (filepath) {
@@ -160,8 +160,17 @@ const getMenu = catchAsync(async (req, res, next) => {
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 const addProduct = catchAsync(async (req, res, next) => {
-  console.log(req.file);
-  console.log(req.body);
+  // console.log(req.file);
+  // console.log(req.body);
+
+  if (!CATEGORIES.includes(req.body.categories)) {
+    return next(
+      new AppError(
+        `Categories can only have these values: ${CATEGORIES.join(', ')}`,
+        400,
+      ),
+    );
+  }
 
   const newItem = await Menu.create({
     name: camelCaseCoversion(req.body.name),
@@ -177,7 +186,11 @@ const addProduct = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: 'success',
     data: {
-      newItem,
+      product: {
+        newItem,
+        imgUrlSmall: `${req.protocol}://${req.get('host')}/public/img/products/${newItem.productImageSmall}`,
+        imgUrl: `${req.protocol}://${req.get('host')}/public/img/products/${newItem.productImage}`,
+      },
     },
   });
 });
@@ -208,6 +221,18 @@ const getProduct = catchAsync(async (req, res, next) => {
 ///////////////////////////////////////////////////////////////////////////////
 
 const updateProduct = catchAsync(async (req, res, next) => {
+  // console.log(req.file);
+  // console.log(req.body);
+
+  if (req.body.categories && !CATEGORIES.includes(req.body.categories.trim())) {
+    return next(
+      new AppError(
+        `Categories can only have these values: ${CATEGORIES.join(', ')}`,
+        400,
+      ),
+    );
+  }
+
   const filterObj = {
     ...req.body,
     productImage: req?.file?.filename,
@@ -228,10 +253,23 @@ const updateProduct = catchAsync(async (req, res, next) => {
     );
   }
 
+  // imgUrlSmall: `${req.protocol}://${req.get('host')}/public/img/products/${product.productImageSmall}`,
+  // imgUrl: `${req.protocol}://${req.get('host')}/public/img/products/${product.productImage}`,
+
+  // newItem['imgUrl'] =
+  //   `${req.protocol}://${req.get('host')}/public/img/products/${newItem.productImage}`;
+  // newItem['imgUrlSmall'] =
+  //   `${req.protocol}://${req.get('host')}/public/img/products/${newItem.productImageSmall}`;
+  // console.log(newItem);
+
   res.status(200).json({
     status: 'success',
     data: {
-      newItem,
+      product: {
+        newItem,
+        imgUrl: `${req.protocol}://${req.get('host')}/public/img/products/${newItem.productImage}`,
+        imgUrlSmall: `${req.protocol}://${req.get('host')}/public/img/products/${newItem.productImageSmall}`,
+      },
     },
   });
 });
@@ -239,9 +277,9 @@ const updateProduct = catchAsync(async (req, res, next) => {
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 const deleteProduct = catchAsync(async (req, res, next) => {
-  const item = await Menu.findByIdAndDelete(req.params.id);
+  const product = await Menu.findByIdAndDelete(req.params.id);
 
-  if (!item) {
+  if (!product) {
     return next(
       new AppError(
         `There is no product in menu with this id:${req.params.id}`,
@@ -250,9 +288,11 @@ const deleteProduct = catchAsync(async (req, res, next) => {
     );
   }
 
-  res.status(204).json({
+  res.status(200).json({
     status: 'success',
-    data: null,
+    data: {
+      product,
+    },
   });
 });
 
@@ -316,6 +356,44 @@ const getTopSixProducts = catchAsync(async (req, res, next) => {
   });
 });
 
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+const getProductCategories = catchAsync((req, res, next) => {
+  const categories = [...CATEGORIES];
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      categories,
+    },
+  });
+});
+
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+const addProductCategories = catchAsync((req, res, next) => {
+  const category = req.body.category;
+
+  if (!category || CATEGORIES.includes(category)) {
+    return next(
+      new AppError(
+        'Check if the category provided already existed or not',
+        400,
+      ),
+    );
+  }
+
+  CATEGORIES.push(category.trim().toLowerCase());
+  const categories = [...CATEGORIES];
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      categories,
+    },
+  });
+});
+
 exports.getMenu = getMenu;
 exports.addProduct = addProduct;
 exports.getProduct = getProduct;
@@ -326,3 +404,5 @@ exports.resizeUploadImage = resizeUploadImage;
 exports.getProductImage = getProductImage;
 exports.getAddOn = getAddOn;
 exports.getTopSixProducts = getTopSixProducts;
+exports.getProductCategories = getProductCategories;
+exports.addProductCategories = addProductCategories;

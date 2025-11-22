@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       enum: {
-        values: ['user', 'manager', 'staff', 'admin'],
+        values: ['user', 'manager', 'staff', 'admin', 'delivery'],
         message: 'Roles can be either: user, staff, manager, admin',
       },
       default: 'user',
@@ -189,8 +189,6 @@ userSchema.method('passwordResetBeforeTokenIssue', function (JWTTimeStamp) {
 userSchema.method('createResetToken', function () {
   //creating random string for reset token
   const resetToken = crypto.randomBytes(32).toString('hex');
-
-  console.log(this);
 
   //excrypting reset token for protection and then we save it in DB
   this.resetToken = crypto

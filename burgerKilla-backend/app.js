@@ -9,6 +9,7 @@ const userRouter = require('./routes/userRoute');
 const paymentSessionRouter = require('./routes/paymentSessionRoute');
 const orderRouter = require('./routes/orderRoute');
 const paymentRouter = require('./routes/paymentRoute');
+const categoryRouter = require('./routes/categoryRoute');
 
 const AppError = require('./util/appError');
 const errorHandler = require('./Middleware/errorHandlerMiddleware');
@@ -54,6 +55,7 @@ app.use('/api/v1/user', userRouter);
 app.use('/api/v1/pay', paymentSessionRouter);
 app.use('/api/v1/order', orderRouter);
 app.use('/api/v1/payment', paymentRouter);
+app.use('/api/v1/category', categoryRouter);
 
 app.all('/*splat', (req, res, next) => {
   next(
