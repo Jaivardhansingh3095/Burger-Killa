@@ -10,7 +10,7 @@ import ButtonVideo from '../../../components/ButtonVideo';
 
 function Header() {
   return (
-    <header className="h-auto py-10 sm:py-0 lg:h-screen bg-[linear-gradient(90deg,#fffff0f3_0%,#ffffe4f3_25%,#ffffd8f3_50%,#ffffe4f3_75%,#fffff0f3_100%)]">
+    <header className="h-auto py-10 sm:py-0 lg:h-[95vh] bg-[linear-gradient(90deg,#fffff0f3_0%,#ffffe4f3_25%,#ffffd8f3_50%,#ffffe4f3_75%,#fffff0f3_100%)]">
       <div className="w-full lg:max-w-[1000px] xl:max-w-[1250px] mx-auto flex justify-center items-center h-full">
         <div className="flex flex-col items-center justify-center gap-10 px-5 sm:mr-auto lg:px-3 lg:flex-1/3">
           <div className="flex flex-col items-center justify-center gap-8 px-10 sm:px-0 sm:justify-evenly sm:flex-2/3">
@@ -19,7 +19,8 @@ function Header() {
               <span className="text-orange-400 text-shadow-2xs text-shadow-orange-900">
                 Gateway To
               </span>{' '}
-              Gourmet Burger <span className="hidden sm:block">🍔</span>
+              Gourmet Burger
+              {/* <span className="hidden sm:block">🍔</span> */}
             </h1>
             <p className="font-[700] text-wrap antialiased tracking-wide sm:block hidden">
               at Burger-Killa, we're dedicated to crafting the most delectable
@@ -65,7 +66,7 @@ function Header() {
                 src={`${import.meta.env.VITE_BACKEND}public/img/hero-image.png`}
                 alt="Burger with dripping cheese hero image"
                 loading="lazy"
-                className="h-50 w-50 sm:h-100 sm:w-120 lg:h-110 lg:w-130 xl:h-140 xl:w-145 mx-auto drop-shadow-[0px_2px_50px] drop-shadow-orange-300"
+                className="h-50 w-50 sm:h-100 sm:w-120 lg:h-110 lg:w-130 xl:h-140 xl:w-145 mx-auto drop-shadow-[10px_30px_100px] drop-shadow-orange-300"
               />
             </div>
             <motion.div
@@ -84,7 +85,7 @@ function Header() {
               <img
                 src={`${import.meta.env.VITE_BACKEND}public/img/hero-3-image.png`}
                 alt="Mojito mocktail hero image"
-                className="w-80 h-80 xl:w-100 xl:h-100 drop-shadow-[0px_2px_10px] drop-shadow-cyan-200"
+                className="w-80 h-80 xl:w-100 xl:h-100 drop-shadow-[4px_10px_30px] drop-shadow-orange-300"
               />
             </motion.div>
             <motion.div

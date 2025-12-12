@@ -53,11 +53,24 @@ function DisplayCategories({ categories, menuByCategory }) {
                 <span className="text-2xl">
                   {camelCaseName(category + 's')}
                 </span>
-                <span
+                {/* <span
                   className={`text-4xl ${accordion[category] ? 'rotate-45' : 'rotate-0'} transition-transform duration-200 ease-linear`}
                 >
                   +
-                </span>
+                </span> */}
+                {accordion[category] ? (
+                  <span
+                    className={`text-2xl  transition-transform duration-200 ease-linear`}
+                  >
+                    x
+                  </span>
+                ) : (
+                  <span
+                    className={`text-2xl transition-transform duration-200 ease-linear`}
+                  >
+                    +
+                  </span>
+                )}
               </div>
             </div>
             {accordion[category] && (

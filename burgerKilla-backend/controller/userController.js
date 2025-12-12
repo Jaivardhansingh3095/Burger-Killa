@@ -3,6 +3,7 @@ const User = require('../model/userModel');
 const AppError = require('../util/appError');
 const ShortUniqueId = require('short-unique-id');
 const { OrderedBulkOperation } = require('mongodb');
+const { camelCaseCoversion } = require('../util/helper');
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -248,6 +249,40 @@ const createEmployee = catchAsync(async (req, res, next) => {
   });
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//➡️ Get all Employees
+
+const getEmployees = catchAsync(async (req, res, next) => {
+  const employeesData = await User.find({
+    role: {
+      $in: ['manager', 'staff', 'delivery'],
+    },
+  }).select('+salary');
+
+  if (!employeesData) {
+    return next(new AppError('No employees found!', 404));
+  }
+
+  const employees = employeesData.map((emp) => ({
+    name: camelCaseCoversion(emp.name),
+    email: emp.email,
+    phone: emp.phoneNumber,
+    role: camelCaseCoversion(emp.role),
+    id: emp._id,
+    age: new Date().getFullYear() - new Date(emp.dob).getFullYear(),
+    salary: emp.salary,
+  }));
+
+  res.status(200).json({
+    status: 'success',
+    results: employees.length,
+    data: {
+      employees,
+    },
+  });
+});
+
 exports.getMe = getMe;
 exports.updateMe = updateMe;
 exports.addAddress = addAddress;
@@ -255,3 +290,4 @@ exports.updateAddress = updateAddress;
 exports.deleteAddress = deleteAddress;
 exports.addNewOrder = addNewOrder;
 exports.createEmployee = createEmployee;
+exports.getEmployees = getEmployees;

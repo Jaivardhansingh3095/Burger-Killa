@@ -124,6 +124,7 @@ function AddProductModal({ handleAddModal, category }) {
       description: false,
       price: false,
       discount: false,
+      image: false,
     }));
     document.getElementById('file-name').textContent = '';
   }
@@ -334,14 +335,14 @@ function AddProductModal({ handleAddModal, category }) {
                 <div className="flex items-center justify-between w-full gap-5">
                   <button
                     disabled={addingStatus === 'pending'}
-                    className="w-[55%] py-6 text-xl font-bold tracking-wider text-white transition-all duration-300 ease-linear rounded-lg cursor-pointer hover:bg-primary/85 hover:dark:bg-primary-dark/85 bg-primary dark:bg-primary-dark inset-shadow-[2px_-3px_5px] inset-shadow-amber-700 dark:inset-shadow-blue-900 active:scale-98 active:-translate-x-1 active:inset-shadow-[1px_-1px_2px] shadow-[1px_3px_5px_2px] shadow-gray-400 active:shadow-none"
+                    className="w-[55%] py-6 text-xl font-bold tracking-wider text-white transition-all duration-300 ease-linear rounded-sm cursor-pointer hover:bg-primary/85 hover:dark:bg-primary-dark/85 bg-primary dark:bg-primary-dark inset-shadow-[2px_-3px_5px] inset-shadow-amber-700 dark:inset-shadow-blue-900 active:scale-98 active:-translate-x-1 active:inset-shadow-[1px_-1px_2px] shadow-[-1px_3px_5px_2px] shadow-gray-400 active:shadow-none"
                   >
                     {addingStatus === 'pending' ? 'Wait...' : 'Add Item'}
                   </button>
                   <button
                     onClick={handleReset}
                     disabled={addingStatus === 'pending'}
-                    className="shadow-[1px_3px_5px_2px] shadow-gray-400 active:shadow-none w-[35%] py-6 text-xl font-bold tracking-wider text-white transition-all duration-300 ease-linear rounded-lg cursor-pointer hover:bg-green-500/85  bg-green-500  inset-shadow-[2px_-3px_5px] inset-shadow-green-800  active:scale-98 active:-translate-x-1 active:inset-shadow-[1px_-1px_2px]"
+                    className="shadow-[-1px_2px_5px_2px] shadow-gray-400 active:shadow-none w-[35%] py-6 text-xl font-bold tracking-wider text-white transition-all duration-300 ease-linear rounded-sm cursor-pointer hover:bg-green-500/85  bg-green-500  inset-shadow-[2px_-3px_5px] inset-shadow-green-800  active:scale-98 active:-translate-x-1 active:inset-shadow-[1px_-1px_2px_1px]"
                   >
                     Reset
                   </button>

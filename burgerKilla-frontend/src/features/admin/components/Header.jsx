@@ -20,21 +20,21 @@ function Header() {
         </div>
         {currentUser.status === 'pending' && <LoaderProfile />}
         {currentUser.status === 'idle' && (
-          <div className="flex items-center justify-center gap-1.5 px-2 py-1 cursor-pointer hover:bg-[#fffaca]  hover:dark:bg-[#053a47]">
-            <img
+          <div className="flex items-start justify-center gap-1.5 px-2 py-1 cursor-pointer hover:bg-[#fffaca]  hover:dark:bg-[#053a47]">
+            {/* <img
               src="./default-user.jpg"
               className="w-10 h-10 rounded-full"
               alt="user profile photo"
-            />
+            /> */}
             <div className="flex flex-col items-start justify-center text-text-primary dark:text-text-primary-dark">
-              <span className="text-sm font-semibold">
+              <span className="text-sm font-bold">
                 {camelCaseName(currentUser?.user?.name)}
               </span>
               <span className="text-[10px] tracking-wider font-[500]">
                 {camelCaseName(currentUser?.user?.role)}
               </span>
             </div>
-            <MdKeyboardArrowDown className="w-7 h-7 fill-text-secondary dark:fill-text-secondary-dark" />
+            <MdKeyboardArrowDown className="w-6 h-6 fill-text-secondary dark:fill-text-secondary-dark" />
           </div>
         )}
       </div>

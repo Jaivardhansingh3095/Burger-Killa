@@ -43,6 +43,11 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    salary: {
+      type: Number,
+      select: false,
+      default: null,
+    },
     resetToken: {
       type: String,
       select: false,

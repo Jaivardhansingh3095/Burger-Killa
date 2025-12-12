@@ -375,3 +375,35 @@ export async function createEmployee({
 
   return data.status;
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export async function getEmployees() {
+  //If Token do not exist
+  if (!localStorage.getItem('jwt_token'))
+    throw new Error(
+      'Your credentials expired. Please login with your credentials.',
+    );
+
+  const res = await fetch(`${BACKEND_ADDRESS}/user/employees`, {
+    headers: {
+      'Content-type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+    },
+  });
+
+  //if (!res.ok) throw new Error('Incorrect email or password');
+
+  const data = await res.json();
+
+  if (data.status === 'fail' || data.status === 'error') {
+    let err = new Error(data.message);
+    err.status = data.status;
+    err.statusCode = data.error.statusCode;
+    err.stack = data.stack;
+    throw err;
+  }
+
+  return data.data.employees;
+}
