@@ -3,7 +3,7 @@ import Item from './Item';
 import useMenu from './useMenu';
 
 function ItemList() {
-  const { status, products, error } = useMenu();
+  const { status, products } = useMenu();
 
   if (status === 'pending') {
     return (
@@ -13,7 +13,7 @@ function ItemList() {
     );
   }
 
-  if (error) {
+  if (status === 'error') {
     return (
       <div className="flex items-center justify-center w-full h-full">
         🙏Sorry for the inconvience. The products under this category are not

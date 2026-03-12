@@ -69,7 +69,7 @@ export async function getCurrentUser() {
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
   //Fetch current user data based on saved token
@@ -101,7 +101,7 @@ export async function updateUserAPI({ name, gender, dob }) {
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/user/updateme`, {
@@ -137,7 +137,7 @@ export async function addAddress({
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/user/addAddress`, {
@@ -176,7 +176,7 @@ export async function updateAddress({
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/user/updateAddress`, {
@@ -210,7 +210,7 @@ export async function deleteAddress({ addressId }) {
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/user/deleteAddress`, {
@@ -244,7 +244,7 @@ export async function addNewOrder({ orderId }) {
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/user/order`, {
@@ -341,7 +341,7 @@ export async function createEmployee({
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/user/createEmployee`, {
@@ -379,19 +379,22 @@ export async function createEmployee({
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export async function getEmployees() {
+export async function getEmployees({ sortField }) {
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
-  const res = await fetch(`${BACKEND_ADDRESS}/user/employees`, {
-    headers: {
-      'Content-type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-    },
-  });
+  const res = await fetch(
+    `${BACKEND_ADDRESS}/user/employees?${sortField ? 'sort=' + sortField : ''}`,
+    {
+      headers: {
+        'Content-type': 'application/json',
+        authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      },
+    }
+  );
 
   //if (!res.ok) throw new Error('Incorrect email or password');
 

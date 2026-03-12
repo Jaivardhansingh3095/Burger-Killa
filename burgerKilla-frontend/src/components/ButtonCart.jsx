@@ -1,15 +1,15 @@
-import { PiShoppingCartSimple } from 'react-icons/pi';
-import { AnimatePresence, motion } from 'motion/react';
+import { PiShoppingCartSimple } from "react-icons/pi";
+import { AnimatePresence, motion } from "motion/react";
 
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import {
   selectCart,
   selectCartQuantity,
   selectTotalPrice,
-} from '../features/cart/cartSlice';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router';
-import { formatCurrency } from '../utils/helpers';
+} from "../features/cart/cartSlice";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router";
+import { formatCurrency } from "../utils/helpers";
 
 function ButtonCart() {
   const cart = useSelector(selectCart);
@@ -33,11 +33,11 @@ function ButtonCart() {
 
   useEffect(
     function () {
-      window.addEventListener('click', handler);
+      window.addEventListener("click", handler);
 
-      return () => window.removeEventListener('click', handler);
+      return () => window.removeEventListener("click", handler);
     },
-    [handler],
+    [handler]
   );
 
   return (
@@ -65,9 +65,9 @@ function ButtonCart() {
               opacity: 100,
             }}
             transition={{
-              duration: '.3',
-              ease: 'linear',
-              delay: '.1',
+              duration: ".3",
+              ease: "linear",
+              delay: ".1",
             }}
             exit={{
               opacity: 0,
@@ -95,7 +95,7 @@ function ButtonCart() {
                           </span>
                         </span>
                         <div className="w-full flex flex-col justify-center items-start gap-1 text-[.8rem] text-orange-300">
-                          {item.addOns.map((addon) => (
+                          {item?.addOns?.map((addon) => (
                             <span className="w-full pl-5">
                               --- {addon.name}
                             </span>
@@ -113,7 +113,7 @@ function ButtonCart() {
                   <button
                     onClick={() => {
                       setOpenCart(false);
-                      navigate('/checkout');
+                      navigate("/checkout");
                     }}
                     className="bg-amber-50 text-gray-600 shadow-[1px_1px_5px_3px] shadow-amber-600 w-full py-2 rounded-xl border border-amber-400 tracking-wider  hover:bg-gray-200 cursor-pointer transition-all duration-200 ease-in"
                   >
@@ -122,7 +122,7 @@ function ButtonCart() {
                   <button
                     onClick={() => {
                       setOpenCart(false);
-                      navigate('/menu');
+                      navigate("/menu");
                     }}
                     className="bg-amber-50 text-gray-600 shadow-[1px_1px_5px_3px] shadow-amber-600 w-full py-2 rounded-xl border border-amber-400 tracking-wider hover:bg-gray-200 cursor-pointer transition-all duration-200 ease-in"
                   >
@@ -139,7 +139,7 @@ function ButtonCart() {
                 <button
                   onClick={() => {
                     setOpenCart(false);
-                    navigate('/menu');
+                    navigate("/menu");
                   }}
                   className="bg-amber-50 text-gray-600 shadow-[1px_1px_5px_3px] shadow-amber-600 w-full py-3 rounded-xl border border-amber-400 tracking-wider hover:bg-gray-200 cursor-pointer transition-all duration-200 ease-in"
                 >

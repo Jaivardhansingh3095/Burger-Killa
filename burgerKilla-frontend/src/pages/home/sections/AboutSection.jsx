@@ -3,9 +3,9 @@ import { LiaPizzaSliceSolid } from 'react-icons/lia';
 import { GiFrenchFries } from 'react-icons/gi';
 import { IoIosIceCream } from 'react-icons/io';
 import { PiConfettiLight } from 'react-icons/pi';
-import { Link } from 'react-router';
+import { GiFullPizza } from 'react-icons/gi';
 
-// #FFD392
+import { Link } from 'react-router';
 
 function AboutSection() {
   return (
@@ -60,11 +60,11 @@ function AboutSection() {
               find out more
             </Link>
           </div>
-          <div className="hidden lg:block absolute top-[4%] left-[4%] -rotate-60 ">
-            <GiHamburger className="w-17 h-17 fill-orange-300" />
+          <div className="hidden lg:block absolute top-[4%] left-[4%] animate-circular">
+            <GiHamburger className="w-12 h-12 fill-orange-300" />
           </div>
-          <div className="hidden lg:block absolute top-[80%] left-[35%] rotate-30 ">
-            <GiFrenchFries className="w-17 h-17 fill-orange-300" />
+          <div className="hidden lg:block absolute top-[80%] left-[35%] animate-triangular">
+            <GiFrenchFries className="w-12 h-12 fill-orange-300" />
           </div>
           <div className="hidden lg:block absolute top-[4%] left-[90%] rotate-30">
             <IoIosIceCream className="w-17 h-17 fill-orange-300" />

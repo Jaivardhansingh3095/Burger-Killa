@@ -1,8 +1,9 @@
-import { MdError } from 'react-icons/md';
+import { MdError, MdOutlineRemoveCircleOutline } from 'react-icons/md';
 import { TiThMenu } from 'react-icons/ti';
 import { GrDocumentUpdate } from 'react-icons/gr';
-import { MdOutlineRemoveCircleOutline } from 'react-icons/md';
-import { IoIosSearch } from 'react-icons/io';
+import { IoIosSearch, IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
+import { PiCaretUpDownBold } from 'react-icons/pi';
+import { FaArrowUp, FaArrowDown } from 'react-icons/fa6';
 
 import {
   createColumnHelper,
@@ -13,7 +14,7 @@ import {
 
 import { useEmployees } from './useEmployees';
 import LoaderDasher from '../../../../components/LoaderDasher';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useOutsideClick from '../../../../hook/useOutsideCllick';
 import Modal from '../../../../components/Modal';
 import UpdateEmployee from './UpdateEmployee';
@@ -21,21 +22,81 @@ import RemoveEmployee from './RemoveEmployee';
 
 const columnHelper = createColumnHelper();
 const columns = [
-  columnHelper.accessor('name', { header: 'Name' }),
+  columnHelper.accessor('name', {
+    header: ({ header }) => {
+      // console.log(column.toggleSorting(column.getIsSorted()));
+
+      return (
+        <button
+          className="flex items-center justify-center w-full gap-1 cursor-pointer"
+          // onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Name
+          {header.column.getIsSorted() === false ? (
+            <PiCaretUpDownBold className="w-5 h-5" />
+          ) : header.column.getIsSorted() === 'asc' ? (
+            <FaArrowUp className="w-5 h-5 " />
+          ) : (
+            <FaArrowDown className="w-5 h-5 " />
+          )}
+        </button>
+      );
+    },
+  }),
   columnHelper.accessor('email', { header: 'Email' }),
   columnHelper.accessor('phone', { header: 'Phone' }),
   columnHelper.accessor('role', { header: 'Role' }),
-  columnHelper.accessor('age', { header: 'Age' }),
-  columnHelper.accessor('salary', { header: 'Salary' }),
-  //columnHelper.accessor('actions', { header: 'Actions' }),
+  columnHelper.accessor('age', {
+    header: ({ header }) => {
+      return (
+        <button className="flex items-center justify-center w-full gap-1 cursor-pointer">
+          Age
+          {header.column.getIsSorted() === false ? (
+            <PiCaretUpDownBold className="w-5 h-5" />
+          ) : header.column.getIsSorted() === 'asc' ? (
+            <FaArrowUp className="w-5 h-5" />
+          ) : (
+            <FaArrowDown className="w-5 h-5" />
+          )}
+        </button>
+      );
+    },
+  }),
+  columnHelper.accessor('salary', {
+    header: ({ header }) => {
+      return (
+        <button className="flex items-center justify-center w-full gap-1 cursor-pointer">
+          Salary
+          {header.column.getIsSorted() === false ? (
+            <PiCaretUpDownBold className="w-5 h-5" />
+          ) : header.column.getIsSorted() === 'asc' ? (
+            <FaArrowUp className="w-5 h-5" />
+          ) : (
+            <FaArrowDown className="w-5 h-5" />
+          )}
+        </button>
+      );
+    },
+  }),
+  // columnHelper.accessor('actions', { header: () => <span></span> }),
 ];
 
 function EmployeesTable() {
+  const [sorting, setSorting] = useState([]);
+  const [searchText, setSearchText] = useState('');
+  const [employeesData, setEmployeesData] = useState([]);
+  // const [searchParams, setSearchParams] = useSearchParams();
   const { employees, employeesStatus } = useEmployees();
+
   const table = useReactTable({
-    data: employees,
+    data: employeesData.length ? employeesData : employees,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    state: {
+      sorting: sorting,
+    },
+    onSortingChange: setSorting,
+    sortDescFirst: false,
   });
 
   const [show, setShow] = useState('');
@@ -43,6 +104,51 @@ function EmployeesTable() {
     useOutsideClick();
   const { openModal: openRemove, handleModalClose: handleRemove } =
     useOutsideClick();
+
+  useEffect(
+    function () {
+      if (!employees) return;
+
+      //CLIENT SIDE SORTING
+      if (!sorting.length) {
+        //  setEmployeesData(() => [...employees]);
+        return;
+      }
+      let { id, desc } = sorting[0];
+
+      if (employees.length) {
+        const employeesSort = [...employees];
+        employeesSort.sort((a, b) => {
+          if (typeof a[id] === 'string') {
+            return desc
+              ? b[id].localeCompare(a[id])
+              : a[id].localeCompare(b[id]);
+          }
+          return desc ? b[id] - a[id] : a[id] - b[id];
+        });
+        setEmployeesData(() => [...employeesSort]);
+      }
+
+      //SERVER SIDE SORTING
+      // if (!sorting.length) {
+      //   setSearchParams((prev) => {
+      //     const obj = Object.fromEntries(prev);
+      //     delete obj.sort;
+      //     return { ...obj };
+      //   });
+      //   return;
+      // }
+
+      // if (id === 'age') {
+      //   id = 'dob';
+      // }
+      // setSearchParams((prev) => ({
+      //   ...prev,
+      //   sort: `${id}:${desc ? 'desc' : 'asc'}`,
+      // }));
+    },
+    [sorting]
+  );
 
   if (employeesStatus === 'pending') {
     return (
@@ -69,6 +175,7 @@ function EmployeesTable() {
     );
   }
 
+  //console.log(employeesTest);
   // console.log(
   //   table.getRowModel().rows.map((row) =>
   //     row.getVisibleCells().map((cell) => ({
@@ -79,9 +186,11 @@ function EmployeesTable() {
   //   ),
   // );
 
+  // console.log(sorting);
+
   return (
     <div className="flex flex-col items-center justify-start w-full h-full gap-4">
-      <div className="flex items-center justify-between w-full px-10">
+      <div className="flex items-center w-full px-10 justify-evenly">
         <div className="flex items-center justify-center gap-3 px-4 py-2 bg-white rounded-4xl shadow-[1px_2px_5px_2px] shadow-gray-300 dark:shadow-none">
           <label htmlFor="search">
             <IoIosSearch className="fill-gray-400" />
@@ -110,7 +219,7 @@ function EmployeesTable() {
           </select>
         </div>
 
-        <div className="flex items-center justify-center gap-5">
+        {/* <div className="flex items-center justify-center gap-5">
           <span className="text-lg font-semibold text-gray-500">Sort:</span>
           <select className="w-32 p-1 text-gray-600 bg-white outline-none shadow-[1px_2px_5px_2px] shadow-gray-300 dark:shadow-none rounded-md ">
             <option>Default</option>
@@ -119,10 +228,10 @@ function EmployeesTable() {
             <option>Highest paid</option>
             <option>Lowest paid</option>
           </select>
-        </div>
+        </div> */}
       </div>
-      <table className="w-full h-full p-1 bg-white border-gray-200 border-3">
-        <thead className="tracking-wider text-white bg-primary dark:bg-primary-dark">
+      <table className="w-full h-full p-1 overflow-y-auto bg-white border-gray-200 border-3 lg:overflow-x-auto">
+        <thead className="tracking-wider text-white ">
           {table.getHeaderGroups().map((hg) => (
             <tr
               key={hg.id}
@@ -131,19 +240,33 @@ function EmployeesTable() {
               {hg.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="py-3 text-shadow-2xs text-shadow-amber-900"
+                  className={`py-3 text-shadow-2xs text-shadow-amber-900 bg-primary dark:bg-primary-dark ${
+                    header.id === 'name' ||
+                    header.id === 'salary' ||
+                    header.id === 'age'
+                      ? 'cursor-pointer hover:bg-amber-600/90 dark:hover:bg-primary-dark/70'
+                      : ''
+                  }`}
+                  onClick={(e) => {
+                    if (['name', 'age', 'salary'].includes(header.id)) {
+                      //getToggleSortingHandler() return a new function and we calling  that return func
+                      header.column.getToggleSortingHandler()(e);
+                    }
+                  }}
                 >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext(),
-                  )}
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
                 </th>
               ))}
-              <th></th>
+              <th className="bg-primary dark:bg-primary-dark"></th>
             </tr>
           ))}
         </thead>
-        <tbody className="overflow-y-auto lg:overflow-x-auto">
+        <tbody className="">
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id} className="z-10">
               {row.getVisibleCells().map((cell) => (
@@ -155,7 +278,7 @@ function EmployeesTable() {
                 </td>
               ))}
               <td
-                key="actions"
+                key="0actions"
                 className="relative flex items-center justify-center h-full px-2"
               >
                 <span

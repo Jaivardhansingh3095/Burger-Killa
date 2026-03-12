@@ -5,6 +5,8 @@ import { BiSolidLogInCircle } from 'react-icons/bi';
 import { useState } from 'react';
 import useLogin from './useLogin';
 
+//bg-[#f5eae2]
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +24,7 @@ function Login() {
       <div className="max-w-[1250px] h-full mx-auto py-10">
         <div className="md:max-w-[730px] lg:max-w-[1000px] xl:max-w-[1200px] h-full mx-auto  flex  justify-center items-center overflow-hidden ">
           <div className="flex flex-col items-center justify-center w-[90%] sm:w-[75%] md:w-[50%] h-full bg-white rounded-md inset-shadow-[1px_1px_5px,-1px_-1px_5px] inset-shadow-gray-300">
-            <div className="mx-auto bg-[#f5eae2] clip-custom">
+            <div className="mx-auto clip-custom bg-[linear-gradient(120deg,#f7d0b2_20%,#f5e8df_50%,#f5eae2_100%)]">
               <Link to="/">
                 <img
                   src="./logo-black.png"

@@ -1,10 +1,19 @@
+export const BACKEND_IMAGE_ADDRESS =
+  'http://localhost:3000/public/img/products/';
+
 export const DELIVERY_CHARGES_PER_KM = 10;
+
 export const GST_CHARGES = 25;
+
 export const BACKEND_ADDRESS = import.meta.env.VITE_BACKEND_LINK;
+
 export const RAZORPAY_CHECKOUT_ADDRESS =
   'https://checkout.razorpay.com/v1/checkout.js';
+
 export const ADMIN = 'admin';
+
 export const MANAGER = 'manager';
+
 export const STAFF = 'STAFF';
 
 export const PERMITTED_ROLES = ['admin', 'manager'];
@@ -31,7 +40,7 @@ export const phonePattern = /^(?:\+91|91|0)?[6-9]\d{9}$/;
 
 export const formatCurrency = (value) =>
   new Intl.NumberFormat('en', { style: 'currency', currency: 'INR' }).format(
-    value,
+    value
   );
 
 export const camelCaseName = (str) => {
@@ -47,4 +56,8 @@ export const dateValidation = (value) => {
   const date = new Date(value);
 
   return date.getTime() > date1.getTime() && date.getTime() < date2.getTime();
+};
+
+export const phoneNumberStandardization = (value) => {
+  return '+91 ' + value;
 };

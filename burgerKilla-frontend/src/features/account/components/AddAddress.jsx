@@ -143,7 +143,7 @@ function AddAddress({
             </div>
 
             {/*Displaying Map*/}
-            <DisplayMap geoLoc={geoLoc} />
+            <DisplayMap geoLoc={geoLoc} height={true} />
 
             {/*Display marker address*/}
             <div className="py-2 xl:py-5">
@@ -197,7 +197,7 @@ function AddAddress({
         ) : null}
       </div>
     </Modal>,
-    document.body,
+    document.body
   );
 }
 

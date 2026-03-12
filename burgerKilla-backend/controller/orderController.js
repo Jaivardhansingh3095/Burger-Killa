@@ -70,7 +70,45 @@ const createOrder = catchAsync(async (req, res, next) => {
 //➡️ GET ALL ORDERS (FOR ADMIN / MANAGER)
 
 const getAllOrders = catchAsync(async (req, res, next) => {
-  const orders = await Order.find();
+  const { status } = req.query;
+
+  if (!status) {
+    return next(new AppError('order status type is required.', 401));
+  }
+
+  //Updating all documents with new fields
+  //await Order.updateMany({}, { $set: { deliveredAt: null } });
+
+  //filter the search condition
+  const filter = {};
+  if (status === 'active') {
+    filter['active'] = true;
+    filter['status'] = { $in: ['confirmed', 'preparing', 'delivering'] };
+  } else if (status === 'delivered') {
+    filter['active'] = false;
+    filter['status'] = status;
+  } else if (status === 'cancelled') {
+    filter['active'] = false;
+    filter['status'] = status;
+  }
+  console.log(filter);
+
+  const orders = await Order.find({
+    ...filter,
+  })
+    .sort({ createdAt: -1 })
+    .populate({
+      path: 'paymentSession',
+    })
+    .populate({
+      path: 'orderItems.item',
+    })
+    .populate({
+      path: 'orderItems.addons',
+    })
+    .populate({
+      path: 'user',
+    });
 
   if (!orders?.length) {
     return next(new AppError(`No order found`, 404));
@@ -164,29 +202,65 @@ const updateOrderStatus = catchAsync(async (req, res, next) => {
     return next(new AppError('No status found with request', 400));
   }
 
-  const order = await Order.findOne({ _id: req.params.orderId });
+  const order = await Order.findOne({ customer_order_id: req.params.orderId });
 
+  //Check if order exist
   if (!order) {
     return next(new AppError('No order found', 404));
   }
 
+  //check if order is closed
   if (!order.active) {
     return next(
-      new AppError('Order has been closed. No update is allowed'),
+      new AppError(
+        `Order ${order.customer_order_id}  has been closed. No update is allowed`,
+      ),
       403,
     );
   }
 
-  order.status = status;
+  //Updating the Order status with correct status flow
+  //confirmed -> preparing -> delivering -> delivered || cancelled
+  if (status === 'confirmed') {
+    //Confirmed status is applied at time of order creation.
+    //No status change is required.
+    return next(
+      new AppError(
+        `Cannot change status from '${order.status}' to '${status}'.`,
+        409,
+      ),
+    );
+  } else if (status === 'preparing') {
+    //Flow is correct
+    if (order.status === 'confirmed') order.status = status;
+
+    //reversing the status flow not allowed
+    if (order.status === 'delivering')
+      return next(
+        new AppError(
+          `Cannot change status from '${order.status}' to '${status}'.`,
+          409,
+        ),
+      );
+  } else if (status === 'delivering') {
+    if (order.status === 'confirmed' || order.status === 'preparing')
+      order.status = status;
+  } else {
+    order.status = status;
+  }
+
   order.active =
     status === 'delivered' || status === 'cancelled' ? false : true;
+  if (status === 'delivered') order.deliveredAt = new Date().toISOString();
 
-  const updatedOrder = await order.save({ validateModifiedOnly: true });
+  const updatedOrder = await order.save({
+    validateModifiedOnly: true,
+  });
 
   res.status(200).json({
     status: 'success',
     data: {
-      updateOrderStatus,
+      updatedOrder,
     },
   });
 });

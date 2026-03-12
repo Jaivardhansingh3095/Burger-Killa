@@ -91,6 +91,10 @@ const orderSchema = new mongoose.Schema(
     estimatedDeliveryTime: {
       type: Date,
     },
+    deliveredAt: {
+      type: Date,
+      default: null,
+    },
     notes: {
       type: String,
     },
@@ -109,6 +113,13 @@ const orderSchema = new mongoose.Schema(
     toObject: { virtuals: true },
     collection: 'Order',
   },
+);
+
+orderSchema.index(
+  {
+    status: 1,
+  },
+  { unique: true },
 );
 
 const Order = mongoose.model('Order', orderSchema);

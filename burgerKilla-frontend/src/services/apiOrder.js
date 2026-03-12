@@ -17,7 +17,7 @@ export const createOrder = async ({
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/order`, {
@@ -62,7 +62,7 @@ export const getOrder = async ({ orderId }) => {
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/order/${orderId}`, {
@@ -88,16 +88,53 @@ export const getOrder = async ({ orderId }) => {
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-export const getAllUserOrders = async () => {
+export const getAllUserOrders = async ({ status }) => {
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
-  const res = await fetch(`${BACKEND_ADDRESS}/order/`, {
-    method: 'GET',
+  const res = await fetch(
+    `${BACKEND_ADDRESS}/order/allOrders?status=${status}`,
+    {
+      method: 'GET',
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      },
+    }
+  );
+
+  const data = await res.json();
+
+  if (data.status === 'fail' || data.status === 'error') {
+    let err = new Error(data.message);
+    err.status = data.status;
+    err.statusCode = data.error.statusCode;
+    err.stack = data.stack;
+    throw err;
+  }
+
+  return data.data.orders;
+};
+
+////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+export const updateOrderStatus = async ({ status, orderId }) => {
+  //If Token do not exist
+  if (!localStorage.getItem('jwt_token'))
+    throw new Error(
+      'Your credentials expired. Please login with your credentials.'
+    );
+
+  const res = await fetch(`${BACKEND_ADDRESS}/order/${orderId}`, {
+    method: 'PATCH',
+    body: JSON.stringify({
+      status,
+    }),
     headers: {
+      'Content-type': 'application/json',
       authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
     },
   });
@@ -112,5 +149,5 @@ export const getAllUserOrders = async () => {
     throw err;
   }
 
-  return data.data.orders;
+  return data.data.updatedOrder;
 };

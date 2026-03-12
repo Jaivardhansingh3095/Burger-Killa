@@ -163,7 +163,7 @@ function App() {
         <RouterProvider router={router} />
         <ReactQueryDevtools
           initialIsOpen={false}
-          buttonPosition="bottom-right"
+          buttonPosition="bottom-left"
         />
         <Toaster
           position="top-center"

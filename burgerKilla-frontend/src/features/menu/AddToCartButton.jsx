@@ -1,18 +1,36 @@
-import { TiPlus } from 'react-icons/ti';
-import { LiaCartPlusSolid } from 'react-icons/lia';
+import { TiPlus } from "react-icons/ti";
+import { LiaCartPlusSolid } from "react-icons/lia";
+import { useDispatch } from "react-redux";
+import { addItem } from "../cart/cartSlice";
 
-function AddToCartButton({ onModalClose, categories }) {
+function AddToCartButton({ onModalClose, categories, product }) {
   //const quantity = useSelector((state) => selectQuantityById(state, itemId));
+  const dispatch = useDispatch();
+
+  const { _id, name, foodType, price } = product;
 
   return (
     <button
       onClick={() => {
         if (
-          categories === 'milkshake' ||
-          categories === 'refreshment' ||
-          categories === 'dessert'
-        )
+          categories === "milkshake" ||
+          categories === "refreshment" ||
+          categories === "dessert"
+        ) {
+          const newObj = {
+            _id,
+            name,
+            price,
+            foodType,
+            categories,
+            quantity: 1,
+            totalPrice: price,
+          };
+          console.log({ totalPrice: price });
+
+          dispatch(addItem(newObj));
           return;
+        }
 
         onModalClose();
       }}

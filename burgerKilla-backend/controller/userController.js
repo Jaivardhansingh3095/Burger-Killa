@@ -254,11 +254,50 @@ const createEmployee = catchAsync(async (req, res, next) => {
 //➡️ Get all Employees
 
 const getEmployees = catchAsync(async (req, res, next) => {
-  const employeesData = await User.find({
-    role: {
+  console.log(req.query);
+
+  //Filtering query
+  const queryObj = { ...req.query };
+  const excludeQuery = ['sort', 'limit', 'page', 'field'];
+  excludeQuery.forEach((el) => delete queryObj[el]);
+
+  // let queryStr = JSON.stringify(queryObj);
+  // queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+  let query = User.find({
+    ...queryObj,
+    role: queryObj.role || {
       $in: ['manager', 'staff', 'delivery'],
     },
-  }).select('+salary');
+    $or: [
+      {
+        name: {
+          $regex: req.query.search || '',
+          $options: 'i',
+        },
+      },
+      {
+        email: {
+          $regex: req.query.search || '',
+          $options: 'i',
+        },
+      },
+    ],
+  }).select('+salary +active');
+
+  //Sorting query
+  if (req.query.sort) {
+    const sortfield = req.query.sort.split(':')[0];
+    const order = req.query.sort.split(':')[1];
+    query = query.sort({ [sortfield]: order });
+  }
+
+  const employeesData = await query;
+
+  // const employeesData = await User.find({
+  //   role: {
+  //     $in: ['manager', 'staff', 'delivery'],
+  //   },
+  // }).select('+salary');
 
   if (!employeesData) {
     return next(new AppError('No employees found!', 404));
@@ -272,6 +311,7 @@ const getEmployees = catchAsync(async (req, res, next) => {
     id: emp._id,
     age: new Date().getFullYear() - new Date(emp.dob).getFullYear(),
     salary: emp.salary,
+    active: emp.active,
   }));
 
   res.status(200).json({

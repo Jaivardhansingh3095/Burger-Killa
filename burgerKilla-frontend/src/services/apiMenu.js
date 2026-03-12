@@ -32,7 +32,7 @@ export async function getMenuByCategory(category) {
     return menu;
   } catch (err) {
     console.error(err);
-    return err;
+    throw err;
   }
 }
 
@@ -53,20 +53,15 @@ export async function getAddOnList() {
 }
 
 export const getTopProducts = async () => {
-  try {
-    const res = await fetch(`${BACKEND_ADDRESS}/menu/topSixProducts`);
+  const res = await fetch(`${BACKEND_ADDRESS}/menu/topSixProducts`);
 
-    if (!res.ok) throw new Error('Check your connection!');
+  if (!res.ok) throw new Error('Check your connection!');
 
-    const data = await res.json();
+  const data = await res.json();
 
-    const { products } = data.data;
+  const { products } = data.data;
 
-    return products;
-  } catch (err) {
-    console.error(err);
-    return err;
-  }
+  return products;
 };
 
 export const getCategories = async () => {
@@ -90,7 +85,7 @@ export async function addCategory({ category }) {
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/menu/categories`, {
@@ -119,7 +114,7 @@ export async function addProduct({ payload }) {
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/menu`, {
@@ -147,7 +142,7 @@ export async function updateProduct({ payload, productId }) {
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/menu/${productId}`, {
@@ -175,7 +170,7 @@ export async function deleteProduct({ productId }) {
   //If Token do not exist
   if (!localStorage.getItem('jwt_token'))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.',
+      'Your credentials expired. Please login with your credentials.'
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/menu/${productId}`, {

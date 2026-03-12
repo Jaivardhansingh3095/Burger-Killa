@@ -23,7 +23,7 @@ router
 router
   .route('/:orderId')
   .get(protect, getOrder)
-  .patch(protect, updateOrderStatus)
+  .patch(protect, restrictTo('admin', 'manager'), updateOrderStatus)
   .delete(protect, restrictTo('admin'), deleteOrder);
 
 module.exports = router;

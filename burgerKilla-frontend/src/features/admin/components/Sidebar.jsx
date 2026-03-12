@@ -71,7 +71,7 @@ function Sidebar() {
                     key={link.name}
                     role="button"
                     onClick={() => navigate(link.path)}
-                    className={`cursor-pointer flex items-center justify-start w-full gap-3 p-2  ${location.pathname === link.path || location.pathname === link?.path1 ? 'bg-primary dark:bg-primary-dark rounded-lg text-white' : 'text-primary dark:text-primary-dark'}`}
+                    className={`cursor-pointer flex items-center justify-start w-full gap-3 p-2 transition-all duration-200 ease-linear rounded-lg  ${location.pathname === link.path || location.pathname === link?.path1 ? 'bg-primary dark:bg-primary-dark rounded-lg text-white' : 'text-primary dark:text-primary-dark hover:bg-primary/20 dark:hover:bg-primary-dark/20 '}`}
                   >
                     <div
                       className={`p-1 xl:p-2 rounded-lg ${location.pathname === link.path || location.pathname === link?.path1 ? 'bg-white' : 'bg-primary dark:bg-primary-dark shadow-[1px_2px_5px_1px] shadow-amber-700 dark:shadow-gray-500'}`}

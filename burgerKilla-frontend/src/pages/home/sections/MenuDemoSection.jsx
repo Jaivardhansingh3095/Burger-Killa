@@ -1,7 +1,9 @@
+import { FaArrowRight } from 'react-icons/fa6';
+
 import { useTopProducts } from '../useTopProducts';
-import Loader from '../../../components/Loader';
 import { Link } from 'react-router';
 import { formatCurrency } from '../../../utils/helpers';
+import LoaderDasher from '../../../components/LoaderDasher';
 
 function MenuDemoSection() {
   const { topProducts, status } = useTopProducts();
@@ -9,7 +11,7 @@ function MenuDemoSection() {
   if (status === 'pending') {
     <section className=" h-auto md:h-screen w-full bg-[linear-gradient(90deg,#fffff0f3_0%,#ffffe4f3_25%,#ffffd8f3_50%,#ffffe4f3_75%,#fffff0f3_100%)]">
       <div className="max-w-[1250px] w-full mx-auto h-full">
-        <Loader />
+        <LoaderDasher />
       </div>
     </section>;
   }
@@ -17,8 +19,10 @@ function MenuDemoSection() {
   if (status === 'error') {
     return (
       <section className="h-auto md:h-screen w-full bg-[linear-gradient(90deg,#fffff0f3_0%,#ffffe4f3_25%,#ffffd8f3_50%,#ffffe4f3_75%,#fffff0f3_100%)]">
-        <div className="max-w-[1250px] w-full mx-auto h-full">
-          🙏Sorry for the inconvience. Servers are down at this moment.
+        <div className="max-w-[1250px] w-full mx-auto h-full flex justify-center items-center">
+          <span className="text-3xl">
+            🙏Sorry for the inconvience. Servers are down at this moment.
+          </span>
         </div>
       </section>
     );
@@ -38,7 +42,7 @@ function MenuDemoSection() {
                   src={`${import.meta.env.VITE_BACKEND}public/img/home/${product.name.toLowerCase().split(' ').join('-')}.png`}
                   alt={product.name}
                   loading="lazy"
-                  className="mx-auto w-70 h-70 absolute left-[50%] -translate-x-[50%] -top-[80%] drop-shadow-[0px_30px_20px] drop-shadow-gray-500"
+                  className="mx-auto w-70 h-70 absolute left-[50%] -translate-x-[50%] -top-[80%] drop-shadow-[0px_10px_15px] drop-shadow-gray-500"
                 />
               </div>
               <div className="flex flex-col items-start justify-center w-full gap-2 px-5 py-2">
@@ -54,10 +58,16 @@ function MenuDemoSection() {
                   {formatCurrency(product.price)}
                 </span>
                 <Link
+                  role="button"
                   to={`/menu?categories=${product.categories}`}
-                  className="px-4 py-2 font-semibold tracking-wider transition-colors duration-300 ease-linear border border-transparent text-gray-50 bg-amber-500 rounded-xl text-shadow-2xs text-shadow-amber-800 hover:text-white hover:bg-amber-600 hover:border-orange-800"
+                  className="relative flex items-center py-2.5 pl-12 pr-4 font-semibold tracking-wide group bg-amber-500 rounded-xl text-shadow-2xs text-shadow-amber-800"
                 >
-                  View More
+                  <span className="shadow-[1px_1px_5px_1px] shadow-gray-300 w-[35px] flex justify-center items-center py-2 px-2.5 bg-white rounded-xl absolute left-1 group-hover:w-[calc(100%_-_8px)] transition-all duration-300 ease-in-out">
+                    <FaArrowRight className=" fill-amber-500" />
+                  </span>
+                  <span className="transition-colors duration-300 ease-in-out text-gray-50 hover:text-white">
+                    View More
+                  </span>
                 </Link>
               </div>
             </div>

@@ -33,13 +33,13 @@ function PaymentRazorpay({ delAddress, user }) {
       description: 'Test Transaction',
       image: './logo-black.png',
       order_id: razorpayOrder.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      // eslint-disable-next-line no-unused-vars
       handler: async function (response) {
-        console.log({
-          payment_id: response.razorpay_payment_id,
-          order_id: response.razorpay_order_id,
-          signature: response.razorpay_signature,
-        });
-
+        // console.log({
+        //   payment_id: response.razorpay_payment_id,
+        //   order_id: response.razorpay_order_id,
+        //   signature: response.razorpay_signature,
+        // });
         const orderItems = cart.map((product) => {
           const addons = product.addOns.map((item) => {
             return item._id;

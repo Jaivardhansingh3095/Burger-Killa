@@ -26,3 +26,9 @@ const CATEGORIES = [
 exports.dateValidation = dateValidation;
 exports.camelCaseCoversion = camelCaseCoversion;
 exports.CATEGORIES = CATEGORIES;
+
+//Updating all documents with new fields
+// await User.updateMany(
+//   {},
+//   { $set: { resetToken: '', resetTokenExpire: null } },
+// );

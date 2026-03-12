@@ -1,20 +1,23 @@
-import { FaRegCaretSquareUp } from 'react-icons/fa';
-import AddToCartButton from './AddToCartButton';
-import { formatCurrency } from '../../utils/helpers';
+import { FaRegCaretSquareUp } from "react-icons/fa";
+import AddToCartButton from "./AddToCartButton";
+import { formatCurrency } from "../../utils/helpers";
 
-import Modal from '../../components/Modal';
-import AddOnModalView from './AddOnModalView';
-import { BiCaretUpSquare, BiCheckboxSquare } from 'react-icons/bi';
-import useOutsideClick from '../../hook/useOutsideCllick';
+import Modal from "../../components/Modal";
+import AddOnModalView from "./AddOnModalView";
+import { BiCaretUpSquare, BiCheckboxSquare } from "react-icons/bi";
+import useOutsideClick from "../../hook/useOutsideCllick";
+import { useSelector } from "react-redux";
+import { selectCart } from "../cart/cartSlice";
+import UpdateItemQuantity from "../cart/UpdateItemQuantity";
 
 //bg-[linear-gradient(86deg,#ffffe7f3_100%,#eeeed2ef_51%,#f8f8b5_0%)]
 //bg-[linear-gradient(44deg,#fffebc_0%,#fff7b8_40%,#ffe1aa_80%)]
 
 function Item({ product }) {
   const { openModal, handleModalClose } = useOutsideClick();
+  const cart = useSelector(selectCart);
 
   const {
-    _id,
     name,
     price,
     description,
@@ -24,11 +27,21 @@ function Item({ product }) {
     categories,
   } = product;
 
+  let cartItem;
+  if (
+    categories === "milkshake" ||
+    categories === "refreshment" ||
+    categories === "dessert"
+  ) {
+    cartItem = cart.find((cartItem) => cartItem.name === name);
+  }
+  console.log(cartItem);
+
   return (
     <div className="relative flex items-start justify-center w-full gap-2 p-2 border-gray-300 rounded-md border-1">
       <div className="flex flex-col items-start justify-between h-full gap-2 flex-3/5">
         <div className="flex flex-col items-start justify-start gap-1">
-          {foodType === 'veg' ? (
+          {foodType === "veg" ? (
             <BiCheckboxSquare className="w-6 h-6 fill-teal-700/80" />
           ) : (
             <BiCaretUpSquare className="h-6 w-6 p-[2px] fill-red-700/80" />
@@ -44,10 +57,18 @@ function Item({ product }) {
           </p>
         </div>
         <div className="flex items-center justify-start">
-          <AddToCartButton
-            onModalClose={handleModalClose}
-            categories={categories}
-          />
+          {cartItem ? (
+            <UpdateItemQuantity
+              quantity={cartItem.quantity}
+              itemId={cartItem.itemId}
+            />
+          ) : (
+            <AddToCartButton
+              onModalClose={handleModalClose}
+              categories={categories}
+              product={product}
+            />
+          )}
         </div>
       </div>
       <div className="overflow-hidden border-gray-800 rounded-2xl border-1 ">

@@ -1,11 +1,11 @@
-import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSelector, createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
   cart: [],
 };
 
 const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState,
   reducers: {
     addItem: (state, action) => {
@@ -16,8 +16,10 @@ const cartSlice = createSlice({
       item.quantity++;
       item.totalPrice =
         item.quantity * item.price +
-        item.addOns.reduce((sum, addon) => sum + addon.price, 0) *
-          item.quantity;
+        (item.addon
+          ? item?.addOns?.reduce((sum, addon) => sum + addon.price, 0) *
+            item.quantity
+          : 0);
     },
     decItemQuantity(state, action) {
       const item = state.cart.find((item) => item.itemId === action.payload);
@@ -29,8 +31,10 @@ const cartSlice = createSlice({
       }
       item.totalPrice =
         item.quantity * item.price +
-        item.addOns.reduce((sum, addon) => sum + addon.price, 0) *
-          item.quantity;
+        (item.addon
+          ? item?.addOns?.reduce((sum, addon) => sum + addon.price, 0) *
+            item.quantity
+          : 0);
     },
     deleteItem(state, action) {
       state.cart = state.cart.filter((item) => item.itemId !== action.payload);
@@ -57,7 +61,7 @@ export const selectTotalPrice = createSelector(
   (state) => selectCart(state),
   (cart) => {
     return cart.reduce((sum, item) => sum + item.totalPrice, 0);
-  },
+  }
 );
 
 export const selectCartQuantity = (state) => {
