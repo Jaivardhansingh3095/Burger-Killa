@@ -33,7 +33,7 @@ function ErrorOrderModal({ handleOrderErrorModal, updateOrderError }) {
               onClick={handleOrderErrorModal}
               className="px-10 py-2 md:text-lg font-bold tracking-wider text-white rounded-lg shadow-[0px_2px_5px_1px] cursor-pointer shadow-gray-500 text-shadow-2xs text-shadow-yellow-900 bg-yellow-500 active:translate-y-0.5 active:shadow-[0px_1px_3px_1px] transition-all duration-200 ease-in-out"
             >
-              Try Later!
+              Try Again!
             </button>
           </div>
         </div>

@@ -111,8 +111,8 @@ const userSchema = new mongoose.Schema(
       default: new Date('January 1, 2000 12:15:30'),
       validate: {
         validator: (value) => {
-          const date1 = new Date('1900-01-01');
-          const date2 = new Date('2015-01-01');
+          const date1 = new Date('1930-01-01');
+          const date2 = new Date('2008-01-01');
           const date = new Date(value);
 
           return (

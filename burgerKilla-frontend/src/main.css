@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Neonderthaw&family=Poetsen+One&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap');
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Neonderthaw&family=Poetsen+One&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap");
+@import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root:has(.no-doc-scroll) {
@@ -7,9 +7,9 @@
 }
 
 @theme {
-  --font-poetsen: 'Poetsen One', 'sans-serif';
-  --font-roboto: 'Roboto', 'sans';
-  --font-neonderthaw: 'Neonderthaw', cursive;
+  --font-poetsen: "Poetsen One", "sans-serif";
+  --font-roboto: "Roboto", "sans";
+  --font-neonderthaw: "Neonderthaw", cursive;
 
   --color-background: #fffdeb;
   --color-text-primary: #3f3f42;
@@ -59,10 +59,10 @@
       transform: translate(0, 0) rotate(0deg) scale(1);
     }
     35% {
-      transform: translate(2rem, 4rem) rotate(360deg) scale(1.1);
+      transform: translate(2rem, 4rem) rotate(360deg) scale(1.2);
     }
     70% {
-      transform: translate(-3rem, 2rem) rotate(0deg) scale(0.95);
+      transform: translate(-3rem, 2rem) rotate(0deg) scale(0.9);
     }
     100% {
       transform: translate(0, 0) rotate(360deg) scale(1);

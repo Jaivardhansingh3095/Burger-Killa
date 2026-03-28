@@ -1,14 +1,14 @@
-import { AnimatePresence, motion } from 'motion/react';
-import Modal from './Modal';
-import { ImCancelCircle } from 'react-icons/im';
-import { Md10K, MdOutlineKeyboardArrowRight } from 'react-icons/md';
-import { Link, useNavigate } from 'react-router';
+import { AnimatePresence, motion } from "motion/react";
+import Modal from "./Modal";
+import { ImCancelCircle } from "react-icons/im";
+import { Md10K, MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { Link, useNavigate } from "react-router";
 
 const NAV_LINKS = [
-  { name: 'Home', to: '/' },
-  { name: 'Menu', to: '/menu' },
-  { name: 'About', to: '/about' },
-  { name: 'My Order', to: '/order' },
+  { name: "Home", to: "/" },
+  { name: "Menu", to: "/menu" },
+  { name: "About", to: "/about" },
+  { name: "My Order", to: "/order" },
 ];
 
 function DropDownMenu({ openModal, handleModalClose }) {
@@ -18,16 +18,16 @@ function DropDownMenu({ openModal, handleModalClose }) {
       <AnimatePresence>
         <motion.div
           initial={{
-            opacity: 0,
-            height: '0%',
+            opacity: 30,
+            translateY: "50px",
           }}
           animate={{
             opacity: 100,
-            height: '100%',
+            translateY: "0px",
           }}
           transition={{
-            duration: '.3',
-            ease: 'linear',
+            duration: ".3",
+            ease: "easeOut",
           }}
           exit={{
             opacity: 0,

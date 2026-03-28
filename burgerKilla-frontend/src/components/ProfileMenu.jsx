@@ -1,24 +1,24 @@
-import { ImCancelCircle } from 'react-icons/im';
-import { MdAccountCircle } from 'react-icons/md';
-import { MdOutlineManageAccounts } from 'react-icons/md';
-import { FiMapPin } from 'react-icons/fi';
-import { GoChecklist } from 'react-icons/go';
-import { HiOutlineReceiptRefund } from 'react-icons/hi2';
-import { CiCircleQuestion } from 'react-icons/ci';
-import { PiWarningOctagonLight } from 'react-icons/pi';
-import { MdOutlineSystemSecurityUpdate } from 'react-icons/md';
-import { BiLogOut } from 'react-icons/bi';
+import { ImCancelCircle } from "react-icons/im";
+import { MdAccountCircle } from "react-icons/md";
+import { MdOutlineManageAccounts } from "react-icons/md";
+import { FiMapPin } from "react-icons/fi";
+import { GoChecklist } from "react-icons/go";
+import { HiOutlineReceiptRefund } from "react-icons/hi2";
+import { CiCircleQuestion } from "react-icons/ci";
+import { PiWarningOctagonLight } from "react-icons/pi";
+import { MdOutlineSystemSecurityUpdate } from "react-icons/md";
+import { BiLogOut } from "react-icons/bi";
 
-import { createPortal } from 'react-dom';
-import { Link, useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux';
-import { AnimatePresence, motion } from 'motion/react';
+import { createPortal } from "react-dom";
+import { Link, useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { AnimatePresence, motion } from "motion/react";
 
-import { fetchUser } from '../features/authentication/userSlice';
-import Modal from './Modal';
-import { camelCaseName } from '../utils/helpers';
-import { useEffect } from 'react';
-import { useProfileWidth } from '../hook/useProfileWidth';
+import { fetchUser } from "../features/authentication/userSlice";
+import Modal from "./Modal";
+import { camelCaseName } from "../utils/helpers";
+import { useEffect } from "react";
+import { useProfileWidth } from "../hook/useProfileWidth";
 
 function ProfileMenu({ openModal, handleModalClose, currentUser }) {
   const { user, error } = currentUser;
@@ -28,10 +28,10 @@ function ProfileMenu({ openModal, handleModalClose, currentUser }) {
 
   useEffect(
     function () {
-      if (error === '') return;
-      navigate('/');
+      if (error === "") return;
+      navigate("/");
     },
-    [error],
+    [error]
   );
 
   return createPortal(
@@ -40,15 +40,15 @@ function ProfileMenu({ openModal, handleModalClose, currentUser }) {
         <motion.div
           initial={{
             opacity: 0,
-            width: '0%',
+            width: "0%",
           }}
           animate={{
             opacity: 100,
             width: profileWidth,
           }}
           transition={{
-            duration: '.3',
-            ease: 'linear',
+            duration: ".3",
+            ease: "linear",
           }}
           exit={{
             opacity: 0,
@@ -65,16 +65,16 @@ function ProfileMenu({ openModal, handleModalClose, currentUser }) {
           <motion.div
             initial={{
               opacity: 0,
-              translateY: '300px',
+              translateX: "50px",
             }}
             animate={{
-              translateY: '0',
-              opacity: 100,
+              translateX: "0px",
+              opacity: 1,
             }}
             transition={{
-              delay: '.15',
-              duration: '.5',
-              ease: 'easeOut',
+              delay: 0.2,
+              duration: 0.3,
+              ease: "easeOut",
             }}
             className=" h-[80%] xl:h-[70%] w-full py-2 px-5 bg-gray-50 rounded-[5px] flex flex-col justify-start items-start"
           >
@@ -252,9 +252,9 @@ function ProfileMenu({ openModal, handleModalClose, currentUser }) {
             </ul>
             <button
               onClick={() => {
-                localStorage.removeItem('jwt_token');
+                localStorage.removeItem("jwt_token");
                 dispatch(fetchUser());
-                navigate('/');
+                navigate("/");
                 handleModalClose();
               }}
               className="w-full mt-3 border-1 border-gray-300 py-3 bg-gray-100 rounded-[5px] cursor-pointer hover:bg-gray-200 transition-all duration-200 ease-linear"
@@ -268,7 +268,7 @@ function ProfileMenu({ openModal, handleModalClose, currentUser }) {
         </motion.div>
       </AnimatePresence>
     </Modal>,
-    document.body,
+    document.body
   );
 }
 

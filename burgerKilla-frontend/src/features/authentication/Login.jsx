@@ -1,22 +1,61 @@
-import { Link } from 'react-router';
-import { FaGoogle } from 'react-icons/fa';
-import { BiSolidLogInCircle } from 'react-icons/bi';
+import { Link, useNavigate } from "react-router";
+import { FaGoogle } from "react-icons/fa";
+import { BiSolidLogInCircle } from "react-icons/bi";
 
-import { useState } from 'react';
-import useLogin from './useLogin';
-
-//bg-[#f5eae2]
+import { useEffect, useState } from "react";
+import useLogin from "./useLogin";
+import useOutsideClick from "../../hook/useOutsideCllick";
+import Modal from "../../components/Modal";
+import PendingStatusLoader from "../../components/PendingStatusLoader";
+import ErrorStatusDisplay from "../../components/ErrorStatusDisplay";
+import SuccessStatusDisplay from "../../components/SuccessStatusDisplay";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { login, isLogging } = useLogin();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login, loginStatus, loginError } = useLogin();
+  const { openModal: pendingModal, handleModalClose: handlePendingClose } =
+    useOutsideClick();
+  const { openModal: errorModal, handleModalClose: handleErrorClose } =
+    useOutsideClick();
+  const { openModal: successModal, handleModalClose: handleSuccessClose } =
+    useOutsideClick();
+
+  useEffect(
+    function () {
+      if (!loginStatus || loginStatus === "idle") return;
+
+      if (loginStatus === "pending") {
+        handlePendingClose();
+      }
+
+      if (loginStatus === "error") {
+        handlePendingClose();
+        handleErrorClose();
+      }
+
+      let successTimeout;
+
+      if (loginStatus === "success") {
+        handlePendingClose();
+        handleSuccessClose();
+        successTimeout = setTimeout(() => {
+          navigate("/", { replace: true });
+        }, 2000);
+      }
+      return () => clearTimeout(successTimeout);
+    },
+    [loginStatus]
+  );
+
+  console.log(loginStatus);
 
   function handleLogin(e) {
     e.preventDefault();
     login({ email, password });
-    setEmail('');
-    setPassword('');
+    setEmail("");
+    setPassword("");
   }
 
   return (
@@ -47,35 +86,40 @@ function Login() {
                     onChange={(e) => {
                       setEmail(e.target.value);
                     }}
-                    disabled={isLogging}
+                    disabled={loginStatus === "pending"}
                     required
                   />
                   <label className="px-1 text-sm lg:text-[1rem] font-semibold tracking-wide text-gray-400 transition-all ease-linear sm:px-2 lg:px-3 peer-placeholder-shown:opacity-0 peer-placeholder-shown:translate-y-5 duration-400">
                     Email
                   </label>
                 </div>
-                <div className="flex flex-col-reverse items-start justify-start w-full gap-1">
-                  <Link to="/forgetpassword" className="">
+                <div className="flex flex-col items-start justify-start w-full gap-1">
+                  <div className="flex flex-col-reverse items-start justify-start w-full gap-1">
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      className="w-full p-2 lg:p-3 text-gray-500 bg-gray-200 border-b-2 border-transparent peer focus:valid:border-b-green-500 focus:invalid:border-b-red-500 focus:outline-none placeholder:text-sm lg:placeholder:text-[1rem] placeholder:text-gray-400"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                      disabled={loginStatus === "pending"}
+                    />
+                    <label className="px-1 text-sm lg:text-[1rem] font-semibold tracking-wide text-gray-400 transition-all ease-linear peer-placeholder-shown:opacity-0 peer-placeholder-shown:translate-y-5 duration-400">
+                      Password
+                    </label>
+                  </div>
+                  <Link
+                    to="/forgetpassword"
+                    className=" focus:outline-gray-500 focus:outline-2"
+                  >
                     <span className="text-blue-400 text-[.85rem]">
                       forget password?
                     </span>
                   </Link>
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    className="w-full p-2 lg:p-3 text-gray-500 bg-gray-200 border-b-2 border-transparent peer focus:valid:border-b-green-500 focus:invalid:border-b-red-500 focus:outline-none placeholder:text-sm lg:placeholder:text-[1rem] placeholder:text-gray-400"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    disabled={isLogging}
-                  />
-                  <label className="px-1 text-sm lg:text-[1rem] font-semibold tracking-wide text-gray-400 transition-all ease-linear peer-placeholder-shown:opacity-0 peer-placeholder-shown:translate-y-5 duration-400">
-                    Password
-                  </label>
                 </div>
 
                 <button
-                  disabled={isLogging}
+                  disabled={loginStatus === "pending"}
                   className="w-full flex justify-center items-center gap-2 bg-orange-400 text-[1.1rem] sm:text-[1.2rem] lg:text-[1.4rem] shadow-[0px_2px_5px] rounded-4xl shadow-gray-400 text-gray-50 py-2 tracking-wide font-semibold border-1 text-shadow-2xs text-shadow-orange-900 border-orange-600 cursor-pointer hover:bg-orange-500 transition-all duration-200"
                 >
                   <BiSolidLogInCircle />
@@ -116,9 +160,53 @@ function Login() {
             <p className="text-[1.1rem] md:text-[1.3rem] lg:text-[1.5rem]  md:ml-7 lg:ml-10 font-poetsen text-center text-orange-500 text-shadow-2xs text-shadow-gray-600 tracking-wide">
               " your cravings know the password "
             </p>
+            <button onClick={handleSuccessClose}>Error</button>
           </div>
         </div>
       </div>
+      {pendingModal && (
+        <Modal open={pendingModal} onModalClose={handlePendingClose}>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center justify-center w-full h-full"
+          >
+            <PendingStatusLoader
+              isVisible={pendingModal}
+              onCloseHandler={handlePendingClose}
+              loaderType="login"
+            />
+          </div>
+        </Modal>
+      )}
+      {errorModal && (
+        <Modal open={errorModal} onModalClose={handleErrorClose}>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center justify-center w-full h-full"
+          >
+            <ErrorStatusDisplay
+              errorMessage={loginError?.message}
+              errorCode={loginError?.statusCode}
+              onCloseHandler={handleErrorClose}
+            />
+          </div>
+        </Modal>
+      )}
+      {successModal && (
+        <Modal open={successModal} onModalClose={handleSuccessClose}>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center justify-center w-full h-full"
+          >
+            <SuccessStatusDisplay
+              message={{
+                primary: "Welcome to Burger Killa",
+                secondary: "preparing your kitchen...",
+              }}
+            />
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }

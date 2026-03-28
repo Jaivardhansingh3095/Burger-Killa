@@ -1,47 +1,47 @@
-import { ImCancelCircle } from 'react-icons/im';
+import { ImCancelCircle } from "react-icons/im";
 
-import { useSearchParams } from 'react-router';
-import { motion, AnimatePresence } from 'motion/react';
+import { useSearchParams } from "react-router";
+import { motion, AnimatePresence } from "motion/react";
 
-import MenuCategories from './MenuCategories';
-import Category from './Category';
+import MenuCategories from "./MenuCategories";
+import Category from "./Category";
 
 const menuItems = [
-  { name: 'Burgers', quantity: 12, image: './icons-svg/burger-icon.svg' },
-  { name: 'Wraps', quantity: 12, image: './icons-svg/wrap.svg' },
-  { name: 'Meals', quantity: 12, image: './icons-svg/burger-meal-icon.svg' },
-  { name: 'Munchies', quantity: 12, image: './icons-svg/fried-chicken.svg' },
+  { name: "Burgers", quantity: 12, image: "./icons-svg/burger-icon.svg" },
+  { name: "Wraps", quantity: 12, image: "./icons-svg/wrap.svg" },
+  { name: "Meals", quantity: 12, image: "./icons-svg/burger-meal-icon.svg" },
+  { name: "Munchies", quantity: 12, image: "./icons-svg/fried-chicken.svg" },
   {
-    name: 'Milkshakes',
+    name: "Milkshakes",
     quantity: 12,
-    image: './icons-svg/milkshake-icon.svg',
+    image: "./icons-svg/milkshake-icon.svg",
   },
   {
-    name: 'Refreshments',
-    image: './icons-svg/soda-drink.svg',
+    name: "Refreshments",
+    image: "./icons-svg/soda-drink.svg",
   },
-  { name: 'Desserts', quantity: 12, image: './icons-svg/dessert-icon.svg' },
+  { name: "Desserts", quantity: 12, image: "./icons-svg/dessert-icon.svg" },
 ];
 
 function MenuModalView({ handleModalClose }) {
   const [searchParams, setSearchParams] = useSearchParams({
-    categories: 'burger',
+    categories: "burger",
   });
 
   return (
     <AnimatePresence>
       <motion.div
         initial={{
-          translateX: '150px',
-          opacity: 0,
+          translateX: "150px",
+          opacity: 60,
         }}
         animate={{
           opacity: 100,
-          translateX: ['150px', '-20px', '0px'],
+          translateX: ["150px", "-20px", "0px"],
         }}
         transition={{
-          duration: '1',
-          ease: 'linear',
+          duration: "1",
+          ease: "linear",
         }}
         exit={{
           opacity: 0,
