@@ -18,9 +18,14 @@ const app = express();
 
 //1. Global Middleware
 
+const environment =
+  process.env.NODE_ENV === 'production'
+    ? 'https://burger-killa.vercel.app'
+    : 'http://localhost:5173';
+
 app.use(
   cors({
-    origin: 'http://localhost:5173', // your frontend origin
+    origin: environment, // your frontend origin
     credentials: true, // allow cookies to be sent
   }),
 );
