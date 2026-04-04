@@ -49,8 +49,6 @@ function Login() {
     [loginStatus]
   );
 
-  console.log(loginStatus);
-
   function handleLogin(e) {
     e.preventDefault();
     login({ email, password });

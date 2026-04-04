@@ -44,6 +44,13 @@
     animation: triangular 5s ease-in-out infinite;
   }
 
+  .animate-flicker {
+    animation:
+      pulseGlow 1.2s infinite ease-in-out,
+      flicker 1s ease-in-out infinite;
+  }
+  /* flicker 2s ease-in-out infinite; */
+
   @keyframes circular {
     0%,
     100% {
@@ -81,6 +88,32 @@
     }
     100% {
       transform: rotate(0deg);
+    }
+  }
+
+  @keyframes flicker {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes pulseGlow {
+    0%,
+    100% {
+      box-shadow:
+        0 0 5px #00ff00,
+        0 0 10px #00ff00,
+        0 0 15px #00ff00;
+    }
+    50% {
+      box-shadow:
+        0 0 10px #00ff00,
+        0 0 20px #00ff00,
+        0 0 30px #00ff00;
     }
   }
 

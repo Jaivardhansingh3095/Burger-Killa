@@ -9,10 +9,16 @@ const DB_STRING = process.env.DATABASE_CONNECTION_STRING.replace(
   process.env.DATABASE_PASSWORD,
 );
 
+const PORT = process.env.PORT || 3000;
+
 mongoose.connect(DB_STRING).then(() => {
   console.log('Database connected successfully');
   // eslint-disable-next-line no-undef
-  app.listen(process.env.PORT, 'localhost', () => {
-    console.log(`App is running on server http://localhost:3000`);
+  app.listen(PORT, () => {
+    console.log(`servver is running on port: ${PORT}`);
   });
 });
+
+// app.listen(PORT, 'localhost', () => {
+//   console.log(`App is running on server http://localhost:3000`);
+// });

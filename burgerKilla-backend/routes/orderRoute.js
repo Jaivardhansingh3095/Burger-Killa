@@ -11,10 +11,12 @@ const {
   getOrdersByUser,
   updateOrderStatus,
   deleteOrder,
+  getActiveOrderByUser,
 } = orderController;
 const { protect, restrictTo } = authController;
 
 router.route('/').post(protect, createOrder).get(protect, getOrdersByUser);
+router.route('/activeOrder').get(protect, getActiveOrderByUser);
 
 router
   .route('/allOrders')

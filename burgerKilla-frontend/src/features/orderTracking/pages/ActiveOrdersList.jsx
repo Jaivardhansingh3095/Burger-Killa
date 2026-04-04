@@ -1,19 +1,19 @@
-import { CgTrack } from 'react-icons/cg';
-import { GiCampCookingPot } from 'react-icons/gi';
+import { CgTrack } from "react-icons/cg";
+import { GiCampCookingPot } from "react-icons/gi";
 
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
-import Loader from '../../../components/Loader';
-import { useAllOrders } from '../useAllOrders';
-import VegLogoSelector from '../../../components/VegLogoSelector';
-import { formatCurrency } from '../../../utils/helpers';
-import { useNavigate } from 'react-router';
+import Loader from "../../../components/Loader";
+import { useAllOrders } from "../useAllOrders";
+import VegLogoSelector from "../../../components/VegLogoSelector";
+import { formatCurrency } from "../../../utils/helpers";
+import { useNavigate } from "react-router";
 
 function ActiveOrdersList() {
   const { totalOrders, totalOrdersStatus } = useAllOrders();
   const navigate = useNavigate();
 
-  if (totalOrdersStatus === 'pending') {
+  if (totalOrdersStatus === "pending") {
     return (
       <div className="w-full h-[80vh] bg-white">
         <div className="max-w-[1250px] w-full h-full mx-auto flex justify-center items-center">
@@ -23,7 +23,7 @@ function ActiveOrdersList() {
     );
   }
 
-  if (totalOrdersStatus === 'error') {
+  if (totalOrdersStatus === "error") {
     return (
       <div className="flex items-start justify-center w-full h-[80vh] pt-50">
         <p className="text-2xl font-bold bg-[linear-gradient(109deg,#fa7700_0%,#e07a20_40%,#ee9a4c_80%,#ff8015_100%)] bg-clip-text text-transparent flex flex-col justify-center items-center gap-2">
@@ -35,7 +35,7 @@ function ActiveOrdersList() {
   }
 
   const activeOrders = totalOrders.map((order) => {
-    if (order.status !== 'delivered' || order.status !== 'cancelled')
+    if (order.status !== "delivered" || order.status !== "cancelled")
       return order;
   });
 
@@ -53,7 +53,7 @@ function ActiveOrdersList() {
   function copyText(text) {
     navigator.clipboard
       .writeText(text)
-      .then(() => toast.success('Text copied to clipboard'))
+      .then(() => toast.success("Text copied to clipboard"))
       .catch((err) => {
         console.error(err);
       });
@@ -73,7 +73,7 @@ function ActiveOrdersList() {
           return (
             <li
               key={order.customer_order_id}
-              className="rounded-xl shadow-[1px_2px_5px_2px] shadow-gray-300 bg-gray-50 w-full lg:w-4/5 xl:w-3/5 py-1 px-3 max-h-100 grid grid-cols-[repeat(3,1fr)] grid-rows-[1fr_2fr_1fr] gap-2"
+              className="rounded-xl shadow-[1px_2px_5px_2px] shadow-gray-300 bg-gray-50 w-full lg:w-4/5 xl:w-3/5 py-3 px-2 max-h-100 grid md:grid-cols-[repeat(3,1fr)] md:grid-rows-[1fr_2fr_1fr] gap-2"
             >
               <div className="flex items-center justify-start gap-2 md:gap-5">
                 <span className="text-xs sm:text-sm xl:text-[1rem]">

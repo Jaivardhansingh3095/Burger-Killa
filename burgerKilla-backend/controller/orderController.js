@@ -73,7 +73,12 @@ const getAllOrders = catchAsync(async (req, res, next) => {
   const { status } = req.query;
 
   if (!status) {
-    return next(new AppError('order status type is required.', 401));
+    return next(
+      new AppError(
+        'order status can be - active or delivered or cancelled.',
+        401,
+      ),
+    );
   }
 
   //Updating all documents with new fields
@@ -125,10 +130,15 @@ const getAllOrders = catchAsync(async (req, res, next) => {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//➡️ GET ALL ORDERS BASED ON USER
+//➡️ GET ALL ORDERS BASED ON USER WITH TIME PERIOD LIMITER
 
 const getOrdersByUser = catchAsync(async (req, res, next) => {
-  const orders = await Order.find({ user: req.user._id })
+  const { period } = req.query;
+  if (!period) period = 7;
+
+  const orders = await Order.find({
+    user: req.user._id,
+  })
     .populate({
       path: 'paymentSession',
     })
@@ -153,6 +163,40 @@ const getOrdersByUser = catchAsync(async (req, res, next) => {
     results: orders.length,
     data: {
       orders,
+    },
+  });
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//➡️ GET ACTIVE ORDERS BASED ON PROVIDED USER ID
+
+const getActiveOrderByUser = catchAsync(async (req, res, next) => {
+  const activeOrders = await Order.find({
+    user: req.user._id,
+    active: true,
+  })
+    .select(
+      'customer_order_id user orderItems deliveryAddress status totalAmount discount gst deliveryFee tip createdAt isPaid',
+    )
+    .populate({
+      path: 'orderItems.item',
+    })
+    .populate({
+      path: 'orderItems.addons',
+    })
+    .populate({
+      path: 'paymentSession',
+    });
+
+  if (activeOrders.length === 0)
+    return next(new AppError('No active order found', 400));
+
+  res.status(200).json({
+    status: 'success',
+    results: activeOrders.length,
+    data: {
+      orders: activeOrders,
     },
   });
 });
@@ -290,3 +334,4 @@ exports.getOrdersByUser = getOrdersByUser;
 exports.getOrder = getOrder;
 exports.updateOrderStatus = updateOrderStatus;
 exports.deleteOrder = deleteOrder;
+exports.getActiveOrderByUser = getActiveOrderByUser;

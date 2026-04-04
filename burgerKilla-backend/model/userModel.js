@@ -42,6 +42,7 @@ const userSchema = new mongoose.Schema(
     passwordChangedAt: {
       type: Date,
       default: null,
+      select: false,
     },
     salary: {
       type: Number,

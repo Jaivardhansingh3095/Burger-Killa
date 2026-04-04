@@ -35,7 +35,6 @@ function Item({ product }) {
   ) {
     cartItem = cart.find((cartItem) => cartItem.name === name);
   }
-  console.log(cartItem);
 
   return (
     <div className="relative flex items-start justify-center w-full gap-2 p-2 border-gray-300 rounded-md border-1">

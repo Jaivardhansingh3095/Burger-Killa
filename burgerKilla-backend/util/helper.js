@@ -23,9 +23,19 @@ const CATEGORIES = [
   'milkshake',
 ];
 
+const minusDays = (date, days) => {
+  const result = new Date(date);
+
+  result.setDate(result.getDate() - days);
+  result.setHours(0, 0, 0, 0);
+
+  return result;
+};
+
 exports.dateValidation = dateValidation;
 exports.camelCaseCoversion = camelCaseCoversion;
 exports.CATEGORIES = CATEGORIES;
+exports.minusDays = minusDays;
 
 //Updating all documents with new fields
 // await User.updateMany(

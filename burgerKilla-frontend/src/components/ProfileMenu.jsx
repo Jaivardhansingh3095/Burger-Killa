@@ -76,6 +76,10 @@ function ProfileMenu({ openModal, handleModalClose, currentUser }) {
               duration: 0.3,
               ease: "easeOut",
             }}
+            exit={{
+              opacity: 0,
+              translateX: "50px",
+            }}
             className=" h-[80%] xl:h-[70%] w-full py-2 px-5 bg-gray-50 rounded-[5px] flex flex-col justify-start items-start"
           >
             <div className="flex items-start justify-start w-full gap-4 py-1 border-b-1 border-gray-300/80">
