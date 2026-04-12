@@ -1,13 +1,14 @@
-import { CiMenuFries } from 'react-icons/ci';
-import useOutsideClick from '../hook/useOutsideCllick';
-import DropDownMenu from './DropDownMenu';
+import { CgMenuLeftAlt } from "react-icons/cg";
+
+import useOutsideClick from "../hook/useOutsideCllick";
+import DropDownMenu from "./DropDownMenu";
 
 function ButtonMenu() {
   const { openModal, handleModalClose } = useOutsideClick();
   return (
     <>
       <button onClick={handleModalClose} className="cursor-pointer lg:hidden">
-        <CiMenuFries className="w-6 h-6 sm:w-7 sm:h-7" />
+        <CgMenuLeftAlt className="w-8 h-8 sm:w-7 sm:h-7 text-orange-500/90" />
       </button>
       {openModal && (
         <DropDownMenu

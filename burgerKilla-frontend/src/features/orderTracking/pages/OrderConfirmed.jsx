@@ -1,16 +1,16 @@
-import { Link } from 'react-router';
-import Loader from '../../../components/Loader';
-import OrderInformation from '../components/OrderInformation';
-import OrderTracker from '../components/OrderTracker';
-import { useOrder } from '../useOrder';
-import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
+import { Link } from "react-router";
+import Loader from "../../../components/Loader";
+import OrderInformation from "../components/OrderInformation";
+import OrderTracker from "../components/OrderTracker";
+import { useOrder } from "../useOrder";
+import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
 function OrderConfirmed() {
   const { orderData, orderStatus } = useOrder();
 
   console.log({ orderData, orderStatus });
 
-  if (orderStatus === 'pending') {
+  if (orderStatus === "pending") {
     return (
       <div className="w-full h-[80vh] bg-white">
         <div className="max-w-[1250px] w-full h-full mx-auto flex justify-center items-center">
@@ -20,7 +20,7 @@ function OrderConfirmed() {
     );
   }
 
-  if (orderStatus === 'error') {
+  if (orderStatus === "error") {
     return (
       <div className="flex items-start justify-center w-full h-[80vh] pt-50">
         <p className="text-2xl font-bold bg-[linear-gradient(109deg,#fa7700_0%,#e07a20_40%,#ee9a4c_80%,#ff8015_100%)] bg-clip-text text-transparent flex flex-col justify-center items-center gap-2">

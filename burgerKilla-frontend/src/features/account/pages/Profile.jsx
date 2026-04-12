@@ -1,24 +1,25 @@
-import { useNavigate } from 'react-router';
-import { MdOutlineKeyboardBackspace } from 'react-icons/md';
-import { useUpdateUser } from '../useUpdateUser';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../authentication/userSlice';
+import { useNavigate } from "react-router";
+import { MdOutlineKeyboardBackspace } from "react-icons/md";
+import { useUpdateUser } from "../useUpdateUser";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../authentication/userSlice";
 import {
   camelCaseName,
   dateValidation,
   GENDERTYPE,
-} from '../../../utils/helpers';
-import { useEffect, useRef, useState } from 'react';
-import Loader from '../../../components/Loader';
-import RadioGroup from '../../../components/RadioGroup';
+} from "../../../utils/helpers";
+import { useEffect, useRef, useState } from "react";
+import Loader from "../../../components/Loader";
+import RadioGroup from "../../../components/RadioGroup";
+import ErrorDisplayNoAuthorization from "../../../components/ErrorDisplayNoAuthorization";
 
 function Profile() {
   const navigate = useNavigate();
   const currentUser = useSelector((state) => selectUser(state));
   const { updateUser, isUpdating } = useUpdateUser();
-  const [gender, setGender] = useState('');
-  const [dob, setDob] = useState('');
-  let fullName = useRef('');
+  const [gender, setGender] = useState("");
+  const [dob, setDob] = useState("");
+  let fullName = useRef("");
 
   useEffect(
     function () {
@@ -26,16 +27,26 @@ function Profile() {
 
       fullName.current = camelCaseName(currentUser.user?.name);
       setGender(currentUser.user?.gender);
-      setDob(currentUser.user?.dob.split('T').at(0));
+      setDob(currentUser.user?.dob.split("T").at(0));
     },
-    [currentUser?.user],
+    [currentUser?.user]
   );
 
-  if (!currentUser.user) {
+  if (currentUser.status === "pending") {
     return (
-      <div className="max-w-[600px] h-full mx-auto flex justify-center items-center">
-        <div className="w-full max-h-[600px]">
+      <div className="max-w-[600px] h-screen mx-auto flex justify-center items-center">
+        <div className="w-full h-full">
           <Loader />
+        </div>
+      </div>
+    );
+  }
+
+  if (currentUser.status === "error") {
+    return (
+      <div className="max-w-[600px] h-screen mx-auto flex justify-center items-center">
+        <div className="w-full h-full">
+          <ErrorDisplayNoAuthorization message={currentUser?.error} />
         </div>
       </div>
     );
@@ -56,7 +67,7 @@ function Profile() {
     <>
       {isUpdating && (
         <div className="fixed inset-0 z-1000 max-h-[100vh] w-full bg-gray-600/70 no-doc-scroll flex justify-center items-center">
-          <div className="max-w-[400px] max-h-[600px] mx-auto">
+          <div className="flex items-center justify-center w-full h-full">
             <Loader />
           </div>
         </div>
@@ -97,7 +108,7 @@ function Profile() {
             </div>
             <div className="flex flex-col items-start justify-start w-full gap-2 px-2">
               <label className="tracking-wide">
-                Gender{' '}
+                Gender{" "}
                 <span className="font-mono font-semibold text-[.9rem]">
                   (Optional)
                 </span>
@@ -118,7 +129,7 @@ function Profile() {
             </div>
             <div className="flex flex-col items-start justify-start w-full gap-2 px-2">
               <label htmlFor="dob" className="tracking-wide">
-                Date of birth{' '}
+                Date of birth{" "}
                 <span className="font-mono font-semibold text-[.9rem]">
                   (Optional) (MM/DD/YYYY)
                 </span>

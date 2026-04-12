@@ -13,6 +13,9 @@ import Modal from "../../components/Modal";
 import PendingStatusLoader from "../../components/PendingStatusLoader";
 import ErrorStatusDisplay from "../../components/ErrorStatusDisplay";
 import SuccessStatusDisplay from "../../components/SuccessStatusDisplay";
+import { useSelector } from "react-redux";
+import { selectUser } from "./userSlice";
+import LoggedRestrictionDisplay from "../../components/LoggedRestrictionDisplay";
 
 const radioItems = [
   { value: "male", label: "Male" },
@@ -53,6 +56,7 @@ const formSchema = z.object({
 // );
 
 function SignUp() {
+  const currentUser = useSelector(selectUser);
   const [page, setPage] = useState(1);
   const passwordRef = useRef("");
   const navigate = useNavigate();
@@ -124,13 +128,25 @@ function SignUp() {
     [signupStatus]
   );
 
-  console.log(signupStatus);
+  if (
+    currentUser.user &&
+    signupStatus !== "pending" &&
+    signupStatus !== "success"
+  ) {
+    return (
+      <div className="w-full h-screen bg-[linear-gradient(90deg,#ffffff_0%,#fff600_130%)]">
+        <div className="flex items-center justify-center w-full h-full">
+          <LoggedRestrictionDisplay />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-screen bg-[linear-gradient(90deg,#ffffff_0%,#fff600_130%)]">
       <div className="flex items-center w-full h-full">
         <div className="hidden h-full md:block basis-1/3">
-          <div className="flex flex-col items-center justify-center w-full h-full gap-5">
+          {/* <div className="flex flex-col items-center justify-center w-full h-full gap-5">
             <button
               onClick={handlePendingClose}
               className="p-5 text-lg text-white rounded-md cursor-pointer bg-amber-500"
@@ -149,7 +165,7 @@ function SignUp() {
             >
               Error
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="w-full h-full md:basis-2/3">
           <div className="flex items-center justify-center w-full h-full">

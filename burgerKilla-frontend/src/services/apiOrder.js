@@ -57,6 +57,7 @@ export const createOrder = async ({
 
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
+/// Fetch Logged User order based on orderId
 
 export const getOrder = async ({ orderId }) => {
   //If Token do not exist
@@ -87,6 +88,7 @@ export const getOrder = async ({ orderId }) => {
 
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
+// FOR ADMIN
 
 export const getAllUserOrders = async ({ status }) => {
   //If Token do not exist
@@ -120,6 +122,7 @@ export const getAllUserOrders = async ({ status }) => {
 
 ////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
+// Update ORDER STATUS - FOR ADMIN
 
 export const updateOrderStatus = async ({ status, orderId }) => {
   //If Token do not exist
@@ -154,8 +157,9 @@ export const updateOrderStatus = async ({ status, orderId }) => {
 
 /////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
+/// GET ALL ACTIVE ORDERS FOR LOGGED USER
 
-export const getActiveUserOrders = async () => {
+export const getActiveOrders = async () => {
   //If Token do not exist
   if (!localStorage.getItem("jwt_token"))
     throw new Error(
@@ -163,6 +167,37 @@ export const getActiveUserOrders = async () => {
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/order/activeOrder`, {
+    method: "GET",
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
+    },
+  });
+
+  const data = await res.json();
+
+  if (data.status === "fail" || data.status === "error") {
+    let err = new Error(data.message);
+    err.status = data.status;
+    err.statusCode = data.error.statusCode;
+    err.stack = data.stack;
+    throw err;
+  }
+
+  return data.data.orders;
+};
+
+/////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+/// GET ALL COMPLETED ORDERS FOR LOGGED USER based on TIME PERIOD
+
+export const getCompletedOrders = async () => {
+  //If Token do not exist
+  if (!localStorage.getItem("jwt_token"))
+    throw new Error(
+      "Your credentials expired. Please login with your credentials."
+    );
+
+  const res = await fetch(`${BACKEND_ADDRESS}/order/completedOrder`, {
     method: "GET",
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt_token")}`,

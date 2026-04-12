@@ -4,13 +4,13 @@ import { GiCampCookingPot } from "react-icons/gi";
 import toast from "react-hot-toast";
 
 import Loader from "../../../components/Loader";
-import { useAllOrders } from "../useAllOrders";
+import { useAllActiveOrders } from "../useAllActiveOrders";
 import VegLogoSelector from "../../../components/VegLogoSelector";
 import { formatCurrency } from "../../../utils/helpers";
 import { useNavigate } from "react-router";
 
 function ActiveOrdersList() {
-  const { totalOrders, totalOrdersStatus } = useAllOrders();
+  const { totalOrders, totalOrdersStatus } = useAllActiveOrders();
   const navigate = useNavigate();
 
   if (totalOrdersStatus === "pending") {
@@ -75,7 +75,7 @@ function ActiveOrdersList() {
               key={order.customer_order_id}
               className="rounded-xl shadow-[1px_2px_5px_2px] shadow-gray-300 bg-gray-50 w-full lg:w-4/5 xl:w-3/5 py-3 px-2 max-h-100 grid md:grid-cols-[repeat(3,1fr)] md:grid-rows-[1fr_2fr_1fr] gap-2"
             >
-              <div className="flex items-center justify-start gap-2 md:gap-5">
+              <div className="flex items-center justify-start gap-1 sm:gap-2 md:gap-5">
                 <span className="text-xs sm:text-sm xl:text-[1rem]">
                   Order ID:
                 </span>
@@ -92,9 +92,9 @@ function ActiveOrdersList() {
                     <span className="px-2 py-1 md:px-3 md:py-1.5 text-xs md:text-[1rem] uppercase font-semibold tracking-wide text-white bg-green-500 shadow-[1px_1px_2px] rounded-3xl text-shadow-2xs text-shadow-green-800 shadow-gray-300">
                       Paid
                     </span>
-                    <span className="px-2 py-1 md:px-3 md:py-1.5 text-xs md:text-[1rem] uppercase font-semibold tracking-wide text-white bg-yellow-500 shadow-[1px_1px_2px] rounded-3xl text-shadow-2xs text-shadow-yellow-800 shadow-gray-300">
+                    {/* <span className="px-2 py-1 md:px-3 md:py-1.5 text-xs md:text-[1rem] uppercase font-semibold tracking-wide text-white bg-yellow-500 shadow-[1px_1px_2px] rounded-3xl text-shadow-2xs text-shadow-yellow-800 shadow-gray-300">
                       {order.paymentSession.paymentMethod.slice(0, 3)}
-                    </span>
+                    </span> */}
                   </>
                 ) : (
                   <span className="px-3 py-1 uppercase font-semibold tracking-wide text-white bg-yellow-500 shadow-[1px_1px_2px] rounded-3xl text-shadow-2xs text-shadow-yellow-800 shadow-gray-300">
@@ -170,10 +170,10 @@ function ActiveOrdersList() {
               <div className="flex items-center justify-center col-start-3">
                 <button
                   onClick={() => navigate(`/order/${order._id}`)}
-                  className="flex items-center justify-center gap-1 bg-[radial-gradient(circle_farthest-corner_at_top_right,#d9590d_0%,#e5691e_30%,#ff7a29_60%,#eb5b00_90%)] py-1 px-3 md:py-3 md:px-6 text-white font-semibold tracking-wide text-shadow-xs text-shadow-orange-800 rounded-3xl shadow-[1px_1px_2px] shadow-gray-500 cursor-pointer hover:bg-[radial-gradient(circle_farthest-corner_at_top_right,#eb5b00_0%,#ff7a29_30%,#e5691e_60%,#d9590d_90%)] hover:shadow-[2px_3px_5px_1px] hover:shadow-orange-300 transition-all duration-300 delay-100 ease-linear"
+                  className="flex items-center justify-center gap-2 px-3 py-2 font-bold tracking-wide text-white rounded-lg sm:gap-5 sm:px-7 bg-amber-500 shadow-[1px_1px_2px_1px,-1px_-1px_1px] cursor-pointer shadow-amber-600   overflow-hidden before:bg-[linear-gradient(to_right,#ffffff00_0%,#fff_50%,#ffffff00_100%)] before:w-full relative before:absolute before:top-0 before:-left-[100%] before:h-full before:-skew-x-[20deg] hover:before:left-[100%] before:opacity-30 before:transition-all before:duration-300 before:ease-out"
                 >
-                  <CgTrack className="sm:w-5 sm:h-5" />
-                  <span className="sm:text-[1rem] text-sm">Track Order</span>
+                  <CgTrack className="sm:w-6 sm:h-6" />
+                  <span className="text-sm sm:text-lg">Track Order</span>
                 </button>
               </div>
             </li>

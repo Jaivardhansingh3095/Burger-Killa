@@ -1,15 +1,15 @@
-import { Link, NavLink, useLocation } from 'react-router';
-import { RiVipCrownFill } from 'react-icons/ri';
+import { Link, NavLink, useLocation } from "react-router";
+import { RiVipCrownFill } from "react-icons/ri";
 
-import { useSelector } from 'react-redux';
-import { selectUser } from '../features/authentication/userSlice';
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/authentication/userSlice";
 
-import ButtonCart from './ButtonCart';
-import ButtonLogin from './ButtonLogin';
-import ButtonProfile from './ButtonProfile';
-import ButtonMenu from './ButtonMenu';
-import ButtonDashboard from './ButtonDashboard';
-import { ADMIN } from '../utils/helpers';
+import ButtonCart from "./ButtonCart";
+import ButtonLogin from "./ButtonLogin";
+import ButtonProfile from "./ButtonProfile";
+import ButtonMenu from "./ButtonMenu";
+import ButtonDashboard from "./ButtonDashboard";
+import { ADMIN } from "../utils/helpers";
 
 // drop-shadow-[0px_2px_1px] drop-shadow-gray-400
 // bg-[linear-gradient(86deg,rgba(255,151,15,1)_100%,rgba(252,206,159,1)_0%,rgba(255,228,196,1)_53%)]
@@ -22,10 +22,10 @@ function Nav() {
 
   return (
     <nav
-      className={`my-[-1remm] px-5 lg:px-0 font-semibold  w-full bg-[linear-gradient(90deg,#fffff0f3_0%,#ffffe4f3_25%,#ffffd8f3_50%,#ffffe4f3_75%,#fffff0f3_100%)] ${location.pathname !== '/' ? ' inset-shadow-[0px_-1px_5px] inset-shadow-amber-200' : ''}`}
+      className={`my-[-1remm] px-5 lg:px-0 font-semibold  w-full bg-[linear-gradient(90deg,#fffff0f3_0%,#ffffe4f3_25%,#ffffd8f3_50%,#ffffe4f3_75%,#fffff0f3_100%)] ${location.pathname !== "/" ? " inset-shadow-[0px_-1px_5px] inset-shadow-amber-200" : ""}`}
     >
-      <div className="max-w-[1000px] xl:max-w-[1250px] mx-auto text-gray-50 flex justify-between items-center sm:10 lg:gap-60 mb-[-2rem] mt-[-1rem]">
-        <div className="lg:flex-1/3">
+      <div className="hidden max-w-[1000px] xl:max-w-[1250px] mx-auto text-gray-50 sm:flex justify-between items-center sm:10 lg:gap-60 mb-[-2rem] mt-[-1rem]">
+        <div className="lg:basis-1/3">
           <Link to="/" className=" focus:outline-none">
             <img
               src={`${import.meta.env.VITE_BACKEND}public/img/logo/logo-black.png`}
@@ -71,7 +71,7 @@ function Nav() {
           <div className="flex items-center justify-between gap-x-10">
             {currentUser?.user?.role === ADMIN ? <ButtonDashboard /> : null}
             <ButtonCart />
-            {currentUser.status === 'idle' ? (
+            {currentUser.status === "idle" ? (
               <ButtonProfile currentUser={currentUser} />
             ) : (
               <ButtonLogin />
@@ -79,6 +79,20 @@ function Nav() {
             <ButtonMenu />
           </div>
         </div>
+      </div>
+      <div className="sm:hidden flex justify-between items-center  mb-[-2rem] mt-[-1rem]">
+        <ButtonMenu />
+
+        <div className="ml-10">
+          <Link to="/" className=" focus:outline-none">
+            <img
+              src={`${import.meta.env.VITE_BACKEND}public/img/logo/logo-black.png`}
+              alt="logo"
+              className="h-35 w-70 lg:w-70 xl:w-100 -ml-[2rem] xl:-ml-[4rem] focus:outline-none "
+            />
+          </Link>
+        </div>
+        <ButtonProfile currentUser={currentUser} />
       </div>
     </nav>
   );

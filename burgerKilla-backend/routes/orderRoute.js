@@ -15,8 +15,9 @@ const {
 } = orderController;
 const { protect, restrictTo } = authController;
 
-router.route('/').post(protect, createOrder).get(protect, getOrdersByUser);
+router.route('/').post(protect, createOrder);
 router.route('/activeOrder').get(protect, getActiveOrderByUser);
+router.route('/completedOrder').get(protect, getOrdersByUser);
 
 router
   .route('/allOrders')

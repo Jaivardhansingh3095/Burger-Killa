@@ -133,20 +133,23 @@ const getAllOrders = catchAsync(async (req, res, next) => {
 //➡️ GET ALL ORDERS BASED ON USER WITH TIME PERIOD LIMITER
 
 const getOrdersByUser = catchAsync(async (req, res, next) => {
-  const { period } = req.query;
-  if (!period) period = 7;
+  // const { period } = req.query;
+  // if (!period) period = 7;
 
   const orders = await Order.find({
     user: req.user._id,
+    active: false,
   })
-    .populate({
-      path: 'paymentSession',
-    })
+    .select(
+      'customer_order_id user orderItems deliveryAddress status totalAmount discount gst deliveryFee tip createdAt isPaid',
+    )
     .populate({
       path: 'orderItems.item',
+      select: 'name foodType',
     })
     .populate({
       path: 'orderItems.addons',
+      select: 'name foodType',
     });
 
   if (!orders?.length) {
@@ -184,10 +187,10 @@ const getActiveOrderByUser = catchAsync(async (req, res, next) => {
     })
     .populate({
       path: 'orderItems.addons',
-    })
-    .populate({
-      path: 'paymentSession',
     });
+  // .populate({
+  //   path: 'paymentSession',
+  // });
 
   if (activeOrders.length === 0)
     return next(new AppError('No active order found', 400));
@@ -203,7 +206,7 @@ const getActiveOrderByUser = catchAsync(async (req, res, next) => {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//➡️ Get ORDER by ID of USER
+//➡️ Get ORDER FOR LOGGED USER based on OrderId
 
 const getOrder = catchAsync(async (req, res, next) => {
   const order = await Order.findById(req.params.orderId)
@@ -212,9 +215,6 @@ const getOrder = catchAsync(async (req, res, next) => {
     })
     .populate({
       path: 'orderItems.addons',
-    })
-    .populate({
-      path: 'paymentSession',
     });
 
   if (!order) {

@@ -9,9 +9,13 @@ import Modal from "../../components/Modal";
 import PendingStatusLoader from "../../components/PendingStatusLoader";
 import ErrorStatusDisplay from "../../components/ErrorStatusDisplay";
 import SuccessStatusDisplay from "../../components/SuccessStatusDisplay";
+import { useSelector } from "react-redux";
+import { selectUser } from "./userSlice";
+import LoggedRestrictionDisplay from "../../components/LoggedRestrictionDisplay";
 
 function Login() {
   const navigate = useNavigate();
+  const currentUser = useSelector(selectUser);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, loginStatus, loginError } = useLogin();
@@ -54,6 +58,14 @@ function Login() {
     login({ email, password });
     setEmail("");
     setPassword("");
+  }
+
+  if (
+    currentUser.user &&
+    loginStatus !== "pending" &&
+    loginStatus !== "success"
+  ) {
+    return <LoggedRestrictionDisplay />;
   }
 
   return (

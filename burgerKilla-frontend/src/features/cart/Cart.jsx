@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux';
-import EmptyCart from './EmptyCart';
-import { selectCart, selectTotalPrice } from './cartSlice';
-import CartItem from './CartItem';
-import CheckoutButton from './CheckoutButton';
+import { useSelector } from "react-redux";
+import EmptyCart from "./EmptyCart";
+import { selectCart, selectTotalPrice } from "./cartSlice";
+import CartItem from "./CartItem";
+import CheckoutButton from "./CheckoutButton";
 
 function Cart() {
   const cart = useSelector((state) => selectCart(state));
@@ -11,7 +11,7 @@ function Cart() {
   return (
     <div className="lg:block hidden bg-gray-50 flex-2/5 xl:flex-1/4 h-full rounded-[5px] overflow-hidden">
       <div>
-        <h2 className="my-1 text-xl tracking-wide text-center text-gray-700">
+        <h2 className="my-1 text-xl font-semibold tracking-wide text-center text-gray-700">
           Your Cart
         </h2>
       </div>
