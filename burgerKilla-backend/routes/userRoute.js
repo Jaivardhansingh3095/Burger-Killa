@@ -3,8 +3,16 @@ const express = require('express');
 const authController = require('../controller/authController');
 const userController = require('../controller/userController');
 
-const { signup, login, protect, restrictTo, forgetPassword, resetPassword } =
-  authController;
+const {
+  signup,
+  login,
+  protect,
+  restrictTo,
+  forgetPassword,
+  resetPassword,
+  updatePassword,
+} = authController;
+
 const {
   getMe,
   updateMe,
@@ -27,6 +35,7 @@ router.post('/createEmployee', protect, restrictTo('admin'), createEmployee);
 router
   .route('/employees')
   .get(protect, restrictTo('admin', 'manager'), getEmployees);
+router.patch('/updatePassword', protect, restrictTo('user'), updatePassword);
 
 //User routes
 router.get('/currentUser', protect, getMe);

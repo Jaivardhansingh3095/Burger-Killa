@@ -4,10 +4,10 @@ const BACKEND_ADDRESS = import.meta.env.VITE_BACKEND_LINK;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export async function login({ email, password }) {
   const res = await fetch(`${BACKEND_ADDRESS}/user/login`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({ email, password }),
     headers: {
-      'Content-type': 'application/json',
+      "Content-type": "application/json",
     },
   });
 
@@ -15,7 +15,7 @@ export async function login({ email, password }) {
 
   const data = await res.json();
 
-  if (data.status === 'fail' || data.status === 'error') {
+  if (data.status === "fail" || data.status === "error") {
     let err = new Error(data.message);
     err.status = data.status;
     err.statusCode = data.error.statusCode;
@@ -23,7 +23,7 @@ export async function login({ email, password }) {
     throw err;
   }
 
-  localStorage.setItem('jwt_token', data.token);
+  localStorage.setItem("jwt_token", data.token);
 
   return data.data.user;
 }
@@ -39,10 +39,10 @@ export async function signup({
   dob,
 }) {
   const res = await fetch(`${BACKEND_ADDRESS}/user/signup`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({ email, password, name, phoneNumber, gender, dob }),
     headers: {
-      'Content-type': 'application/json',
+      "Content-type": "application/json",
     },
   });
 
@@ -50,7 +50,7 @@ export async function signup({
 
   const data = await res.json();
 
-  if (data.status === 'fail' || data.status === 'error') {
+  if (data.status === "fail" || data.status === "error") {
     let err = new Error(data.message);
     err.status = data.status;
     err.statusCode = data.error.statusCode;
@@ -58,7 +58,7 @@ export async function signup({
     throw err;
   }
 
-  localStorage.setItem('jwt_token', data.token);
+  localStorage.setItem("jwt_token", data.token);
 
   return data.data.user;
 }
@@ -67,24 +67,24 @@ export async function signup({
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export async function getCurrentUser() {
   //If Token do not exist
-  if (!localStorage.getItem('jwt_token'))
+  if (!localStorage.getItem("jwt_token"))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.'
+      "Your credentials expired. Please login with your credentials."
     );
 
   //Fetch current user data based on saved token
   const res = await fetch(`${BACKEND_ADDRESS}/user/currentUser`, {
-    method: 'GET',
+    method: "GET",
     // credentials: 'include',
     // withCredentials: true,
     headers: {
-      authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
     },
   });
 
   const data = await res.json();
 
-  if (data.status === 'fail' || data.status === 'error') {
+  if (data.status === "fail" || data.status === "error") {
     let err = new Error(data.message);
     err.status = data.status;
     err.statusCode = data.error.statusCode;
@@ -99,23 +99,23 @@ export async function getCurrentUser() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export async function updateUserAPI({ name, gender, dob }) {
   //If Token do not exist
-  if (!localStorage.getItem('jwt_token'))
+  if (!localStorage.getItem("jwt_token"))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.'
+      "Your credentials expired. Please login with your credentials."
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/user/updateme`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({ name, gender, dob }),
     headers: {
-      'Content-type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      "Content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
     },
   });
 
   const data = await res.json();
 
-  if (data.status === 'fail' || data.status === 'error') {
+  if (data.status === "fail" || data.status === "error") {
     let err = new Error(data.message);
     err.status = data.status;
     err.statusCode = data.error.statusCode;
@@ -135,25 +135,25 @@ export async function addAddress({
   isDefault,
 }) {
   //If Token do not exist
-  if (!localStorage.getItem('jwt_token'))
+  if (!localStorage.getItem("jwt_token"))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.'
+      "Your credentials expired. Please login with your credentials."
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/user/addAddress`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
       location: { coordinates, address, addressType, isDefault },
     }),
     headers: {
-      'Content-type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      "Content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
     },
   });
 
   const data = await res.json();
 
-  if (data.status === 'fail' || data.status === 'error') {
+  if (data.status === "fail" || data.status === "error") {
     let err = new Error(data.message);
     err.status = data.status;
     err.statusCode = data.error.statusCode;
@@ -174,25 +174,25 @@ export async function updateAddress({
   addressId,
 }) {
   //If Token do not exist
-  if (!localStorage.getItem('jwt_token'))
+  if (!localStorage.getItem("jwt_token"))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.'
+      "Your credentials expired. Please login with your credentials."
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/user/updateAddress`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
       location: { coordinates, address, addressType, isDefault, addressId },
     }),
     headers: {
-      'Content-type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      "Content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
     },
   });
 
   const data = await res.json();
 
-  if (data.status === 'fail' || data.status === 'error') {
+  if (data.status === "fail" || data.status === "error") {
     let err = new Error(data.message);
     err.status = data.status;
     err.statusCode = data.error.statusCode;
@@ -208,25 +208,25 @@ export async function updateAddress({
 
 export async function deleteAddress({ addressId }) {
   //If Token do not exist
-  if (!localStorage.getItem('jwt_token'))
+  if (!localStorage.getItem("jwt_token"))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.'
+      "Your credentials expired. Please login with your credentials."
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/user/deleteAddress`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
       addressId,
     }),
     headers: {
-      'Content-type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      "Content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
     },
   });
 
   const data = await res.json();
 
-  if (data.status === 'fail' || data.status === 'error') {
+  if (data.status === "fail" || data.status === "error") {
     let err = new Error(data.message);
     err.status = data.status;
     err.statusCode = data.error.statusCode;
@@ -242,25 +242,25 @@ export async function deleteAddress({ addressId }) {
 
 export async function addNewOrder({ orderId }) {
   //If Token do not exist
-  if (!localStorage.getItem('jwt_token'))
+  if (!localStorage.getItem("jwt_token"))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.'
+      "Your credentials expired. Please login with your credentials."
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/user/order`, {
-    method: 'PATCH',
+    method: "PATCH",
     body: JSON.stringify({
       orderId,
     }),
     headers: {
-      'Content-type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      "Content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
     },
   });
 
   const data = await res.json();
 
-  if (data.status === 'fail' || data.status === 'error') {
+  if (data.status === "fail" || data.status === "error") {
     let err = new Error(data.message);
     err.status = data.status;
     err.statusCode = data.error.statusCode;
@@ -276,18 +276,18 @@ export async function addNewOrder({ orderId }) {
 
 export async function forgetPassword({ email }) {
   const res = await fetch(`${BACKEND_ADDRESS}/user/forgetPassword`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
       email,
     }),
     headers: {
-      'Content-type': 'application/json',
+      "Content-type": "application/json",
     },
   });
 
   const data = await res.json();
 
-  if (data.status === 'fail' || data.status === 'error') {
+  if (data.status === "fail" || data.status === "error") {
     let err = new Error(data.message);
     err.status = data.status;
     err.statusCode = data.error.statusCode;
@@ -303,19 +303,51 @@ export async function forgetPassword({ email }) {
 
 export async function resetPassword({ email, password, token }) {
   const res = await fetch(`${BACKEND_ADDRESS}/user/resetPassword/${token}`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
       email,
       password,
     }),
     headers: {
-      'Content-type': 'application/json',
+      "Content-type": "application/json",
     },
   });
 
   const data = await res.json();
 
-  if (data.status === 'fail' || data.status === 'error') {
+  if (data.status === "fail" || data.status === "error") {
+    let err = new Error(data.message);
+    err.status = data.status;
+    err.statusCode = data.error.statusCode;
+    err.stack = data.stack;
+    throw err;
+  }
+
+  return data;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export async function updatePassword({ newPassword, oldPassword }) {
+  //If Token do not exist
+  if (!localStorage.getItem("jwt_token"))
+    throw new Error(
+      "Your credentials expired. Please login with your credentials."
+    );
+
+  const res = await fetch(`${BACKEND_ADDRESS}/user/updatePassword`, {
+    method: "PATCH",
+    body: JSON.stringify({ newPassword, oldPassword }),
+    headers: {
+      "Content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
+    },
+  });
+
+  const data = await res.json();
+
+  if (data.status === "fail" || data.status === "error") {
     let err = new Error(data.message);
     err.status = data.status;
     err.statusCode = data.error.statusCode;
@@ -339,13 +371,13 @@ export async function createEmployee({
   password,
 }) {
   //If Token do not exist
-  if (!localStorage.getItem('jwt_token'))
+  if (!localStorage.getItem("jwt_token"))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.'
+      "Your credentials expired. Please login with your credentials."
     );
 
   const res = await fetch(`${BACKEND_ADDRESS}/user/createEmployee`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
       email,
       password,
@@ -356,8 +388,8 @@ export async function createEmployee({
       role,
     }),
     headers: {
-      'Content-type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      "Content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
     },
   });
 
@@ -365,7 +397,7 @@ export async function createEmployee({
 
   const data = await res.json();
 
-  if (data.status === 'fail' || data.status === 'error') {
+  if (data.status === "fail" || data.status === "error") {
     let err = new Error(data.message);
     err.status = data.status;
     err.statusCode = data.error.statusCode;
@@ -381,17 +413,17 @@ export async function createEmployee({
 
 export async function getEmployees({ sortField }) {
   //If Token do not exist
-  if (!localStorage.getItem('jwt_token'))
+  if (!localStorage.getItem("jwt_token"))
     throw new Error(
-      'Your credentials expired. Please login with your credentials.'
+      "Your credentials expired. Please login with your credentials."
     );
 
   const res = await fetch(
-    `${BACKEND_ADDRESS}/user/employees?${sortField ? 'sort=' + sortField : ''}`,
+    `${BACKEND_ADDRESS}/user/employees?${sortField ? "sort=" + sortField : ""}`,
     {
       headers: {
-        'Content-type': 'application/json',
-        authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+        "Content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
       },
     }
   );
@@ -400,7 +432,7 @@ export async function getEmployees({ sortField }) {
 
   const data = await res.json();
 
-  if (data.status === 'fail' || data.status === 'error') {
+  if (data.status === "fail" || data.status === "error") {
     let err = new Error(data.message);
     err.status = data.status;
     err.statusCode = data.error.statusCode;

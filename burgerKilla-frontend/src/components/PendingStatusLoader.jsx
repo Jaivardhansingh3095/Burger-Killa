@@ -8,9 +8,15 @@ import CircularProgressBar from "./CircularProgressBar";
 const accountStatus = ["creating account", "securing data", "wait a moment"];
 
 const loginStatus = [
-  "Authenticating",
+  "authenticating account",
   "fetching your data",
   "preparing the kitchen",
+];
+
+const updatePasswordStatus = [
+  "verifying account",
+  "analysing password",
+  "wait a moment",
 ];
 
 function PendingStatusLoader({ isVisible, onCloseHandler, loaderType }) {
@@ -29,8 +35,13 @@ function PendingStatusLoader({ isVisible, onCloseHandler, loaderType }) {
       if (loaderType === "login" && loaderStep === loginStatus.length - 1)
         return;
 
+      if (
+        loaderType === "updatePassword" &&
+        loaderStep === updatePasswordStatus.length - 1
+      )
+        return;
+
       const loaderInterval = setInterval(() => {
-        console.log(loaderType);
         if (loaderType === "account_creation")
           setLoaderStep((prev) =>
             prev < accountStatus.length - 1 ? prev + 1 : prev
@@ -39,6 +50,11 @@ function PendingStatusLoader({ isVisible, onCloseHandler, loaderType }) {
         if (loaderType === "login")
           setLoaderStep((prev) => {
             return prev < loginStatus.length - 1 ? prev + 1 : prev;
+          });
+
+        if (loaderType === "updatePassword")
+          setLoaderStep((prev) => {
+            return prev < updatePasswordStatus.length - 1 ? prev + 1 : prev;
           });
       }, 1000);
       return () => clearInterval(loaderInterval);
@@ -59,7 +75,9 @@ function PendingStatusLoader({ isVisible, onCloseHandler, loaderType }) {
               ? accountStatus.length
               : loaderType === "login"
                 ? loginStatus.length
-                : 4
+                : loaderType === "updatePassword"
+                  ? updatePasswordStatus.length
+                  : 4
           }
         />
       </div>
@@ -84,7 +102,9 @@ function PendingStatusLoader({ isVisible, onCloseHandler, loaderType }) {
                 ? accountStatus[loaderStep]
                 : loaderType === "login"
                   ? loginStatus[loaderStep]
-                  : accountStatus[loaderStep]}
+                  : loaderType === "updatePassword"
+                    ? updatePasswordStatus[loaderStep]
+                    : accountStatus[loaderStep]}
             </span>
           </motion.span>
         </AnimatePresence>
@@ -95,57 +115,3 @@ function PendingStatusLoader({ isVisible, onCloseHandler, loaderType }) {
 }
 
 export default PendingStatusLoader;
-
-// const [currentStep, setCurrentStep] = useState(0);
-
-// useEffect(() => {
-//   if (!isVisible) return;
-
-//   // Cycle through steps every 2 seconds
-//   const interval = setInterval(() => {
-//     setCurrentStep((prev) =>
-//       prev < accountStatus.length - 1 ? prev + 1 : prev
-//     );
-//   }, 2000);
-
-//   return () => clearInterval(interval);
-// }, [isVisible]);
-
-// if (!isVisible) return null;
-
-// return (
-//   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-//     <div className="p-8 text-center bg-white shadow-xl rounded-2xl w-80">
-//       {/* Simple spinner icon (optional) */}
-//       <div className="flex justify-center mb-6">
-//         <div className="w-10 h-10 border-4 border-indigo-200 rounded-full border-t-indigo-600 animate-spin" />
-//       </div>
-
-//       <div className="relative h-8 overflow-hidden">
-//         <AnimatePresence mode="wait">
-//           <motion.p
-//             key={accountStatus[currentStep]}
-//             initial={{ y: 20, opacity: 0 }}
-//             animate={{ y: 0, opacity: 1 }}
-//             exit={{ y: -20, opacity: 0 }}
-//             transition={{ duration: 0.4, ease: "easeInOut" }}
-//             className="absolute w-full font-medium text-gray-700"
-//           >
-//             {accountStatus[currentStep]}
-//           </motion.p>
-//         </AnimatePresence>
-//       </div>
-
-//       {/* Progress bar */}
-//       <div className="mt-6 w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
-//         <motion.div
-//           className="h-full bg-indigo-600"
-//           initial={{ width: "0%" }}
-//           animate={{
-//             width: `${((currentStep + 1) / accountStatus.length) * 100}%`,
-//           }}
-//         />
-//       </div>
-//     </div>
-//   </div>
-// );

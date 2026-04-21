@@ -1,18 +1,18 @@
-import { GiHamburger } from 'react-icons/gi';
-import { LiaPizzaSliceSolid } from 'react-icons/lia';
-import { GiFrenchFries } from 'react-icons/gi';
-import { IoIosIceCream } from 'react-icons/io';
-import { PiConfettiLight } from 'react-icons/pi';
-import { GiFullPizza } from 'react-icons/gi';
+import { GiHamburger } from "react-icons/gi";
+import { LiaPizzaSliceSolid } from "react-icons/lia";
+import { GiFrenchFries } from "react-icons/gi";
+import { IoIosIceCream } from "react-icons/io";
+import { PiConfettiLight } from "react-icons/pi";
+import { GiFullPizza } from "react-icons/gi";
 
-import { Link } from 'react-router';
+import { Link } from "react-router";
 
 function AboutSection() {
   return (
     <section className="w-full h-auto bg-white sm:h-screen ">
       <div className="max-w-[1250px] w-full mx-auto h-full py-15 sm:py-5">
-        <div className="relative flex flex-col-reverse items-center justify-center w-full h-full gap-5 md:flex-row md:gap-0">
-          <div className="flex items-center justify-center w-full h-full gap-5 sm:gap-0 md:flex-3/5">
+        <div className="relative flex flex-col-reverse items-center justify-center w-full h-full gap-5 md:flex-row ">
+          <div className="flex items-center justify-center w-full h-full sm:gap-0 md:flex-3/5">
             <div className="flex items-center justify-center h-full md:relative flex-1/2 md:block">
               <div className="md:absolute h-[100%] md:h-[60%] lg:h-[70%] w-[80%] bg-gray-700 md:top-[60%] md:-translate-y-[50%]  md:left-[50%] md:-translate-x-[50%] rounded-[10rem] flex justify-center items-center">
                 <img
@@ -36,21 +36,21 @@ function AboutSection() {
           </div>
           <div className="w-[90%] md:w-[70%] mx-auto flex flex-col items-start justify-center h-full gap-5 px-5 md:flex-2/5">
             <h2 className="pb-6 text-lg font-semibold tracking-wider text-gray-600 border-b-1 border-b-gray-300 sm:text-xl lg:text-2xl xl:text-4xl font-poetsen text-shadow-2xs text-shadow-orange-800">
-              <span className="text-amber-500">Crafting Flavourful</span>{' '}
+              <span className="text-amber-500">Crafting Flavourful</span>{" "}
               Memories
             </h2>
             <p className="pb-5 font-light text-gray-500 border-b-1 border-b-gray-300">
               <span className="font-normal font-poetsen text-amber-400">
                 Burger Killa
-              </span>{' '}
+              </span>{" "}
               is a gourmet burger destination where bold flavors meet premium
               ingredients. We craft every burger with passion—from juicy patties
               and artisanal buns to house-made sauces and fresh toppings.
               Whether you're craving a classic or a killer twist, our menu is
-              designed to satisfy with style.{' '}
+              designed to satisfy with style.{" "}
               <span className="font-normal text-amber-500 font-poetsen">
                 Taste the difference.
-              </span>{' '}
+              </span>{" "}
               <span className="font-poetsen">Kill the craving.</span>
             </p>
             <Link

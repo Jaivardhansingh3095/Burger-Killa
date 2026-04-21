@@ -159,7 +159,7 @@ const protect = catchAsync(async (req, res, next) => {
   );
 
   //Check if user exists at this current moment or not while accessing the protected routes
-  const currentUser = await User.findById(verifiedToken.id);
+  const currentUser = await User.findById(verifiedToken.id).select('+password');
 
   if (!currentUser) {
     return next(
@@ -321,6 +321,7 @@ const resetPassword = catchAsync(async (req, res, next) => {
   }
 
   user.password = password;
+  user.passwordChangedAt = Date.now();
   user.resetToken = undefined;
   user.resetTokenExpire = undefined;
   await user.save({ validateModifiedOnly: true });
@@ -331,12 +332,63 @@ const resetPassword = catchAsync(async (req, res, next) => {
   });
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//➡️ UPDATE PASSWORD
+
+const updatePassword = catchAsync(async (req, res, next) => {
+  const { newPassword, oldPassword } = req.body;
+  const { user } = req;
+  console.log({ newPassword, oldPassword, user });
+
+  if (!newPassword) {
+    return next(new AppError('Please provide the new password', 400));
+  }
+
+  //check old password provided by user
+  const matchOldPassword = await user.comparePassword(
+    oldPassword,
+    user.password,
+  );
+
+  if (!matchOldPassword) {
+    return next(
+      new AppError(
+        'Current password do not match. Please check your password.',
+        403,
+      ),
+    );
+  }
+
+  //Check new password and current password are not same
+  const matchPassword = await user.comparePassword(newPassword, user.password);
+
+  if (matchPassword) {
+    return next(
+      new AppError(
+        'New password is same as old password. Please try with a different password',
+        400,
+      ),
+    );
+  }
+
+  //updating password and saving user document
+  user.password = newPassword;
+  await user.save({ validateModifiedOnly: true });
+
+  res.status(200).json({
+    status: 'success',
+    message: 'password updated',
+  });
+});
+
 exports.signup = signup;
 exports.login = login;
 exports.protect = protect;
 exports.restrictTo = restrictTo;
 exports.forgetPassword = forgetPassword;
 exports.resetPassword = resetPassword;
+exports.updatePassword = updatePassword;
 
 // const { authorization } = req.headers;
 //   let token;

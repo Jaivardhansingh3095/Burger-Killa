@@ -94,22 +94,7 @@ function ProfileMenu({ openModal, handleModalClose, currentUser }) {
               </div>
             </div>
             <ul className="flex flex-col items-center justify-start w-full py-1 text-gray-700">
-              <motion.li
-                // initial={{
-                //   opacity: 0,
-                //   width: '0%',
-                // }}
-                // animate={{
-                //   width: '100%',
-                //   opacity: 100,
-                // }}
-                // transition={{
-                //   delay: '.2',
-                //   duration: '1',
-                //   ease: 'easeOut',
-                // }}
-                className="w-full py-3 transition duration-100 cursor-pointer not-last:border-b-1 border-gray-300/80 hover:text-orange-500"
-              >
+              <motion.li className="w-full py-3 transition duration-100 cursor-pointer not-last:border-b-1 border-gray-300/80 hover:text-orange-500">
                 <Link to="/profile" onClick={handleModalClose}>
                   <span className="flex items-center justify-start gap-2">
                     <MdOutlineManageAccounts className="w-6 h-6 text-gray-400" />
@@ -117,22 +102,7 @@ function ProfileMenu({ openModal, handleModalClose, currentUser }) {
                   </span>
                 </Link>
               </motion.li>
-              <motion.li
-                // initial={{
-                //   opacity: 0,
-                //   width: '0%',
-                // }}
-                // animate={{
-                //   width: '100%',
-                //   opacity: 100,
-                // }}
-                // transition={{
-                //   delay: '.2',
-                //   duration: '1',
-                //   ease: 'easeOut',
-                // }}
-                className="w-full py-3 transition duration-100 cursor-pointer not-last:border-b-1 border-gray-300/80 hover:text-orange-500"
-              >
+              <motion.li className="w-full py-3 transition duration-100 cursor-pointer not-last:border-b-1 border-gray-300/80 hover:text-orange-500">
                 <Link to="/my-orders" onClick={handleModalClose}>
                   <span className="flex items-center justify-start gap-2">
                     <GoChecklist className="w-6 h-6 text-gray-400" />
@@ -140,22 +110,7 @@ function ProfileMenu({ openModal, handleModalClose, currentUser }) {
                   </span>
                 </Link>
               </motion.li>
-              <motion.li
-                // initial={{
-                //   opacity: 0,
-                //   width: '0%',
-                // }}
-                // animate={{
-                //   width: '100%',
-                //   opacity: 100,
-                // }}
-                // transition={{
-                //   delay: '.2',
-                //   duration: '.3',
-                //   ease: 'easeOut',
-                // }}
-                className="w-full py-3 transition duration-100 cursor-pointer not-last:border-b-1 border-gray-300/80 hover:text-orange-500"
-              >
+              <motion.li className="w-full py-3 transition duration-100 cursor-pointer not-last:border-b-1 border-gray-300/80 hover:text-orange-500">
                 <Link to="update-contact" onClick={handleModalClose}>
                   <span className="flex items-center justify-start gap-2">
                     <MdOutlineSystemSecurityUpdate className="w-6 h-6 text-gray-400" />
@@ -163,22 +118,7 @@ function ProfileMenu({ openModal, handleModalClose, currentUser }) {
                   </span>
                 </Link>
               </motion.li>
-              <motion.li
-                // initial={{
-                //   opacity: 0,
-                //   width: '0%',
-                // }}
-                // animate={{
-                //   width: '100%',
-                //   opacity: 100,
-                // }}
-                // transition={{
-                //   delay: '.2',
-                //   duration: '.3',
-                //   ease: 'easeOut',
-                // }}
-                className="w-full py-3 transition duration-100 cursor-pointer not-last:border-b-1 border-gray-300/80 hover:text-orange-500"
-              >
+              <motion.li className="w-full py-3 transition duration-100 cursor-pointer not-last:border-b-1 border-gray-300/80 hover:text-orange-500">
                 <Link to="manage-address" onClick={handleModalClose}>
                   <span className="flex items-center justify-start gap-2">
                     <FiMapPin className="w-6 h-6 text-gray-400" />
@@ -187,19 +127,6 @@ function ProfileMenu({ openModal, handleModalClose, currentUser }) {
                 </Link>
               </motion.li>
               <motion.li
-                // initial={{
-                //   opacity: 0,
-                //   width: '0%',
-                // }}
-                // animate={{
-                //   width: '100%',
-                //   opacity: 100,
-                // }}
-                // transition={{
-                //   delay: '.2',
-                //   duration: '.3',
-                //   ease: 'easeOut',
-                // }}
                 className="w-full py-3 transition duration-100 cursor-pointer not-last:border-b-1 border-gray-300/80 hover:text-orange-500"
                 onClick={handleModalClose}
               >
@@ -208,22 +135,7 @@ function ProfileMenu({ openModal, handleModalClose, currentUser }) {
                   <span className="">FAQs</span>
                 </span>
               </motion.li>
-              <motion.li
-                // initial={{
-                //   opacity: 0,
-                //   width: '0%',
-                // }}
-                // animate={{
-                //   width: '100%',
-                //   opacity: 100,
-                // }}
-                // transition={{
-                //   delay: '.2',
-                //   duration: '.3',
-                //   ease: 'easeOut',
-                // }}
-                className="w-full py-3 transition duration-100 cursor-pointer not-last:border-b-1 border-gray-300/80 hover:text-orange-500"
-              >
+              <motion.li className="w-full py-3 transition duration-100 cursor-pointer not-last:border-b-1 border-gray-300/80 hover:text-orange-500">
                 <Link to="/refund-policy" onClick={handleModalClose}>
                   <span className="flex items-center justify-start gap-2">
                     <HiOutlineReceiptRefund className="w-6 h-6 text-gray-400" />
@@ -232,19 +144,6 @@ function ProfileMenu({ openModal, handleModalClose, currentUser }) {
                 </Link>
               </motion.li>
               <motion.li
-                // initial={{
-                //   opacity: 0,
-                //   width: '0%',
-                // }}
-                // animate={{
-                //   width: '100%',
-                //   opacity: 100,
-                // }}
-                // transition={{
-                //   delay: '.2',
-                //   duration: '.3',
-                //   ease: 'easeOut',
-                // }}
                 onClick={handleModalClose}
                 className="w-full py-3 transition duration-100 cursor-pointer not-last:border-b-1 border-gray-300/80 hover:text-orange-500"
               >
