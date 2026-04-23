@@ -88,9 +88,9 @@ function ProfileMenu({ openModal, handleModalClose, currentUser }) {
               </div>
               <div className="flex flex-col items-start justify-center py-1">
                 <span className="text-[1.1rem] text-gray-700 font-semibold tracking-wide">
-                  {camelCaseName(user.name)}
+                  {camelCaseName(user?.name)}
                 </span>
-                <span className="text-gray-500">{user.email}</span>
+                <span className="text-gray-500">{user?.email}</span>
               </div>
             </div>
             <ul className="flex flex-col items-center justify-start w-full py-1 text-gray-700">

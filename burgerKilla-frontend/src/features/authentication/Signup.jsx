@@ -491,7 +491,7 @@ function SignUp() {
                                         />
                                         <label
                                           htmlFor={item.value}
-                                          className={`relative flex justify-center text-amber-400 font-bold text-lg items-center tracking-wider before:inline-block  before:h-5 before:w-5 before:rounded-full before:border-2 before:border-amber-400 before:mr-2 after:inline-block  after:h-3 after:w-3 after:bg-amber-400 after:rounded-full after:absolute after:left-[4px] after:opacity-0 peer-checked:after:opacity-100 after:transition-all after:duration-400 after:ease-out `}
+                                          className={`relative flex justify-center text-amber-400 font-bold text-sm sm:text-[1rem] md:text-lg items-center tracking-wider before:inline-block  before:h-5 before:w-5 before:rounded-full before:border-2 before:border-amber-400 before:mr-2 after:inline-block  after:h-3 after:w-3 after:bg-amber-400 after:rounded-full after:absolute after:left-[4px] after:opacity-0 peer-checked:after:opacity-100 after:transition-all after:duration-400 after:ease-out `}
                                         >
                                           {item.label}
                                         </label>
@@ -542,7 +542,7 @@ function SignUp() {
                                         onChange={(e) =>
                                           field.handleChange(e.target.value)
                                         }
-                                        className="w-[50%] custom-mobile-text-size border-1 text-lg border-gray-300 px-3 py-1 rounded-[10px] bg-gray-100 text-gray-500 tracking-wider"
+                                        className="w-[70%] sm:w-[50%] custom-mobile-text-size border-1 text-lg border-gray-300 px-3 py-1 rounded-[10px] bg-gray-100 text-gray-500 tracking-wider"
                                       />
                                     </>
                                   );

@@ -1,12 +1,13 @@
-import { GiChickenLeg, GiHamburger } from 'react-icons/gi';
-import { FaFire } from 'react-icons/fa';
-import { GiMeat } from 'react-icons/gi';
+import { GiChickenLeg, GiHamburger } from "react-icons/gi";
+import { FaFire } from "react-icons/fa";
+import { GiMeat } from "react-icons/gi";
 
-import { motion } from 'motion/react';
+import { motion } from "motion/react";
 
-import Nav from '../../../components/Nav';
-import ButtonGrabOrder from '../../../components/ButtonGrabOrder';
-import ButtonVideo from '../../../components/ButtonVideo';
+import Nav from "../../../components/Nav";
+import ButtonGrabOrder from "../../../components/ButtonGrabOrder";
+import ButtonVideo from "../../../components/ButtonVideo";
+import ImageLoader from "../../../components/ImageLoader";
 
 function Header() {
   return (
@@ -15,10 +16,10 @@ function Header() {
         <div className="flex flex-col items-center justify-center gap-10 px-5 sm:mr-auto lg:px-3 lg:flex-1/3">
           <div className="flex flex-col items-center justify-center gap-8 px-10 sm:px-0 sm:justify-evenly sm:flex-2/3">
             <h1 className="text-2xl font-extrabold leading-normal tracking-widest text-center sm:text-start md:text-3xl lg:text-4xl xl:text-5xl font-poetsen text-shadow-2xs text-shadow-amber-600 text-wrap ">
-              Your{' '}
+              Your{" "}
               <span className="text-orange-400 text-shadow-2xs text-shadow-orange-900">
                 Gateway To
-              </span>{' '}
+              </span>{" "}
               Gourmet Burger
               {/* <span className="hidden sm:block">🍔</span> */}
             </h1>
@@ -68,6 +69,16 @@ function Header() {
                 loading="lazy"
                 className="h-50 w-50 sm:h-100 sm:w-120 lg:h-110 lg:w-130 xl:h-140 xl:w-145 mx-auto drop-shadow-[10px_30px_100px] drop-shadow-orange-300"
               />
+              {/* <ImageLoader
+                imgCSS={
+                  "h-50 w-50 sm:h-100 sm:w-120 lg:h-110 lg:w-130 xl:h-140 xl:w-145 mx-auto drop-shadow-[10px_30px_100px] drop-shadow-orange-300"
+                }
+                loaderImgCSS={
+                  "h-40 w-40 sm:h-70 sm:w-90 lg:h-90 lg:w-105 xl:h-115 xl:w-125 mx-auto"
+                }
+                src={`${import.meta.env.VITE_BACKEND}public/img/hero-image.png`}
+                alt="Burger with dripping cheese hero image"
+              /> */}
             </div>
             <motion.div
               initial={{
@@ -77,8 +88,8 @@ function Header() {
                 rotate: [0, 10, -10, 0],
               }}
               transition={{
-                duration: '.7',
-                ease: 'easeIn',
+                duration: ".7",
+                ease: "easeIn",
               }}
               className="absolute left-0 z-10 hidden lg:block lg:left-15 top-10 "
             >
@@ -86,6 +97,7 @@ function Header() {
                 src={`${import.meta.env.VITE_BACKEND}public/img/hero-3-image.png`}
                 alt="Mojito mocktail hero image"
                 className="w-80 h-80 xl:w-100 xl:h-100 drop-shadow-[4px_10px_30px] drop-shadow-orange-300"
+                loading="lazy"
               />
             </motion.div>
             <motion.div
@@ -97,8 +109,8 @@ function Header() {
                 opacity: [0, 100],
               }}
               transition={{
-                duration: '1',
-                ease: 'easeInOut',
+                duration: "1",
+                ease: "easeInOut",
               }}
               className="relative hidden h-20 col-start-1 row-start-4 lg:block z-110 w-35"
             >
@@ -118,8 +130,8 @@ function Header() {
                 opacity: [0, 100],
               }}
               transition={{
-                duration: '1',
-                ease: 'easeInOut',
+                duration: "1",
+                ease: "easeInOut",
               }}
               className="relative hidden h-20 col-start-4 row-start-1 lg:block z-110 w-35"
             >

@@ -7,19 +7,23 @@ import Header from "./sections/Header";
 import MenuDemoSection from "./sections/MenuDemoSection";
 import SnacksSection from "./sections/SnacksSection";
 import { selectUser } from "../../features/authentication/userSlice";
+import BottomTraverselMenu from "../../features/menu/BottomTraverselMenu";
 
 export default function Home() {
   const user = useSelector(selectUser);
 
   return (
     <div className="w-full">
-      <ButtonCartFloating />
-      {user.status === "idle" && <ButtonDashboardFloating />}
+      {/* <ButtonCartFloating /> */}
+      {user.status === "idle" && user.user?.role === "admin" && (
+        <ButtonDashboardFloating />
+      )}
       <Header />
       <AboutSection />
       <MenuDemoSection />
       <SnacksSection />
       <ContactUs />
+      <BottomTraverselMenu />
     </div>
   );
 }

@@ -34,9 +34,9 @@ function MenuDemoSection() {
     <section className=" h-auto w-full bg-[linear-gradient(90deg,#fffff0f3_0%,#ffffe4f3_25%,#ffffd8f3_50%,#ffffe4f3_75%,#fffff0f3_100%)]">
       <div className="max-w-[1250px] w-full mx-auto h-full">
         <div className="flex flex-col w-full h-full px-10 py-20 gap-35 sm:gap-45 sm:py-30 sm:px-40 md:px-5">
-          <h2 className="w-full text-xl font-bold tracking-wide text-center text-gray-700 sm:text-2xl lg:text-3xl">
+          <h2 className="w-full text-xl font-bold tracking-wide text-center text-gray-600 sm:text-2xl lg:text-3xl font-poetsen">
             our most{" "}
-            <span className="tracking-wider uppercase border-b-4 text-primary lg:border-b-5 border-b-primary">
+            <span className="text-2xl font-extrabold tracking-wider underline uppercase sm:text-3xl lg:text-4xl text-primary decoration-wavy decoration-primary text-shadow-2xs text-shadow-amber-900">
               loved
             </span>{" "}
             products
@@ -63,8 +63,8 @@ function MenuDemoSection() {
                     {product.description}
                   </p>
                 </div>
-                <div className="flex items-start justify-between w-full px-5 py-3">
-                  <span className="text-xl font-bold tracking-wide text-gray-600">
+                <div className="flex items-center justify-between w-full px-5 py-3">
+                  <span className="text-lg font-extrabold tracking-wide text-gray-600 sm:text-xl md:text-2xl">
                     {formatCurrency(product.price)}
                   </span>
                   <Link
@@ -72,12 +72,10 @@ function MenuDemoSection() {
                     to={`/menu?categories=${product.categories}`}
                     className="relative flex items-center py-2.5 pl-12 pr-4 font-semibold tracking-wide group bg-amber-500 rounded-xl text-shadow-2xs text-shadow-amber-800"
                   >
-                    <span className="shadow-[1px_1px_5px_1px] shadow-gray-300 w-[35px] flex justify-center items-center py-2 px-2.5 bg-white rounded-xl absolute left-1 group-hover:w-[calc(100%_-_8px)] transition-all duration-300 ease-in-out">
+                    <span className="shadow-[1px_1px_5px_1px] shadow-amber-700 w-[35px] flex justify-center items-center py-2 px-2.5 bg-white rounded-xl absolute left-1 group-hover:w-[calc(100%_-_8px)] transition-all duration-200 ease-in-out">
                       <FaArrowRight className=" fill-amber-500" />
                     </span>
-                    <span className="transition-colors duration-300 ease-in-out text-gray-50 hover:text-white">
-                      View More
-                    </span>
+                    <span className="text-gray-50">View More</span>
                   </Link>
                 </div>
               </div>

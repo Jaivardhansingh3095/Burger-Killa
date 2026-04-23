@@ -3,7 +3,8 @@ import { selectCart, selectTotalPrice } from "./cartSlice";
 import CartItem from "./CartItem";
 import CheckoutButton from "./CheckoutButton";
 import EmptyCart from "./EmptyCart";
-import { ImCancelCircle } from "react-icons/im";
+import { IoChevronBackOutline } from "react-icons/io5";
+
 import { AnimatePresence, motion } from "motion/react";
 
 function CartModalView({ handleModalClose }) {
@@ -11,12 +12,8 @@ function CartModalView({ handleModalClose }) {
   const cartTotalPrice = useSelector((state) => selectTotalPrice(state));
 
   return (
-    <AnimatePresence>
-      <motion.div
-        exit={{ opacity: 0, scale: 0.5 }}
-        onClick={(e) => e.stopPropagation()}
-        className="absolute -translate-x-[50%] -translate-y-[50%] left-[50%] top-[50%] h-[90%] w-[95%]  sm:h-[80%] sm:w-[80%] mx-auto"
-      >
+    <div onClick={(e) => e.stopPropagation()} className="w-full h-full">
+      <AnimatePresence>
         <motion.div
           initial={{
             opacity: 0,
@@ -33,10 +30,21 @@ function CartModalView({ handleModalClose }) {
             duration: 0.3,
             ease: "easeOut",
           }}
+          exit={{
+            translateY: "-50px",
+            opacity: 0,
+          }}
           className="relative flex flex-col items-center justify-between w-full h-full bg-gray-50 rounded-xl"
         >
-          <div>
-            <h2 className="my-1 text-xl font-semibold tracking-wide text-center text-gray-700">
+          <div className="relative flex items-center justify-center w-full py-3 rounded-bl-lg rounded-br-lg bg-gray-300/60">
+            <button
+              onClick={handleModalClose}
+              className="absolute flex items-center justify-center gap-2 text-sm font-semibold left-1"
+            >
+              <IoChevronBackOutline className="w-5 h-5" />
+              <span>Back</span>
+            </button>
+            <h2 className="text-xl font-bold tracking-wide text-center text-gray-700">
               Your Cart
             </h2>
           </div>
@@ -57,17 +65,9 @@ function CartModalView({ handleModalClose }) {
           {cart.length !== 0 ? (
             <CheckoutButton cartTotalPrice={cartTotalPrice} />
           ) : null}
-
-          <div
-            role="button"
-            onClick={handleModalClose}
-            className="absolute left-[50%] -translate-x-[50%] flex items-center justify-center -top-9 sm:-top-12"
-          >
-            <ImCancelCircle className="w-8 h-8 sm:w-10 sm:h-10 fill-white" />
-          </div>
         </motion.div>
-      </motion.div>
-    </AnimatePresence>
+      </AnimatePresence>
+    </div>
   );
 }
 

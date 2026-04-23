@@ -1,10 +1,10 @@
-import { formatCurrency } from '../../utils/helpers';
-import AddOnProductsList from './AddOnProductsList';
-import { RiCloseFill } from 'react-icons/ri';
-import { BiCaretUpSquare, BiCheckboxSquare } from 'react-icons/bi';
-import { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addItem } from '../cart/cartSlice';
+import { formatCurrency } from "../../utils/helpers";
+import AddOnProductsList from "./AddOnProductsList";
+import { RiCloseFill } from "react-icons/ri";
+import { BiCaretUpSquare, BiCheckboxSquare } from "react-icons/bi";
+import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addItem } from "../cart/cartSlice";
 
 function AddOnModalView({ product, onModalClose }) {
   let [checkedAddon, setCheckedAddon] = useState([]);
@@ -43,7 +43,7 @@ function AddOnModalView({ product, onModalClose }) {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className="absolute -translate-x-[50%] -translate-y-[50%] left-[50%] top-[50%] h-[100%] sm:h-[75%] w-[100%] sm:w-[90%] lg:h-160 lg:w-220 mx-auto  flex flex-col justify-center items-center lg:block"
+      className="absolute -translate-x-[50%] -translate-y-[50%] left-[50%] top-[50%] h-[100%] sm:h-[95%] w-[100%] sm:w-[80%] lg:h-160 lg:w-220 mx-auto  flex flex-col justify-center items-center lg:block"
     >
       <div className="flex justify-end w-full px-3 py-1 bg-white lg:hidden rounded-tl-xl rounded-tr-xl">
         <RiCloseFill
@@ -67,7 +67,7 @@ function AddOnModalView({ product, onModalClose }) {
               <h2 className="w-full mr-auto text-lg tracking-wider text-gray-600 md:text-xl text-wrap font-poetsen">
                 {name}
               </h2>
-              {foodType === 'veg' ? (
+              {foodType === "veg" ? (
                 <BiCheckboxSquare className="w-8 h-8 fill-teal-700/80" />
               ) : (
                 <BiCaretUpSquare className="h-8 w-8 p-[2px] fill-red-700/80" />

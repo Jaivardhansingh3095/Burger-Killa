@@ -1,23 +1,25 @@
-import Loader from '../../components/Loader';
-import Item from './Item';
-import useMenu from './useMenu';
+import Loader from "../../components/Loader";
+import Item from "./Item";
+import useMenu from "./useMenu";
 
 function ItemList() {
   const { status, products } = useMenu();
 
-  if (status === 'pending') {
+  if (status === "pending") {
     return (
-      <div className="flex items-center justify-center w-full h-full">
+      <div className="flex items-center justify-center w-full h-screen">
         <Loader />
       </div>
     );
   }
 
-  if (status === 'error') {
+  if (status === "error") {
     return (
-      <div className="flex items-center justify-center w-full h-full">
-        🙏Sorry for the inconvience. The products under this category are not
-        available at this moment.
+      <div className="flex items-center justify-center w-full h-screen">
+        <span className="w-full text-center">
+          🙏Sorry for the inconvience. The products under this category are not
+          available at this moment.
+        </span>
       </div>
     );
   }

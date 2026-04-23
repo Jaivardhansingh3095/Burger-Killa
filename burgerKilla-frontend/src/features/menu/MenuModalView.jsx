@@ -32,18 +32,22 @@ function MenuModalView({ handleModalClose }) {
     <AnimatePresence>
       <motion.div
         initial={{
-          translateX: "150px",
-          opacity: 60,
+          opacity: 0,
+          translateY: "-100px",
         }}
         animate={{
-          opacity: 100,
-          translateX: ["150px", "-20px", "0px"],
+          opacity: 1,
+          translateY: "0px",
         }}
         transition={{
-          duration: "1",
-          ease: "linear",
+          type: "spring",
+          damping: "15",
+          stiffness: "250",
+          duration: 0.3,
+          ease: "easeOut",
         }}
         exit={{
+          translateY: "-50px",
           opacity: 0,
         }}
         onClick={(e) => e.stopPropagation()}

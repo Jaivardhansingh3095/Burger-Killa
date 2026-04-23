@@ -80,10 +80,10 @@ function Nav() {
           </div>
         </div>
       </div>
-      <div className="sm:hidden flex justify-between items-center  mb-[-2rem] mt-[-1rem]">
+      <div className="flex items-center justify-between py-5 sm:hidden">
         <ButtonMenu />
 
-        <div className="ml-10">
+        {/* <div className="ml-10">
           <Link to="/" className=" focus:outline-none">
             <img
               src={`${import.meta.env.VITE_BACKEND}public/img/logo/logo-black.png`}
@@ -91,8 +91,12 @@ function Nav() {
               className="h-35 w-70 lg:w-70 xl:w-100 -ml-[2rem] xl:-ml-[4rem] focus:outline-none "
             />
           </Link>
-        </div>
-        <ButtonProfile currentUser={currentUser} />
+        </div> */}
+        {currentUser.status === "idle" ? (
+          <ButtonProfile currentUser={currentUser} />
+        ) : (
+          <ButtonLogin />
+        )}
       </div>
     </nav>
   );
