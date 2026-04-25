@@ -11,10 +11,10 @@ function AboutSection() {
   return (
     <section className="w-full h-auto bg-white sm:h-screen ">
       <div className="max-w-[1250px] w-full mx-auto h-full py-15 sm:py-5">
-        <div className="relative flex flex-col-reverse items-center justify-center w-full h-full gap-5 md:flex-row ">
-          <div className="flex items-center justify-center w-full h-full sm:gap-0 md:flex-3/5">
-            <div className="flex items-center justify-center h-full md:relative flex-1/2 md:block">
-              <div className="md:absolute h-[100%] md:h-[60%] lg:h-[70%] w-[80%] bg-gray-700 md:top-[60%] md:-translate-y-[50%]  md:left-[50%] md:-translate-x-[50%] rounded-[10rem] flex justify-center items-center">
+        <div className="relative flex flex-col-reverse items-center justify-center w-full h-full gap-15 sm:gap-5 md:flex-row ">
+          <div className="flex flex-col items-center justify-center w-full h-full gap-10 sm:flex-row sm:gap-0 md:flex-3/5">
+            <div className="flex items-center justify-center w-full h-full md:relative sm:flex-1/2 md:block">
+              <div className="md:absolute h-[100%] md:h-[60%] lg:h-[70%] w-[85%] bg-gray-700 md:top-[60%] md:-translate-y-[50%]  md:left-[50%] md:-translate-x-[50%] rounded-full sm:rounded-[10rem] flex justify-center items-center">
                 <img
                   src={`${import.meta.env.VITE_BACKEND}public/img/home/about-section-image-1.png`}
                   className="h-55 w-45 sm:w-65 sm:h-70 md:w-50 lg:w-75 md:h-55 lg:h-80 drop-shadow-[0px_10px_10px] drop-shadow-amber-500/50"
@@ -23,8 +23,8 @@ function AboutSection() {
                 />
               </div>
             </div>
-            <div className="flex items-center justify-center h-full md:relative flex-1/2 md:block">
-              <div className="md:absolute h-[100%] md:h-[60%] lg:h-[70%] w-[80%] bg-[#FFD392] md:top-[10%] md:left-[50%] md:-translate-x-[50%] rounded-[10rem] flex justify-center items-center">
+            <div className="flex items-center justify-center w-full h-full md:relative sm:flex-1/2 md:block">
+              <div className="md:absolute h-[100%] md:h-[60%] lg:h-[70%] w-[80%] bg-[#FFD392] md:top-[10%] md:left-[50%] md:-translate-x-[50%] rounded-full sm:rounded-[10rem] flex justify-center items-center">
                 <img
                   src={`${import.meta.env.VITE_BACKEND}public/img/home/about-section-image-2.png`}
                   className=" h-55 w-45 sm:w-65 sm:h-70 md:w-50 lg:w-75 md:h-55 lg:h-75 drop-shadow-[0px_15px_10px] drop-shadow-gray-100/65"
@@ -34,7 +34,7 @@ function AboutSection() {
               </div>
             </div>
           </div>
-          <div className="w-[90%] md:w-[70%] mx-auto flex flex-col items-start justify-center h-full gap-5 px-5 md:flex-2/5">
+          <div className="w-full md:w-[70%] mx-auto flex flex-col items-start justify-center h-full gap-5 px-3 sm:px-5 md:flex-2/5">
             <h2 className="pb-6 text-lg font-semibold tracking-wider text-gray-600 border-b-1 border-b-gray-300 sm:text-xl lg:text-2xl xl:text-4xl font-poetsen text-shadow-2xs text-shadow-orange-800">
               <span className="text-amber-500">Crafting Flavourful</span>{" "}
               Memories

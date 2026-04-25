@@ -33,7 +33,7 @@ function MenuDemoSection() {
   return (
     <section className=" h-auto w-full bg-[linear-gradient(90deg,#fffff0f3_0%,#ffffe4f3_25%,#ffffd8f3_50%,#ffffe4f3_75%,#fffff0f3_100%)]">
       <div className="max-w-[1250px] w-full mx-auto h-full">
-        <div className="flex flex-col w-full h-full px-10 py-20 gap-35 sm:gap-45 sm:py-30 sm:px-40 md:px-5">
+        <div className="flex flex-col w-full h-full px-2 py-20 gap-35 sm:gap-45 sm:py-30 sm:px-40 md:px-5">
           <h2 className="w-full text-xl font-bold tracking-wide text-center text-gray-600 sm:text-2xl lg:text-3xl font-poetsen">
             our most{" "}
             <span className="text-2xl font-extrabold tracking-wider underline uppercase sm:text-3xl lg:text-4xl text-primary decoration-wavy decoration-primary text-shadow-2xs text-shadow-amber-900">
@@ -55,7 +55,7 @@ function MenuDemoSection() {
                     className="mx-auto w-70 h-70 absolute left-[50%] -translate-x-[50%] -top-[80%] drop-shadow-[0px_10px_15px] drop-shadow-gray-500"
                   />
                 </div>
-                <div className="flex flex-col items-start justify-center w-full gap-2 px-5 py-2">
+                <div className="flex flex-col items-start justify-center w-full gap-2 px-2 py-2 sm:px-5">
                   <p className="text-lg tracking-wide text-amber-500 font-poetsen text-shadow-2xs text-shadow-amber-800">
                     {product.name}
                   </p>
@@ -63,7 +63,7 @@ function MenuDemoSection() {
                     {product.description}
                   </p>
                 </div>
-                <div className="flex items-center justify-between w-full px-5 py-3">
+                <div className="flex items-center justify-between w-full px-2 py-3 sm:px-5">
                   <span className="text-lg font-extrabold tracking-wide text-gray-600 sm:text-xl md:text-2xl">
                     {formatCurrency(product.price)}
                   </span>

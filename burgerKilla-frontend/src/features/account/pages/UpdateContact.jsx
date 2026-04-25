@@ -158,7 +158,7 @@ function UpdateContact() {
                 <div className="flex items-center justify-center w-full md:w-3/4 lg:w-1/2">
                   <label
                     htmlFor="oldPassword"
-                    className="font-bold tracking-wide basis-1/3 text-sm sm:text-[1rem]"
+                    className="font-bold tracking-wide basis-1/3 text-xs sm:text-[1rem]"
                   >
                     Old Password :
                   </label>
@@ -176,7 +176,7 @@ function UpdateContact() {
                 <div className="flex items-center justify-center w-full md:w-3/4 lg:w-1/2">
                   <label
                     htmlFor="newPassword"
-                    className="font-bold tracking-wide basis-1/3 text-sm sm:text-[1rem]"
+                    className="font-bold tracking-wide basis-1/3 text-xs sm:text-[1rem]"
                   >
                     New Password :
                   </label>
@@ -214,7 +214,7 @@ function UpdateContact() {
                 <div className="flex items-center justify-center w-full md:w-3/4 lg:w-1/2">
                   <label
                     htmlFor="confirmPassword"
-                    className="font-bold tracking-wide basis-1/3 text-sm sm:text-[1rem]"
+                    className="font-bold tracking-wide basis-1/3 text-xs sm:text-[1rem]"
                   >
                     Confirm Password :
                   </label>
@@ -249,7 +249,7 @@ function UpdateContact() {
                     </span>
                   </motion.p>
                 )}
-                <div className="flex items-center justify-center w-1/2 mt-2">
+                <div className="flex items-center justify-center mt-2 sm:w-1/2">
                   <button
                     onClick={handleSubmit}
                     className="px-6 py-2 sm:text-lg font-bold tracking-wider text-white uppercase rounded-lg text-shadow-2xs text-shadow-amber-900 bg-primary shadow-[1px_1px_2px_1px] shadow-amber-900 cursor-pointer active:scale-98 active:translate-y-1  active:shadow-[0px_1px_7px] active:shadow-gray-900 transition-all duration-100 ease-linear"
@@ -258,26 +258,6 @@ function UpdateContact() {
                   </button>
                 </div>
               </div>
-            </div>
-            <div className="flex items-center justify-center w-full gap-10">
-              <button
-                onClick={handlePendingUpdateClose}
-                className="px-6 py-2 text-white rounded-lg cursor-pointer bg-primary"
-              >
-                Pending
-              </button>
-              <button
-                onClick={handleErrorUpdateClose}
-                className="px-6 py-2 text-white rounded-lg cursor-pointer bg-primary"
-              >
-                Error
-              </button>
-              <button
-                onClick={handleSuccessUpdateClose}
-                className="px-6 py-2 text-white rounded-lg cursor-pointer bg-primary"
-              >
-                Success
-              </button>
             </div>
           </div>
         </div>
@@ -336,3 +316,24 @@ function UpdateContact() {
 }
 
 export default UpdateContact;
+
+// <div className="flex items-center justify-center w-full gap-10">
+//   <button
+//     onClick={handlePendingUpdateClose}
+//     className="px-6 py-2 text-white rounded-lg cursor-pointer bg-primary"
+//   >
+//     Pending
+//   </button>
+//   <button
+//     onClick={handleErrorUpdateClose}
+//     className="px-6 py-2 text-white rounded-lg cursor-pointer bg-primary"
+//   >
+//     Error
+//   </button>
+//   <button
+//     onClick={handleSuccessUpdateClose}
+//     className="px-6 py-2 text-white rounded-lg cursor-pointer bg-primary"
+//   >
+//     Success
+//   </button>
+// </div>;
