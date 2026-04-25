@@ -1,32 +1,33 @@
-import { MdOutlineKeyboardBackspace } from 'react-icons/md';
-import { FiMapPin } from 'react-icons/fi';
-import { MdModeEdit } from 'react-icons/md';
-import { MdDelete } from 'react-icons/md';
-import { LuPenLine } from 'react-icons/lu';
+import { MdOutlineKeyboardBackspace } from "react-icons/md";
+import { FiMapPin } from "react-icons/fi";
+import { MdModeEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import { LuPenLine } from "react-icons/lu";
 
-import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router';
-import { selectUser } from '../../authentication/userSlice';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router";
+import { selectUser } from "../../authentication/userSlice";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
-import Loader from '../../../components/Loader';
-import useOutsideClick from '../../../hook/useOutsideCllick';
-import AddAddress from '../components/AddAddress';
-import { camelCaseName } from '../../../utils/helpers';
-import { useDeleteAddress } from '../useDeleteAddress';
+import Loader from "../../../components/Loader";
+import useOutsideClick from "../../../hook/useOutsideCllick";
+import AddAddress from "../components/AddAddress";
+import { camelCaseName } from "../../../utils/helpers";
+import { useDeleteAddress } from "../useDeleteAddress";
+import { IoChevronBack } from "react-icons/io5";
 
 function ManageAddress() {
   const navigate = useNavigate();
   const { openModal, handleModalClose } = useOutsideClick();
   const { user, status } = useSelector((state) => selectUser(state));
   const [mode, setMode] = useState({
-    mode: 'add',
+    mode: "add",
     value: {},
   });
   const [openDelete, setOpenDelete] = useState({
     show: false,
-    index: '',
+    index: "",
   });
 
   const { deleteAddress, isRemoving } = useDeleteAddress();
@@ -35,17 +36,17 @@ function ManageAddress() {
 
   useEffect(
     function () {
-      if (status !== 'error') return;
+      if (status !== "error") return;
 
-      toast('You are logged out! Log in back.', {
-        position: 'top-center',
+      toast("You are logged out! Log in back.", {
+        position: "top-center",
       });
-      navigate('/');
+      navigate("/");
     },
-    [status],
+    [status]
   );
 
-  if (status === 'pending') {
+  if (status === "pending") {
     return (
       <div className="max-w-[600px] h-full mx-auto flex justify-center items-center">
         <div className="w-full max-h-[600px]">
@@ -58,16 +59,14 @@ function ManageAddress() {
   return (
     <>
       <div className="flex items-center justify-center w-full h-full">
-        <div className="w-[100%] sm:w-[90%] md:w-[70%] lg:w-[900px] min-h-[85vh] p-1 sm:p-2 bg-white rounded-[5px] sm:my-4 sm:shadow-[1px_0px_5px_3px] sm:shadow-gray-300/60 flex flex-col justify-start items-start gap-5">
-          <div className="flex items-center justify-start w-full">
+        <div className="w-[100%] sm:w-[90%] md:w-[70%] lg:w-[900px] min-h-screen p-1 sm:p-2 bg-white rounded-[5px] sm:my-4 sm:shadow-[1px_0px_5px_3px] sm:shadow-gray-300/60 flex flex-col justify-start items-start gap-5">
+          <div className="flex items-center justify-start w-full py-2">
             <button
-              onClick={() => navigate(-1)}
-              className="flex items-center justify-center gap-2 cursor-pointer"
+              onClick={() => navigate("/")}
+              className="flex items-center justify-center gap-1 duration-100 ease-linear cursor-pointer hover:text-primary"
             >
-              <MdOutlineKeyboardBackspace className="w-6 h-6 fill-gray-600" />
-              <span className=" sm:text-lg font-semibold text-gray-600 [word-spacing:10px] tracking-wide">
-                ADDRESS BOOK
-              </span>
+              <IoChevronBack className="w-6 h-6 fill-gray-600" />
+              <span className="font-semibold sm:text-lg ">Home</span>
             </button>
           </div>
           <div className="h-[2px] w-[90%] mx-auto bg-gray-200" />
@@ -78,7 +77,7 @@ function ManageAddress() {
                 setMode((prev) => {
                   return {
                     ...prev,
-                    mode: 'add',
+                    mode: "add",
                     value: {},
                   };
                 });
@@ -120,7 +119,7 @@ function ManageAddress() {
                               setMode((prev) => {
                                 return {
                                   ...prev,
-                                  mode: 'edit',
+                                  mode: "edit",
                                   value: location,
                                 };
                               });
@@ -147,10 +146,10 @@ function ManageAddress() {
                       </div>
                       <div className="text-sm sm:text-[1rem] flex flex-col items-start justify-start w-full gap-1 font-sans font-semibold text-gray-700">
                         <p className="">
-                          {location.address.house.split(';').join(', ')}
+                          {location.address.house.split(";").join(", ")}
                         </p>
                         <p>
-                          <span className="font-bold text-gray-900">Near:</span>{' '}
+                          <span className="font-bold text-gray-900">Near:</span>{" "}
                           {location.address.landmark}
                         </p>
                         <p>{location.address.locality}</p>
@@ -174,7 +173,7 @@ function ManageAddress() {
                                     return {
                                       ...prev,
                                       show: false,
-                                      index: '',
+                                      index: "",
                                     };
                                   });
                                 }}
@@ -189,7 +188,7 @@ function ManageAddress() {
                                     return {
                                       ...prev,
                                       show: false,
-                                      index: '',
+                                      index: "",
                                     };
                                   })
                                 }
@@ -209,21 +208,21 @@ function ManageAddress() {
           </div>
         </div>
       </div>
-      {openModal && mode.mode === 'add' && (
+      {openModal && mode.mode === "add" && (
         <AddAddress
           openModal={openModal}
           handleModalClose={handleModalClose}
           user={user}
         />
       )}
-      {openModal && mode.mode === 'edit' && (
+      {openModal && mode.mode === "edit" && (
         <AddAddress
           openModal={openModal}
           handleModalClose={handleModalClose}
           user={user}
           editValue={mode.value}
           defaultPage={2}
-          mode={'edit'}
+          mode={"edit"}
         />
       )}
     </>

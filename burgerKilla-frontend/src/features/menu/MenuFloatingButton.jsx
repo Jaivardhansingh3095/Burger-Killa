@@ -3,7 +3,9 @@ import useOutsideClick from "../../hook/useOutsideCllick";
 import Modal from "../../components/Modal";
 import MenuModalView from "./MenuModalView";
 
-function MenuFloatingButton({ handleMenuModalClose }) {
+function MenuFloatingButton() {
+  const { openModal: menuModal, handleModalClose: handleMenuModalClose } =
+    useOutsideClick();
   return (
     <div className="lg:hidden fixed z-10 bottom-[12%] left-[50%] -translate-x-[50%]">
       <div
@@ -17,6 +19,11 @@ function MenuFloatingButton({ handleMenuModalClose }) {
           Menu
         </span>
       </div>
+      {menuModal ? (
+        <Modal open={menuModal} onModalClose={handleMenuModalClose}>
+          <MenuModalView handleModalClose={handleMenuModalClose} />
+        </Modal>
+      ) : null}
     </div>
   );
 }

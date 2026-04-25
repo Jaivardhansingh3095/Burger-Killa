@@ -1,8 +1,8 @@
-import ActiveOrdersList from '../features/orderTracking/pages/ActiveOrdersList';
+import ActiveOrdersList from "../features/orderTracking/pages/ActiveOrdersList";
 
 function MyOrder() {
   return (
-    <div className="w-full bg-white">
+    <div className="w-full min-h-screen bg-white">
       <div className="max-w-[1250px] w-full mx-auto">
         <ActiveOrdersList />
       </div>

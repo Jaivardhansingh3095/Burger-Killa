@@ -30,8 +30,10 @@ function MenuDemoSection() {
     );
   }
 
+  // bg-[linear-gradient(90deg,#fffff0f3_0%,#ffffe4f3_25%,#ffffd8f3_50%,#ffffe4f3_75%,#fffff0f3_100%)]
+
   return (
-    <section className=" h-auto w-full bg-[linear-gradient(90deg,#fffff0f3_0%,#ffffe4f3_25%,#ffffd8f3_50%,#ffffe4f3_75%,#fffff0f3_100%)]">
+    <section className="w-full h-auto bg-[linear-gradient(90deg,#fffff0f3_0%,#ffffe4f3_25%,#ffffd8f3_50%,#ffffe4f3_75%,#fffff0f3_100%)]">
       <div className="max-w-[1250px] w-full mx-auto h-full">
         <div className="flex flex-col w-full h-full px-2 py-20 gap-35 sm:gap-45 sm:py-30 sm:px-40 md:px-5">
           <h2 className="w-full text-xl font-bold tracking-wide text-center text-gray-600 sm:text-2xl lg:text-3xl font-poetsen">

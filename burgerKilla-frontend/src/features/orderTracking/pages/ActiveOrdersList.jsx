@@ -68,7 +68,7 @@ function ActiveOrdersList() {
         <GiCampCookingPot className="w-8 h-8 fill-orange-500" />
       </h3>
 
-      <ul className="flex flex-col items-center justify-start w-full gap-5 px-2 py-10 overflow-y-auto sm:px-5 h-150">
+      <ul className="flex flex-col items-center justify-start w-full gap-5 px-2 py-10 sm:px-5 h-150">
         {activeOrders.map((order) => {
           return (
             <li

@@ -16,6 +16,7 @@ import ErrorStatusDisplay from "../../../components/ErrorStatusDisplay";
 import SuccessStatusDisplay from "../../../components/SuccessStatusDisplay";
 import { useEffect } from "react";
 import { useUpdatePassword } from "../useUpdatePassword";
+import { MdOutlineKeyboardBackspace } from "react-icons/md";
 
 const passwordValidator = z.object({
   password: z
@@ -137,7 +138,7 @@ function UpdateContact() {
   }
 
   return (
-    <div className="flex justify-center w-full min-h-[90vh] py-3 bg-gray-50">
+    <div className="flex justify-center w-full min-h-screen py-3 bg-gray-50">
       <div className="grow-1 md:min-w-[600px] w-full lg:min-w-[900px] xl:max-w-[1250px] bg-white rounded-lg shadow-[1px_1px_4px_2px,-1px_-1px_4px_2px] shadow-gray-100">
         <div className="flex flex-col h-full gap-5 px-1 py-2 sm:px-5">
           <div className="flex items-center justify-start w-full pt-2 pb-5 border-b border-dashed border-b-gray-300">
@@ -151,7 +152,7 @@ function UpdateContact() {
           </div>
           <div className="flex flex-col w-full gap-10 px-2 py-2 grow-1">
             <div className="flex flex-col w-full gap-5">
-              <h4 className="font-bold tracking-wider text-gray-600 uppercase sm:text-lg md:text-xl">
+              <h4 className="pb-1 font-bold tracking-wider text-gray-600 uppercase sm:text-lg md:text-xl">
                 Update Password
               </h4>
               <div className="flex flex-col items-center w-full gap-5 py-5">
@@ -168,7 +169,7 @@ function UpdateContact() {
                       id="oldPassword"
                       value={oldPassword}
                       onChange={(e) => setOldPassword(e.target.value)}
-                      className="w-full px-2 sm:px-3 py-1 sm:py-2 font-semibold tracking-wide text-gray-600 bg-gray-200/80 focus:outline-none inset-shadow-[1px_1px_4px_1px] inset-shadow-gray-300"
+                      className="w-full px-2 sm:px-3 py-1 sm:py-2 font-semibold tracking-wide text-gray-600 bg-gray-200/80 rounded-sm focus:outline-none inset-shadow-[1px_1px_4px_1px] inset-shadow-gray-300"
                       required
                     />
                   </div>
@@ -186,7 +187,7 @@ function UpdateContact() {
                       id="newPassword"
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className="w-full px-2 sm:px-3 py-1 sm:py-2 font-semibold tracking-wide text-gray-600 bg-gray-200/80 focus:outline-none inset-shadow-[1px_1px_4px_1px] inset-shadow-gray-300"
+                      className="w-full px-2 rounded-sm sm:px-3 py-1 sm:py-2 font-semibold tracking-wide text-gray-600 bg-gray-200/80 focus:outline-none inset-shadow-[1px_1px_4px_1px] inset-shadow-gray-300"
                       required
                     />
                     {error.newPassword && (
@@ -203,7 +204,7 @@ function UpdateContact() {
                           duration: 0.3,
                           ease: "easeOut",
                         }}
-                        className="w-full px-2 text-xs bg-red-300 py-0.5 text-gray-900"
+                        className="w-full px-2  text-xs bg-red-300 py-0.5 text-gray-900"
                       >
                         <span className="text-red-600">*</span>{" "}
                         {error?.newPassword}
@@ -223,7 +224,7 @@ function UpdateContact() {
                     id="confirmPassword"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="grow-1 px-2 sm:px-3 py-1 sm:py-2 font-semibold tracking-wide text-gray-600 bg-gray-200/80 focus:outline-none inset-shadow-[1px_1px_4px_1px] inset-shadow-gray-300"
+                    className="grow-1 px-2 rounded-sm sm:px-3 py-1 sm:py-2 font-semibold tracking-wide text-gray-600 bg-gray-200/80 focus:outline-none inset-shadow-[1px_1px_4px_1px] inset-shadow-gray-300"
                     required
                   />
                 </div>

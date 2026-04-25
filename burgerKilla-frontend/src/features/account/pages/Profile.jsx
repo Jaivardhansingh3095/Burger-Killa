@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from "react";
 import Loader from "../../../components/Loader";
 import RadioGroup from "../../../components/RadioGroup";
 import ErrorDisplayNoAuthorization from "../../../components/ErrorDisplayNoAuthorization";
+import { IoChevronBack } from "react-icons/io5";
 
 function Profile() {
   const navigate = useNavigate();
@@ -75,13 +76,14 @@ function Profile() {
 
       <div className="max-w-[600px] h-full mx-auto p-5">
         <div className="w-full h-full mb-8 px-4 py-2 shadow-[1px_5px_7px_2px] bg-white shadow-gray-300 rounded-[5px]">
-          <div className="flex items-center justify-start gap-2 p-3 border-gray-300 border-b-1">
-            <button onClick={() => navigate(-1)} className="cursor-pointer">
-              <MdOutlineKeyboardBackspace className="w-8 h-8 fill-gray-600" />
+          <div className="flex items-center justify-start p-3 border-gray-300 border-b-1">
+            <button
+              onClick={() => navigate("/")}
+              className="flex items-center justify-center gap-1 duration-100 ease-linear cursor-pointer hover:text-primary"
+            >
+              <IoChevronBack className="w-6 h-6 fill-gray-600" />
+              <span className="font-semibold sm:text-lg ">Home</span>
             </button>
-            <h2 className="text-[1.1rem] tracking-wide text-gray-600">
-              Edit Profile
-            </h2>
           </div>
 
           <div className="flex flex-col items-center justify-center gap-2 mt-4">
